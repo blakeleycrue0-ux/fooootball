@@ -16,11 +16,6 @@
     font-family:'Inter', sans-serif;
 }
 
-html, body{
-    width:100%;
-    overflow-x:hidden;
-}
-
 body{
     background:black;
     color:white;
@@ -133,29 +128,50 @@ header{
 }
 
 .match-card.big{
-    min-width:340px;
-    height:200px;
-    background:rgba(17,17,17,0.75);
-    backdrop-filter: blur(12px);
-    border:1px solid rgba(255,255,255,0.15);
-    padding:25px;
+    min-width:360px;
+    height:170px;
+    background:rgba(18,18,18,0.85);
+    backdrop-filter: blur(10px);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:20px;
     display:flex;
     flex-direction:column;
-    justify-content:space-between;
+    justify-content:center;
     position:relative;
     overflow:hidden;
     scroll-snap-align:start;
+    transition:0.3s;
 }
 
-.match-card.big::after{
-    content:"";
-    position:absolute;
-    bottom:-1px;
-    right:-1px;
-    width:160px;
-    height:160px;
-    background: linear-gradient(135deg, transparent 48%, #000 50%);
+.match-card.big:hover{
+    transform:translateY(-6px);
 }
+
+.match-row{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:6px 0;
+}
+
+.match-team{
+    font-family:'Montserrat', sans-serif;
+    font-size:16px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+.match-score{
+    font-family:'Montserrat', sans-serif;
+    font-size:42px;
+    font-weight:900;
+}
+
+/* estados */
+.win{ border-left:4px solid #2ecc71; }
+.lose{ border-left:4px solid #e74c3c; }
+.draw{ border-left:4px solid #f1c40f; }
 
 /* NEWS */
 .news-section{
@@ -178,7 +194,6 @@ header{
 
 .news-card{
     background:#111;
-    overflow:hidden;
 }
 
 .news-card img{
@@ -204,14 +219,8 @@ header{
 
 /* MOBILE */
 @media(max-width:768px){
-
-    .hero h1{
-        font-size:42px;
-    }
-
-    .nav-desktop{
-        display:none;
-    }
+    .hero h1{font-size:42px;}
+    .nav-desktop{display:none;}
 }
 
 </style>
@@ -246,7 +255,7 @@ header{
     <div class="matches-scroll" id="matches"></div>
 </section>
 
-<!-- NOTICIAS -->
+<!-- NEWS -->
 <section class="news-section">
 
     <div class="section-title">
@@ -259,7 +268,7 @@ header{
             <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
             <div class="news-content">
                 <span>CLUB</span>
-                <h3>Victoria importante del equipo</h3>
+                <h3>Victoria del equipo</h3>
             </div>
         </div>
 
@@ -285,11 +294,18 @@ if(!user){
 
 document.getElementById("username").innerText = user;
 
-/* PARTIDOS DESDE GOOGLE SHEETS */
-const MATCH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vROl6WbsPXPVL53qaxHda0Ag5136ezyS3XKIVh0mhdA8nLm21YkksCCyHiQadeT20dlUArez3HeifPq/pub?output=csv";
+/* PARTIDOS */
+const MATCH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vROl6WbsPXPVL53qaxHda0Ag5136ezyS3XKIVh0mhdA8nLm21YkksCCyHiQadeT20dlUArez3HeifPq/pub?gid=0&single=true&output=csv";
 
 function parseRow(r){
     return r.split(/[,;]/).map(x => x.trim());
+}
+
+function getStatus(a,b){
+    a = parseInt(a); b = parseInt(b);
+    if(a>b) return "win";
+    if(a<b) return "lose";
+    return "draw";
 }
 
 async function loadMatches(){
@@ -298,13 +314,10 @@ async function loadMatches(){
 
     try{
 
-        const res = await fetch(MATCH_URL + "&t=" + Date.now(), {
-            cache:"no-store"
-        });
-
+        const res = await fetch(MATCH_URL + "&t=" + Date.now(), {cache:"no-store"});
         const text = await res.text();
 
-        const rows = text.split("\n").filter(r => r.trim());
+        const rows = text.split("\n").filter(r=>r.trim());
 
         let html = "";
 
@@ -312,31 +325,41 @@ async function loadMatches(){
 
             const c = parseRow(rows[i]);
 
+            let status = getStatus(c[1], c[3]);
+
             html += `
-            <div class="match-card big">
-                <h3>${c[0] || ""}</h3>
-                <p>${c[1] || ""}</p>
-                <div class="score">${c[2] || ""}</div>
-            </div>
-            `;
+            <div class="match-card big ${status}">
+                <div class="match-row">
+                    <div class="match-team">${c[0]}</div>
+                    <div class="match-score">${c[1]}</div>
+                </div>
+
+                <div class="match-row">
+                    <div class="match-team">${c[2]}</div>
+                    <div class="match-score">${c[3]}</div>
+                </div>
+            </div>`;
         }
 
         container.innerHTML = html;
 
-    } catch(err){
+    } catch(e){
         container.innerHTML = "<div style='color:white'>Error cargando partidos</div>";
     }
 }
 
 loadMatches();
 
-/* LOGOUT */
+/* logout */
 function logout(){
     localStorage.removeItem("user");
     window.location.href = "login.html";
 }
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
