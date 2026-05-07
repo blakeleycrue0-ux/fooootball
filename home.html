@@ -16,6 +16,11 @@
     font-family:'Inter', sans-serif;
 }
 
+html, body{
+    width:100%;
+    overflow-x:hidden;
+}
+
 body{
     background:black;
     color:white;
@@ -43,21 +48,8 @@ header{
     gap:20px;
 }
 
-.menu-icon{
-    font-size:28px;
-    cursor:pointer;
-    display:none;
-}
-
 .logo{
     height:50px;
-}
-
-.separator{
-    width:2px;
-    height:30px;
-    background:white;
-    opacity:0.4;
 }
 
 .club-name{
@@ -67,11 +59,9 @@ header{
     text-transform:uppercase;
 }
 
-/* NAV */
 .nav-desktop{
     display:flex;
     gap:30px;
-    align-items:center;
 }
 
 .nav-desktop a{
@@ -82,7 +72,6 @@ header{
     text-transform:uppercase;
 }
 
-/* USER */
 .user-area{
     display:flex;
     align-items:center;
@@ -118,28 +107,17 @@ header{
     background-position:center;
 }
 
-.hero-content{
-    max-width:700px;
-}
-
 .hero h1{
     font-family:'Montserrat', sans-serif;
     font-size:70px;
     font-weight:900;
     text-transform:uppercase;
-    line-height:1;
 }
 
-.hero p{
-    margin-top:20px;
-    font-size:18px;
-    color:#ccc;
-}
-
-/* PARTIDOS */
+/* MATCHES */
 .matches-section{
     background:#000;
-    padding:100px 0;
+    padding:80px 0;
 }
 
 .matches-scroll{
@@ -154,29 +132,21 @@ header{
     display:none;
 }
 
-/* 🔥 MATCH CARD IGUAL INDEX */
 .match-card.big{
     min-width:340px;
     height:200px;
     background:rgba(17,17,17,0.75);
     backdrop-filter: blur(12px);
     border:1px solid rgba(255,255,255,0.15);
-    border-radius:0;
     padding:25px;
     display:flex;
     flex-direction:column;
     justify-content:space-between;
-    scroll-snap-align:start;
-    transition:0.3s;
     position:relative;
     overflow:hidden;
+    scroll-snap-align:start;
 }
 
-.match-card.big:hover{
-    transform:translateY(-8px);
-}
-
-/* 🔥 CORTE LIMPIO IGUAL INDEX */
 .match-card.big::after{
     content:"";
     position:absolute;
@@ -184,66 +154,63 @@ header{
     right:-1px;
     width:160px;
     height:160px;
-    background: linear-gradient(
-        135deg,
-        transparent 48%,
-        #000 50%
-    );
-    pointer-events:none;
+    background: linear-gradient(135deg, transparent 48%, #000 50%);
 }
 
-.match-card.big h3{
+/* NEWS */
+.news-section{
+    background:black;
+    padding:80px 8%;
+}
+
+.section-title h2{
     font-family:'Montserrat', sans-serif;
-    font-size:20px;
+    font-size:42px;
     font-weight:900;
-    text-transform:uppercase;
+    margin-bottom:20px;
 }
 
-.match-card.big p{
-    font-size:14px;
-    color:#ccc;
+.news-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    gap:25px;
 }
 
-.match-card.big .score{
-    font-size:30px;
-    font-weight:900;
+.news-card{
+    background:#111;
+    overflow:hidden;
 }
 
-/* MOBILE MENU */
-.mobile-menu{
-    position:fixed;
-    top:85px;
-    left:0;
+.news-card img{
     width:100%;
-    background:#000;
-    display:none;
-    flex-direction:column;
-    padding:20px;
-    gap:15px;
-    border-top:1px solid rgba(255,255,255,0.1);
-    z-index:999;
+    height:200px;
+    object-fit:cover;
 }
 
-.mobile-menu a{
-    color:white;
-    text-decoration:none;
-    font-size:14px;
+.news-content{
+    padding:15px;
+}
+
+.news-content span{
+    font-size:12px;
+    color:#888;
     font-weight:700;
-    text-transform:uppercase;
 }
 
+.news-content h3{
+    font-size:18px;
+    margin-top:8px;
+}
+
+/* MOBILE */
 @media(max-width:768px){
-
-    .nav-desktop{
-        display:none;
-    }
-
-    .menu-icon{
-        display:block;
-    }
 
     .hero h1{
         font-size:42px;
+    }
+
+    .nav-desktop{
+        display:none;
     }
 }
 
@@ -254,9 +221,7 @@ header{
 
 <header>
     <div class="header-left">
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
         <img src="Logoclub.png" class="logo">
-        <div class="separator"></div>
         <div class="club-name">FEMENINO</div>
     </div>
 
@@ -272,36 +237,41 @@ header{
     </div>
 </header>
 
-<div class="mobile-menu" id="mobileMenu">
-    <a href="#">Noticias</a>
-    <a href="equipos.html">Equipos</a>
-    <a href="#">Tienda</a>
-</div>
-
 <section class="hero">
-    <div class="hero-content">
-        <h1>FEMENINO<br>SANTA PONSA</h1>
-        <p>Pasión. Talento. Futuro.</p>
-    </div>
+    <h1>FEMENINO<br>SANTA PONSA</h1>
 </section>
 
+<!-- PARTIDOS -->
 <section class="matches-section">
+    <div class="matches-scroll" id="matches"></div>
+</section>
 
-<div class="matches-scroll">
+<!-- NOTICIAS -->
+<section class="news-section">
 
-    <div class="match-card big">
-        <h3>SP vs Palma</h3>
-        <p>Amistoso</p>
-        <div class="score">3 - 1</div>
+    <div class="section-title">
+        <h2>Noticias</h2>
     </div>
 
-    <div class="match-card big">
-        <h3>SP vs Barça B</h3>
-        <p>Liga</p>
-        <div class="score">2 - 2</div>
-    </div>
+    <div class="news-grid">
 
-</div>
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
+            <div class="news-content">
+                <span>CLUB</span>
+                <h3>Victoria importante del equipo</h3>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
+            <div class="news-content">
+                <span>PLANTILLA</span>
+                <h3>Convocatoria del fin de semana</h3>
+            </div>
+        </div>
+
+    </div>
 
 </section>
 
@@ -315,29 +285,58 @@ if(!user){
 
 document.getElementById("username").innerText = user;
 
-function toggleMenu(){
-    const menu = document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+/* PARTIDOS DESDE GOOGLE SHEETS */
+const MATCH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vROl6WbsPXPVL53qaxHda0Ag5136ezyS3XKIVh0mhdA8nLm21YkksCCyHiQadeT20dlUArez3HeifPq/pub?output=csv";
+
+function parseRow(r){
+    return r.split(/[,;]/).map(x => x.trim());
 }
 
-document.addEventListener("click", function(e){
-    const menu = document.getElementById("mobileMenu");
-    const icon = document.querySelector(".menu-icon");
+async function loadMatches(){
 
-    if(!menu.contains(e.target) && !icon.contains(e.target)){
-        menu.style.display = "none";
+    const container = document.getElementById("matches");
+
+    try{
+
+        const res = await fetch(MATCH_URL + "&t=" + Date.now(), {
+            cache:"no-store"
+        });
+
+        const text = await res.text();
+
+        const rows = text.split("\n").filter(r => r.trim());
+
+        let html = "";
+
+        for(let i=1;i<rows.length;i++){
+
+            const c = parseRow(rows[i]);
+
+            html += `
+            <div class="match-card big">
+                <h3>${c[0] || ""}</h3>
+                <p>${c[1] || ""}</p>
+                <div class="score">${c[2] || ""}</div>
+            </div>
+            `;
+        }
+
+        container.innerHTML = html;
+
+    } catch(err){
+        container.innerHTML = "<div style='color:white'>Error cargando partidos</div>";
     }
-});
+}
 
+loadMatches();
+
+/* LOGOUT */
 function logout(){
     localStorage.removeItem("user");
     window.location.href = "login.html";
 }
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
