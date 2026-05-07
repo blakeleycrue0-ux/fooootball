@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Registro - Femenino SP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background:black;
+    color:white;
+}
+
+/* caja */
+.box{
+    width:380px;
+    background:#111;
+    padding:40px;
+    border-radius:18px;
+    text-align:center;
+    border:1px solid rgba(255,255,255,0.08);
+}
+
+.box h1{
+    font-family:'Montserrat', sans-serif;
+    font-size:26px;
+    font-weight:900;
+    text-transform:uppercase;
+    margin-bottom:10px;
+}
+
+.box p{
+    color:#aaa;
+    margin-bottom:25px;
+}
+
+/* inputs */
+.box input{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border-radius:10px;
+    border:1px solid rgba(255,255,255,0.1);
+    background:black;
+    color:white;
+    outline:none;
+}
+
+.box input:focus{
+    border-color:white;
+}
+
+/* botón */
+.btn{
+    width:100%;
+    padding:14px;
+    margin-top:15px;
+    border:none;
+    border-radius:50px;
+    background:white;
+    color:black;
+    font-size:14px;
+    font-weight:800;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+.btn:hover{
+    opacity:0.8;
+    transform:scale(1.03);
+}
+
+/* texto abajo */
+.bottom{
+    margin-top:18px;
+    font-size:13px;
+    color:#aaa;
+}
+
+.bottom a{
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+}
+
+.bottom a:hover{
+    opacity:0.7;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="box">
+
+    <h1>FEMENINO SP</h1>
+    <p>Crea tu cuenta</p>
+
+    <input id="name" type="text" placeholder="Nombre">
+    <input id="email" type="email" placeholder="Email">
+    <input id="pass" type="password" placeholder="Contraseña">
+
+    <button class="btn" onclick="register()">
+        REGISTRARME
+    </button>
+
+    <div class="bottom">
+        ¿Ya tienes cuenta?
+        <a href="login.html">Inicia sesión</a>
+    </div>
+
+</div>
+
+<script>
+
+function register(){
+
+    let name = document.getElementById("name").value;
+    let email = document.getElementById("email").value;
+    let pass = document.getElementById("pass").value;
+
+    if(!name || !email || !pass){
+        alert("Rellena todos los campos");
+        return;
+    }
+
+    // guardamos usuario (demo)
+    localStorage.setItem("user", name);
+
+    // ir al home
+    window.location.href = "home.html";
+}
+
+</script>
+
+</body>
+</html>

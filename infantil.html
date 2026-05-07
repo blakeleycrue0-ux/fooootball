@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Infantil Femenino</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:'Inter', sans-serif;
+    background:#000;
+    color:white;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    padding:20px 40px;
+    background:#000;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+header a{
+    color:white;
+    text-decoration:none;
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:13px;
+}
+
+/* 🔥 TITULOS UNIFICADOS (FINOS + IGUALES) */
+.title-card{
+    max-width:1100px;
+    margin:16px auto;
+    background:rgba(17,17,17,0.75);
+    border:1px solid rgba(255,255,255,0.12);
+
+    padding:8px 18px;   /* más fino */
+    text-align:center;
+    border-radius:26px;
+}
+
+.title-card h1,
+.title-card h2{
+    margin:0;
+    font-family:'Montserrat', sans-serif;
+    font-size:22px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+/* JUGADORAS */
+.players-grid{
+    max-width:1100px;
+    margin:auto;
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    padding:20px;
+}
+
+.player-card{
+    background:rgba(17,17,17,0.75);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:25px;
+    text-decoration:none;
+    color:white;
+    text-align:center;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.player-card:hover{
+    transform:translateY(-6px);
+}
+
+.player-card::after{
+    content:"";
+    position:absolute;
+    bottom:-1px;
+    right:-1px;
+    width:90px;
+    height:90px;
+    background: linear-gradient(
+        135deg,
+        transparent 48%,
+        #000 50%
+    );
+    pointer-events:none;
+}
+
+.player-card h3{
+    margin:0;
+    font-family:'Montserrat', sans-serif;
+    font-weight:900;
+}
+
+.player-card p{
+    margin:8px 0;
+    color:#ccc;
+}
+
+.player-card span{
+    display:inline-block;
+    margin-top:10px;
+    background:white;
+    color:black;
+    padding:6px 14px;
+    font-weight:800;
+}
+
+/* TABLA */
+.table{
+    max-width:900px;
+    margin:auto;
+    background:rgba(17,17,17,0.75);
+    border:1px solid rgba(255,255,255,0.12);
+    overflow:hidden;
+}
+
+.row{
+    display:flex;
+    justify-content:space-between;
+    padding:12px;
+    border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.head{
+    font-weight:900;
+    background:rgba(255,255,255,0.05);
+    text-transform:uppercase;
+}
+
+.row span{
+    width:16%;
+    text-align:center;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div><strong>Infantil Femenino</strong></div>
+    <a href="home.html">← Volver</a>
+</header>
+
+<div class="title-card">
+    <h1>Infantil</h1>
+</div>
+
+<div class="players-grid">
+
+    <a href="lucia.html" class="player-card">
+        <h3>Lucía Martínez</h3>
+        <p>Delantera</p>
+        <span>#9</span>
+    </a>
+
+    <a href="sofia.html" class="player-card">
+        <h3>Sofía Pérez</h3>
+        <p>Centrocampista</p>
+        <span>#8</span>
+    </a>
+
+    <a href="carla.html" class="player-card">
+        <h3>Carla Gómez</h3>
+        <p>Defensa</p>
+        <span>#4</span>
+    </a>
+
+</div>
+
+<div class="title-card">
+    <h2>Clasificación</h2>
+</div>
+
+<div id="table" class="table"></div>
+
+<script>
+
+const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS5vTKhCnEoTacQdpcmWgqiiBGrVZmyQBpG59Pdg1ipAT2nAYuFynAlfa9i_ICdd9Kt2UvHlbC1JCE4/pub?output=csv";
+
+function parseRow(row){
+    return row.split(/[,;]/).map(x => x.trim());
+}
+
+async function loadTable(){
+
+    const container = document.getElementById("table");
+
+    try{
+
+        const res = await fetch(URL + "&t=" + Date.now(), {
+            cache: "no-store"
+        });
+
+        const text = await res.text();
+
+        const rows = text.split("\n").filter(r => r.trim().length > 0);
+
+        if(rows.length < 2){
+            container.innerHTML = "<div style='padding:20px;text-align:center'>Sin datos</div>";
+            return;
+        }
+
+        let html = `
+        <div class="row head">
+            <span>Equipo</span>
+            <span>PJ</span>
+            <span>PG</span>
+            <span>PE</span>
+            <span>PP</span>
+            <span>PT</span>
+        </div>
+        `;
+
+        for(let i=1;i<rows.length;i++){
+
+            const c = parseRow(rows[i]);
+
+            html += `
+            <div class="row">
+                <span>${c[0] || "-"}</span>
+                <span>${c[1] || "0"}</span>
+                <span>${c[2] || "0"}</span>
+                <span>${c[3] || "0"}</span>
+                <span>${c[4] || "0"}</span>
+                <span>${c[5] || "0"}</span>
+            </div>
+            `;
+        }
+
+        container.innerHTML = html;
+
+    } catch(err){
+        container.innerHTML = "<div style='padding:20px;text-align:center'>Error cargando datos</div>";
+    }
+}
+
+loadTable();
+
+</script>
+
+</body>
+</html>
+</script>
+</body>
+</html>

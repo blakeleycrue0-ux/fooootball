@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Lucía Martínez</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    font-family:Inter, sans-serif;
+    background:#000;
+    color:#fff;
+}
+
+/* HEADER */
+header{
+    background:#000;
+    padding:18px 30px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+header a{
+    text-decoration:none;
+    color:#fff;
+    font-weight:700;
+    text-transform:uppercase;
+    font-size:13px;
+}
+
+/* CONTENEDOR */
+.container{
+    max-width:600px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+/* CARD PRINCIPAL (DARK STYLE) */
+.card{
+    background:rgba(17,17,17,0.75);
+    border:1px solid rgba(255,255,255,0.12);
+    border-radius:26px;
+    padding:30px;
+    text-align:center;
+    backdrop-filter: blur(10px);
+}
+
+/* NOMBRE */
+h1{
+    margin:0;
+    font-size:28px;
+    font-weight:900;
+    font-family:'Montserrat', sans-serif;
+    text-transform:uppercase;
+}
+
+/* INFO */
+.sub{
+    color:#aaa;
+    margin-top:5px;
+    font-size:14px;
+}
+
+/* STATS */
+.stats{
+    margin-top:25px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+}
+
+.stat{
+    background:rgba(255,255,255,0.05);
+    border:1px solid rgba(255,255,255,0.08);
+    border-radius:16px;
+    padding:15px;
+    font-weight:700;
+    color:#ddd;
+}
+
+.stat span{
+    display:block;
+    font-size:22px;
+    font-weight:900;
+    margin-top:6px;
+    color:#fff;
+}
+
+/* BOTÓN VOLVER */
+.back{
+    display:inline-block;
+    margin-top:25px;
+    text-decoration:none;
+    color:#fff;
+    font-weight:700;
+    opacity:0.8;
+}
+
+.back:hover{
+    opacity:1;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div><strong>Infantil Femenino</strong></div>
+    <a href="infantil.html">← Volver</a>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h1 id="nombre">Cargando...</h1>
+        <div class="sub" id="info"></div>
+
+        <div class="stats">
+
+            <div class="stat">
+                Goles
+                <span id="goles">0</span>
+            </div>
+
+            <div class="stat">
+                Amarillas
+                <span id="amarillas">0</span>
+            </div>
+
+            <div class="stat">
+                Rojas
+                <span id="rojas">0</span>
+            </div>
+
+            <div class="stat">
+                Jugados
+                <span id="jugados">0</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5EMqGhMEn4oGHK6V_YrkX0y2mFg5vlFIK1Q4l-pGPhRVDsd5YsZ02CqpnKoSd3GuquT4jNAUSbQY2/pub?output=csv";
+
+function normalize(s){
+    return (s||"")
+    .toLowerCase()
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g,"")
+    .trim();
+}
+
+function parseRow(r){
+    return r.split(/[,;]/).map(x=>x.trim());
+}
+
+async function load(){
+
+    try{
+
+        const res = await fetch(URL + "&t=" + Date.now());
+        const text = await res.text();
+
+        const rows = text.split("\n").filter(r=>r.trim());
+
+        const target = normalize("Lucía Martínez");
+
+        for(let i=1;i<rows.length;i++){
+
+            const c = parseRow(rows[i]);
+
+            if(normalize(c[0]) === target){
+
+                document.getElementById("nombre").innerText = c[0];
+                document.getElementById("info").innerText = c[1] + " · #" + c[2];
+
+                document.getElementById("goles").innerText = c[3]||0;
+                document.getElementById("amarillas").innerText = c[4]||0;
+                document.getElementById("rojas").innerText = c[5]||0;
+                document.getElementById("jugados").innerText = c[6]||0;
+
+                return;
+            }
+        }
+
+        document.getElementById("nombre").innerText = "No encontrada";
+
+    } catch(e){
+        document.getElementById("nombre").innerText = "Error cargando datos";
+    }
+}
+
+load();
+
+</script>
+
+</body>
+</html>
+
+</body>
+</html>

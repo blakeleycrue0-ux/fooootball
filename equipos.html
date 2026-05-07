@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equipos</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    background:#000;
+    color:white;
+    font-family:'Rajdhani', sans-serif;
+}
+
+/* HEADER */
+header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:20px 40px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+}
+
+header a{
+    color:white;
+    text-decoration:none;
+    font-weight:600;
+}
+
+/* TITULO */
+h1{
+    text-align:center;
+    margin:50px 0 30px;
+    font-family:'Montserrat', sans-serif;
+    font-size:40px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:1px;
+}
+
+/* GRID */
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    gap:20px;
+    max-width:1000px;
+    margin:auto;
+    padding:20px;
+}
+
+/* CARD COMO BOTÓN REAL */
+.card{
+    display:block;
+    background:#111;
+    border:1px solid rgba(255,255,255,0.1);
+    border-radius:18px;
+    padding:30px;
+    text-decoration:none;
+    color:white;
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 0 20px rgba(255,255,255,0.15);
+    background:#1a1a1a;
+}
+
+.card h2{
+    font-family:'Montserrat', sans-serif;
+    font-size:20px;
+    margin-bottom:10px;
+    text-transform:uppercase;
+}
+
+.card p{
+    color:#aaa;
+    font-size:14px;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div><strong>Santa Ponsa Femenino</strong></div>
+    <a href="home.html">← Volver</a>
+</header>
+
+<h1>Equipos</h1>
+
+<div class="grid">
+
+    <a href="infantil.html" class="card">
+        <h2>Infantil</h2>
+        <p>Formación base</p>
+    </a>
+
+    <a href="alevin.html" class="card">
+        <h2>Alevín</h2>
+        <p>Desarrollo técnico</p>
+    </a>
+
+    <a href="cadete.html" class="card">
+        <h2>Cadete</h2>
+        <p>Competición media</p>
+    </a>
+
+    <a href="juvenil.html" class="card">
+        <h2>Juvenil</h2>
+        <p>Alto rendimiento</p>
+    </a>
+
+    <a href="autonomica.html" class="card">
+        <h2>Autonómica</h2>
+        <p>Primer equipo</p>
+    </a>
+
+</div>
+
+</body>
+</html>

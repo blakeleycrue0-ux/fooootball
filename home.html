@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home - Femenino SP</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Inter', sans-serif;
+}
+
+body{
+    background:black;
+    color:white;
+}
+
+/* HEADER */
+header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:85px;
+    background:#000;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:0 35px;
+    z-index:1000;
+    border-bottom:1px solid rgba(255,255,255,0.05);
+}
+
+.header-left{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.menu-icon{
+    font-size:28px;
+    cursor:pointer;
+    display:none;
+}
+
+.logo{
+    height:50px;
+}
+
+.separator{
+    width:2px;
+    height:30px;
+    background:white;
+    opacity:0.4;
+}
+
+.club-name{
+    font-family:'Montserrat', sans-serif;
+    font-size:28px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+/* NAV */
+.nav-desktop{
+    display:flex;
+    gap:30px;
+    align-items:center;
+}
+
+.nav-desktop a{
+    color:white;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+/* USER */
+.user-area{
+    display:flex;
+    align-items:center;
+    gap:15px;
+}
+
+.username{
+    font-weight:700;
+    font-size:14px;
+}
+
+.logout{
+    padding:8px 14px;
+    border-radius:20px;
+    background:white;
+    color:black;
+    font-size:12px;
+    font-weight:800;
+    cursor:pointer;
+    border:none;
+}
+
+/* HERO */
+.hero{
+    height:100vh;
+    display:flex;
+    align-items:center;
+    padding:0 8%;
+    background:
+    linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.8)),
+    url("https://images.unsplash.com/photo-1574629810360-7efbbe195018");
+    background-size:cover;
+    background-position:center;
+}
+
+.hero-content{
+    max-width:700px;
+}
+
+.hero h1{
+    font-family:'Montserrat', sans-serif;
+    font-size:70px;
+    font-weight:900;
+    text-transform:uppercase;
+    line-height:1;
+}
+
+.hero p{
+    margin-top:20px;
+    font-size:18px;
+    color:#ccc;
+}
+
+/* PARTIDOS */
+.matches-section{
+    background:#000;
+    padding:100px 0;
+}
+
+.matches-scroll{
+    display:flex;
+    gap:25px;
+    overflow-x:auto;
+    padding:30px;
+    scroll-snap-type:x mandatory;
+}
+
+.matches-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+/* 🔥 MATCH CARD IGUAL INDEX */
+.match-card.big{
+    min-width:340px;
+    height:200px;
+    background:rgba(17,17,17,0.75);
+    backdrop-filter: blur(12px);
+    border:1px solid rgba(255,255,255,0.15);
+    border-radius:0;
+    padding:25px;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    scroll-snap-align:start;
+    transition:0.3s;
+    position:relative;
+    overflow:hidden;
+}
+
+.match-card.big:hover{
+    transform:translateY(-8px);
+}
+
+/* 🔥 CORTE LIMPIO IGUAL INDEX */
+.match-card.big::after{
+    content:"";
+    position:absolute;
+    bottom:-1px;
+    right:-1px;
+    width:160px;
+    height:160px;
+    background: linear-gradient(
+        135deg,
+        transparent 48%,
+        #000 50%
+    );
+    pointer-events:none;
+}
+
+.match-card.big h3{
+    font-family:'Montserrat', sans-serif;
+    font-size:20px;
+    font-weight:900;
+    text-transform:uppercase;
+}
+
+.match-card.big p{
+    font-size:14px;
+    color:#ccc;
+}
+
+.match-card.big .score{
+    font-size:30px;
+    font-weight:900;
+}
+
+/* MOBILE MENU */
+.mobile-menu{
+    position:fixed;
+    top:85px;
+    left:0;
+    width:100%;
+    background:#000;
+    display:none;
+    flex-direction:column;
+    padding:20px;
+    gap:15px;
+    border-top:1px solid rgba(255,255,255,0.1);
+    z-index:999;
+}
+
+.mobile-menu a{
+    color:white;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:700;
+    text-transform:uppercase;
+}
+
+@media(max-width:768px){
+
+    .nav-desktop{
+        display:none;
+    }
+
+    .menu-icon{
+        display:block;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="header-left">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+        <img src="Logoclub.png" class="logo">
+        <div class="separator"></div>
+        <div class="club-name">FEMENINO</div>
+    </div>
+
+    <nav class="nav-desktop">
+        <a href="#">Noticias</a>
+        <a href="equipos.html">Equipos</a>
+        <a href="#">Tienda</a>
+    </nav>
+
+    <div class="user-area">
+        <div class="username" id="username">Usuario</div>
+        <button class="logout" onclick="logout()">Salir</button>
+    </div>
+</header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#">Noticias</a>
+    <a href="equipos.html">Equipos</a>
+    <a href="#">Tienda</a>
+</div>
+
+<section class="hero">
+    <div class="hero-content">
+        <h1>FEMENINO<br>SANTA PONSA</h1>
+        <p>Pasión. Talento. Futuro.</p>
+    </div>
+</section>
+
+<section class="matches-section">
+
+<div class="matches-scroll">
+
+    <div class="match-card big">
+        <h3>SP vs Palma</h3>
+        <p>Amistoso</p>
+        <div class="score">3 - 1</div>
+    </div>
+
+    <div class="match-card big">
+        <h3>SP vs Barça B</h3>
+        <p>Liga</p>
+        <div class="score">2 - 2</div>
+    </div>
+
+</div>
+
+</section>
+
+<script>
+
+const user = localStorage.getItem("user");
+
+if(!user){
+    window.location.href = "login.html";
+}
+
+document.getElementById("username").innerText = user;
+
+function toggleMenu(){
+    const menu = document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+}
+
+document.addEventListener("click", function(e){
+    const menu = document.getElementById("mobileMenu");
+    const icon = document.querySelector(".menu-icon");
+
+    if(!menu.contains(e.target) && !icon.contains(e.target)){
+        menu.style.display = "none";
+    }
+});
+
+function logout(){
+    localStorage.removeItem("user");
+    window.location.href = "login.html";
+}
+
+</script>
+
+</body>
+</html>
+
+</body>
+</html>
