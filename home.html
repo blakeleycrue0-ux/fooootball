@@ -67,6 +67,7 @@ header{
     text-transform:uppercase;
 }
 
+/* USER */
 .user-area{
     display:flex;
     align-items:center;
@@ -127,36 +128,35 @@ header{
     display:none;
 }
 
+/* CARD PARTIDO */
 .match-card.big{
-    min-width:360px;
-    height:170px;
-    background:rgba(18,18,18,0.85);
-    backdrop-filter: blur(10px);
-    border:1px solid rgba(255,255,255,0.12);
-    padding:20px;
+    min-width:320px;
+    height:140px;
+    background:rgba(20,20,20,0.88);
+    border:1px solid rgba(255,255,255,0.10);
+    padding:18px 20px;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    position:relative;
-    overflow:hidden;
+    gap:10px;
     scroll-snap-align:start;
-    transition:0.3s;
+    transition:0.25s;
 }
 
 .match-card.big:hover{
-    transform:translateY(-6px);
+    transform:translateY(-5px);
 }
 
+/* FILAS */
 .match-row{
     display:flex;
     justify-content:space-between;
     align-items:center;
-    margin:6px 0;
 }
 
 .match-team{
     font-family:'Montserrat', sans-serif;
-    font-size:16px;
+    font-size:14px;
     font-weight:900;
     text-transform:uppercase;
     letter-spacing:1px;
@@ -164,19 +164,19 @@ header{
 
 .match-score{
     font-family:'Montserrat', sans-serif;
-    font-size:42px;
+    font-size:30px;
     font-weight:900;
 }
 
-/* estados */
+/* RESULTADOS */
 .win{ border-left:4px solid #2ecc71; }
 .lose{ border-left:4px solid #e74c3c; }
 .draw{ border-left:4px solid #f1c40f; }
 
 /* NEWS */
 .news-section{
-    background:black;
     padding:80px 8%;
+    background:black;
 }
 
 .section-title h2{
@@ -294,17 +294,19 @@ if(!user){
 
 document.getElementById("username").innerText = user;
 
-/* PARTIDOS */
-const MATCH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vROl6WbsPXPVL53qaxHda0Ag5136ezyS3XKIVh0mhdA8nLm21YkksCCyHiQadeT20dlUArez3HeifPq/pub?gid=0&single=true&output=csv";
+/* 🔥 GOOGLE SHEETS */
+const MATCH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vROl6WbsPXPVL53qaxHda0Ag5136ezyS3XKIVh0mhdA8nLm21YkksCCyHiQadeT20dlUArez3HeifPq/pub?output=csv";
 
 function parseRow(r){
     return r.split(/[,;]/).map(x => x.trim());
 }
 
 function getStatus(a,b){
-    a = parseInt(a); b = parseInt(b);
-    if(a>b) return "win";
-    if(a<b) return "lose";
+    a = Number(a);
+    b = Number(b);
+
+    if(a > b) return "win";
+    if(a < b) return "lose";
     return "draw";
 }
 
@@ -314,10 +316,10 @@ async function loadMatches(){
 
     try{
 
-        const res = await fetch(MATCH_URL + "&t=" + Date.now(), {cache:"no-store"});
+        const res = await fetch(MATCH_URL + "&t=" + Date.now());
         const text = await res.text();
 
-        const rows = text.split("\n").filter(r=>r.trim());
+        const rows = text.split("\n").filter(r => r.trim());
 
         let html = "";
 
@@ -325,18 +327,23 @@ async function loadMatches(){
 
             const c = parseRow(rows[i]);
 
-            let status = getStatus(c[1], c[3]);
+            const team1 = c[0];
+            const g1 = c[1];
+            const team2 = c[2];
+            const g2 = c[3];
+
+            const status = getStatus(g1,g2);
 
             html += `
             <div class="match-card big ${status}">
                 <div class="match-row">
-                    <div class="match-team">${c[0]}</div>
-                    <div class="match-score">${c[1]}</div>
+                    <div class="match-team">${team1}</div>
+                    <div class="match-score">${g1}</div>
                 </div>
 
                 <div class="match-row">
-                    <div class="match-team">${c[2]}</div>
-                    <div class="match-score">${c[3]}</div>
+                    <div class="match-team">${team2}</div>
+                    <div class="match-score">${g2}</div>
                 </div>
             </div>`;
         }
