@@ -40,11 +40,11 @@ header{
 .header-left{
     display:flex;
     align-items:center;
-    gap:20px;
+    gap:15px;
 }
 
 .logo{
-    height:50px;
+    height:45px;
 }
 
 .club-name{
@@ -54,9 +54,11 @@ header{
     text-transform:uppercase;
 }
 
+/* NAV */
 .nav-desktop{
     display:flex;
-    gap:30px;
+    gap:25px;
+    align-items:center;
 }
 
 .nav-desktop a{
@@ -65,6 +67,12 @@ header{
     font-size:13px;
     font-weight:700;
     text-transform:uppercase;
+    opacity:0.85;
+    transition:0.2s;
+}
+
+.nav-desktop a:hover{
+    opacity:1;
 }
 
 /* USER */
@@ -113,83 +121,90 @@ header{
 /* MATCHES */
 .matches-section{
     background:#000;
-    padding:80px 0;
+    padding:80px 8%;
 }
 
 .matches-scroll{
     display:flex;
-    gap:25px;
+    gap:20px;
     overflow-x:auto;
-    padding:30px;
-    scroll-snap-type:x mandatory;
+    padding-bottom:10px;
 }
 
 .matches-scroll::-webkit-scrollbar{
     display:none;
 }
 
-/* CARD PARTIDO */
+/* CARD */
 .match-card.big{
-    min-width:320px;
-    height:140px;
-    background:rgba(20,20,20,0.88);
-    border:1px solid rgba(255,255,255,0.10);
-    padding:18px 20px;
+    min-width:340px;
+    height:200px;
+    background:rgba(17,17,17,0.75);
+    backdrop-filter: blur(12px);
+    border:none;
+    padding:25px;
     display:flex;
     flex-direction:column;
     justify-content:center;
-    gap:10px;
-    scroll-snap-align:start;
-    transition:0.25s;
+    gap:20px;
+    position:relative;
+    overflow:hidden;
 }
 
-.match-card.big:hover{
-    transform:translateY(-5px);
+/* 🔥 CORTE AJUSTADO (más abajo + más pequeño) */
+.match-card.big::after{
+    content:"";
+    position:absolute;
+    bottom:-18px;
+    right:-18px;
+    width:170px;
+    height:170px;
+    background: linear-gradient(
+        135deg,
+        transparent 55%,
+        #000 56%
+    );
+    pointer-events:none;
 }
 
-/* FILAS */
-.match-row{
+/* EQUIPOS */
+.match-line{
     display:flex;
-    justify-content:space-between;
+    justify-content:center;
     align-items:center;
-}
-
-.match-team{
+    gap:10px;
     font-family:'Montserrat', sans-serif;
-    font-size:14px;
     font-weight:900;
     text-transform:uppercase;
-    letter-spacing:1px;
 }
 
-.match-score{
-    font-family:'Montserrat', sans-serif;
-    font-size:30px;
+.team{
+    font-size:18px;
+}
+
+.vs{
+    font-size:12px;
+    opacity:0.6;
+}
+
+/* RESULTADO */
+.score{
+    font-size:46px;
     font-weight:900;
+    text-align:center;
 }
-
-/* RESULTADOS */
-.win{ border-left:4px solid #2ecc71; }
-.lose{ border-left:4px solid #e74c3c; }
-.draw{ border-left:4px solid #f1c40f; }
 
 /* NEWS */
 .news-section{
     padding:80px 8%;
-    background:black;
-}
-
-.section-title h2{
-    font-family:'Montserrat', sans-serif;
-    font-size:42px;
-    font-weight:900;
-    margin-bottom:20px;
 }
 
 .news-grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+    grid-template-columns:repeat(2, 1fr);
     gap:25px;
+    max-width:900px;
+    margin:auto;
 }
 
 .news-card{
@@ -219,8 +234,12 @@ header{
 
 /* MOBILE */
 @media(max-width:768px){
+
     .hero h1{font-size:42px;}
-    .nav-desktop{display:none;}
+
+    .news-grid{
+        grid-template-columns:1fr;
+    }
 }
 
 </style>
@@ -235,7 +254,8 @@ header{
     </div>
 
     <nav class="nav-desktop">
-        <a href="#">Noticias</a>
+        <a href="#">Historia</a>
+        <a href="#">Club</a>
         <a href="equipos.html">Equipos</a>
         <a href="#">Tienda</a>
     </nav>
@@ -250,37 +270,53 @@ header{
     <h1>FEMENINO<br>SANTA PONSA</h1>
 </section>
 
-<!-- PARTIDOS -->
 <section class="matches-section">
-    <div class="matches-scroll" id="matches"></div>
+
+<div class="matches-scroll">
+
+    <div class="match-card big">
+        <div class="match-line">
+            <span class="team">SP</span>
+            <span class="vs">vs</span>
+            <span class="team">PALMA JUV</span>
+        </div>
+        <div class="score">3 - 1</div>
+    </div>
+
+    <div class="match-card big">
+        <div class="match-line">
+            <span class="team">SP</span>
+            <span class="vs">vs</span>
+            <span class="team">BARÇA B</span>
+        </div>
+        <div class="score">2 - 2</div>
+    </div>
+
+</div>
+
 </section>
 
-<!-- NEWS -->
 <section class="news-section">
 
-    <div class="section-title">
-        <h2>Noticias</h2>
+<div class="news-grid">
+
+    <div class="news-card">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
+        <div class="news-content">
+            <span>CLUB</span>
+            <h3>Victoria del equipo</h3>
+        </div>
     </div>
 
-    <div class="news-grid">
-
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
-            <div class="news-content">
-                <span>CLUB</span>
-                <h3>Victoria del equipo</h3>
-            </div>
+    <div class="news-card">
+        <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
+        <div class="news-content">
+            <span>PLANTILLA</span>
+            <h3>Convocatoria del fin de semana</h3>
         </div>
-
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
-            <div class="news-content">
-                <span>PLANTILLA</span>
-                <h3>Convocatoria del fin de semana</h3>
-            </div>
-        </div>
-
     </div>
+
+</div>
 
 </section>
 
@@ -294,70 +330,6 @@ if(!user){
 
 document.getElementById("username").innerText = user;
 
-/* 🔥 GOOGLE SHEETS */
-const MATCH_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vROl6WbsPXPVL53qaxHda0Ag5136ezyS3XKIVh0mhdA8nLm21YkksCCyHiQadeT20dlUArez3HeifPq/pub?output=csv";
-
-function parseRow(r){
-    return r.split(/[,;]/).map(x => x.trim());
-}
-
-function getStatus(a,b){
-    a = Number(a);
-    b = Number(b);
-
-    if(a > b) return "win";
-    if(a < b) return "lose";
-    return "draw";
-}
-
-async function loadMatches(){
-
-    const container = document.getElementById("matches");
-
-    try{
-
-        const res = await fetch(MATCH_URL + "&t=" + Date.now());
-        const text = await res.text();
-
-        const rows = text.split("\n").filter(r => r.trim());
-
-        let html = "";
-
-        for(let i=1;i<rows.length;i++){
-
-            const c = parseRow(rows[i]);
-
-            const team1 = c[0];
-            const g1 = c[1];
-            const team2 = c[2];
-            const g2 = c[3];
-
-            const status = getStatus(g1,g2);
-
-            html += `
-            <div class="match-card big ${status}">
-                <div class="match-row">
-                    <div class="match-team">${team1}</div>
-                    <div class="match-score">${g1}</div>
-                </div>
-
-                <div class="match-row">
-                    <div class="match-team">${team2}</div>
-                    <div class="match-score">${g2}</div>
-                </div>
-            </div>`;
-        }
-
-        container.innerHTML = html;
-
-    } catch(e){
-        container.innerHTML = "<div style='color:white'>Error cargando partidos</div>";
-    }
-}
-
-loadMatches();
-
-/* logout */
 function logout(){
     localStorage.removeItem("user");
     window.location.href = "login.html";
