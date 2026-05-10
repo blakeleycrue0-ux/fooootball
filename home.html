@@ -387,18 +387,13 @@ function toggleMenu(){
 /* MATCHES */
 const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
 
-function parseRow(row){
-    return row.split(",").map(x=>x.trim());
-}
-
-async function loadMatches(){
+function loadMatches(){
 
     const container=document.getElementById("matchesContainer");
 
-    try{
-
-        const res=await fetch(MATCHES_URL+"&t="+Date.now());
-        const text=await res.text();
+    fetch(MATCHES_URL+"&t="+Date.now())
+    .then(r=>r.text())
+    .then(text=>{
 
         const rows=text.split("\n").filter(r=>r.trim());
 
@@ -406,9 +401,11 @@ async function loadMatches(){
 
         for(let i=1;i<rows.length;i++){
 
-            const c=parseRow(rows[i]);
+            const c = rows[i].split(",").map(x => x.replace(/"/g,"").trim());
 
-            html += `
+            if(!c[1] || !c[2] || !c[3] || !c[4]) continue;
+
+            html+=`
             <div class="match-card big">
 
                 <div class="match-status">${c[0]}</div>
@@ -423,24 +420,14 @@ async function loadMatches(){
                     <div class="team-score">${c[4]}</div>
                 </div>
 
-                <div class="match-link" onclick="openMatch('${c[0]}')">
-    MATCH CENTER →
-</div>
-
             </div>`;
         }
 
         container.innerHTML=html;
-
-    }catch(e){
-        container.innerHTML="<p>Error cargando partidos</p>";
-    }
+    });
 }
 
 loadMatches();
-    function openMatch(id){
-    window.location.href = "matchcenter.html?id=" + id;
-}
 
 </script>
 
