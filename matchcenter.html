@@ -8,122 +8,194 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 
 <style>
+body{
+    margin:0;
+    background:#0b0b0b;
+    color:white;
+    font-family:Inter;
+}
 
-body{margin:0;background:#0b0b0b;color:white;font-family:Inter;}
+.top{
+    text-align:center;
+    padding:40px;
+}
 
-.top{text-align:center;padding:40px;}
-
-.status{opacity:.7;font-weight:800;}
+.status{
+    opacity:.7;
+    font-weight:800;
+    text-transform:uppercase;
+}
 
 .teams{
-display:flex;justify-content:center;gap:40px;align-items:center;margin-top:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    margin-top:20px;
 }
 
-.team img{width:70px;height:70px;object-fit:contain;}
+.team{
+    text-align:center;
+}
 
-.score{font-size:50px;font-weight:900;}
+.team img{
+    width:80px;
+    height:80px;
+    object-fit:contain;
+}
 
-.events{max-width:800px;margin:auto;padding:20px;}
+.score{
+    font-size:55px;
+    font-weight:900;
+}
+
+.events{
+    max-width:800px;
+    margin:auto;
+    padding:20px;
+}
 
 .event{
-background:#151515;margin-bottom:10px;padding:15px;
-border-left:4px solid #444;border-radius:8px;
+    background:#151515;
+    margin-bottom:12px;
+    padding:15px;
+    border-left:4px solid #444;
+    border-radius:8px;
 }
 
-.minute{color:#aaa;font-weight:900;}
-
+.minute{
+    font-weight:900;
+    color:#aaa;
+}
 </style>
 </head>
 
 <body>
 
 <div class="top">
+    <div class="status" id="status">Cargando...</div>
 
-<div class="status" id="status">Cargando...</div>
+    <div class="teams">
 
-<div class="teams">
+        <div class="team">
+            <img id="homeLogo">
+            <div id="homeName"></div>
+        </div>
 
-<div class="team">
-<img id="homeLogo">
-<div id="homeName"></div>
-</div>
+        <div class="score" id="score">-</div>
 
-<div class="score" id="score">-</div>
+        <div class="team">
+            <img id="awayLogo">
+            <div id="awayName"></div>
+        </div>
 
-<div class="team">
-<img id="awayLogo">
-<div id="awayName"></div>
-</div>
-
-</div>
-
+    </div>
 </div>
 
 <div class="events" id="events"></div>
 
 <script>
 
-const MATCHSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
+const MATCHSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
+
 const EVENTSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
 const i = new URLSearchParams(window.location.search).get("i");
 
+
 function fix(url){
-if(!url) return "";
-if(url.includes("drive.google.com")){
-const id = url.match(/[-\w]{25,}/);
-return id ? "https://drive.google.com/uc?export=view&id="+id[0] : url;
-}
-return url.trim();
+
+    if(!url) return "";
+
+    url = url.replace(/"/g,"").trim();
+
+    // Google Drive
+    if(url.includes("drive.google.com")){
+        const id = url.match(/[-\w]{25,}/);
+        if(id){
+            return "https://drive.google.com/uc?export=view&id=" + id[0];
+        }
+    }
+
+    // URL normal
+    if(url.startsWith("http")){
+        return url;
+    }
+
+    // archivo local
+    return "logos/" + url;
 }
 
-/* MATCH */
+
+/* MATCH DATA */
 fetch(MATCHSHEET)
 .then(r=>r.text())
 .then(text=>{
 
-const rows = text.trim().split("\n").map(r=>r.split(",").map(x=>x.replace(/"/g,"").trim()));
+    const rows = text
+        .trim()
+        .split("\n")
+        .map(r=>r.split(",").map(x=>x.trim()));
 
-const c = rows[Number(i)+1];
+    const c = rows[Number(i)+1];
 
-if(!c) return;
+    if(!c){
+        document.getElementById("status").innerText="PARTIDO NO ENCONTRADO";
+        return;
+    }
 
-document.getElementById("status").innerText = c[1];
-document.getElementById("homeName").innerText = c[2];
-document.getElementById("awayName").innerText = c[4];
-document.getElementById("score").innerText = c[3] + " - " + c[5];
+    document.getElementById("status").innerText = c[1];
+    document.getElementById("homeName").innerText = c[2];
+    document.getElementById("awayName").innerText = c[4];
+    document.getElementById("score").innerText = c[3] + " - " + c[5];
 
-document.getElementById("homeLogo").src = fix(c[6]);
-document.getElementById("awayLogo").src = fix(c[7]);
+    const homeLogo = document.getElementById("homeLogo");
+    const awayLogo = document.getElementById("awayLogo");
 
-document.getElementById("homeLogo").onerror = () => document.getElementById("homeLogo").src="https://via.placeholder.com/70";
-document.getElementById("awayLogo").onerror = () => document.getElementById("awayLogo").src="https://via.placeholder.com/70";
+    homeLogo.src = fix(c[6]);
+    awayLogo.src = fix(c[7]);
+
+    homeLogo.onerror = function(){
+        this.src = "https://via.placeholder.com/80?text=HOME";
+    }
+
+    awayLogo.onerror = function(){
+        this.src = "https://via.placeholder.com/80?text=AWAY";
+    }
 
 });
+
 
 /* EVENTS */
 fetch(EVENTSHEET)
 .then(r=>r.text())
 .then(text=>{
 
-const rows = text.trim().split("\n").map(r=>r.split(",").map(x=>x.replace(/"/g,"").trim()));
+    const rows = text
+        .trim()
+        .split("\n")
+        .map(r=>r.split(",").map(x=>x.trim()));
 
-let html="";
+    let html="";
 
-for(let j=1;j<rows.length;j++){
+    for(let j=1;j<rows.length;j++){
 
-const c = rows[j];
+        const c = rows[j];
 
-if(c[0] != i) continue;
+        if(c[0] != i) continue;
 
-html += `
-<div class="event">
-<div class="minute">${c[1]}'</div>
-<div>${c[2]} - ${c[3]}<br>${c[5]}</div>
-</div>`;
-}
+        html += `
+        <div class="event">
+            <div class="minute">${c[1]}'</div>
+            <div>
+                <strong>${c[2]}</strong> - ${c[3]}<br>
+                ${c[5]}
+            </div>
+        </div>
+        `;
+    }
 
-document.getElementById("events").innerHTML = html;
+    document.getElementById("events").innerHTML = html;
 
 });
 
