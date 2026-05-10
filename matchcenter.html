@@ -5,199 +5,159 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Match Center</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@600;800&display=swap" rel="stylesheet">
 
 <style>
+
 body{
     margin:0;
-    background:#0b0b0b;
+    background:black;
     color:white;
-    font-family:Inter;
+    font-family:'Montserrat', sans-serif;
 }
 
-.top{
-    text-align:center;
-    padding:40px;
-}
-
-.status{
-    opacity:.7;
-    font-weight:800;
-    text-transform:uppercase;
-}
-
-.teams{
+/* HEADER */
+.topbar{
     display:flex;
-    justify-content:center;
+    justify-content:space-between;
     align-items:center;
-    gap:40px;
-    margin-top:20px;
+    padding:20px 25px;
 }
 
-.team{
-    text-align:center;
+.back-btn{
+    background:white;
+    color:black;
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    font-weight:700;
+    cursor:pointer;
 }
 
-.team img{
-    width:80px;
-    height:80px;
-    object-fit:contain;
-}
-
-.score{
-    font-size:55px;
-    font-weight:900;
-}
-
-.events{
-    max-width:800px;
-    margin:auto;
+/* MATCH BOX */
+.container{
+    max-width:900px;
+    margin:40px auto;
     padding:20px;
 }
 
-.event{
-    background:#151515;
-    margin-bottom:12px;
-    padding:15px;
-    border-left:4px solid #444;
-    border-radius:8px;
+.card{
+    background:#111;
+    padding:30px;
+    border-radius:15px;
+    text-align:center;
 }
 
-.minute{
-    font-weight:900;
-    color:#aaa;
+/* TEAMS */
+.teams{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:30px;
 }
+
+.team{
+    width:40%;
+}
+
+.team img{
+    width:90px;
+    height:90px;
+    object-fit:contain;
+    margin-bottom:10px;
+}
+
+.score{
+    font-size:40px;
+    font-weight:800;
+}
+
+/* STATUS */
+.status{
+    font-size:18px;
+    opacity:0.8;
+    margin-bottom:10px;
+}
+
 </style>
 </head>
 
 <body>
 
-<div class="top">
-    <div class="status" id="status">Cargando...</div>
-
-    <div class="teams">
-
-        <div class="team">
-            <img id="homeLogo">
-            <div id="homeName"></div>
-        </div>
-
-        <div class="score" id="score">-</div>
-
-        <div class="team">
-            <img id="awayLogo">
-            <div id="awayName"></div>
-        </div>
-
-    </div>
+<div class="topbar">
+    <button class="back-btn" onclick="goHome()">← Volver</button>
 </div>
 
-<div class="events" id="events"></div>
+<div class="container" id="content">
+    Cargando partido...
+</div>
 
 <script>
 
-const MATCHSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
+const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
 
-const EVENTSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
+function getId(){
+    return new URLSearchParams(window.location.search).get("id");
+}
 
-const i = new URLSearchParams(window.location.search).get("i");
+function goHome(){
+    window.location.href = "index.html";
+}
 
+async function load(){
 
-function fix(url){
+    const id = getId();
 
-    if(!url) return "";
+    const res = await fetch(URL);
+    const text = await res.text();
 
-    url = url.replace(/"/g,"").trim();
+    const rows = text.split("\n").filter(r => r.trim());
 
-    // Google Drive
-    if(url.includes("drive.google.com")){
-        const id = url.match(/[-\w]{25,}/);
-        if(id){
-            return "https://drive.google.com/uc?export=view&id=" + id[0];
+    let m = null;
+
+    for(let i=1;i<rows.length;i++){
+
+        const c = rows[i].split(",").map(x => x.replace(/"/g,"").trim());
+
+        if(c[7] === id){
+            m = c;
+            break;
         }
     }
 
-    // URL normal
-    if(url.startsWith("http")){
-        return url;
-    }
-
-    // archivo local
-    return "logos" + url;
-}
-
-
-/* MATCH DATA */
-fetch(MATCHSHEET)
-.then(r=>r.text())
-.then(text=>{
-
-    const rows = text
-        .trim()
-        .split("\n")
-        .map(r=>r.split(",").map(x=>x.trim()));
-
-    const c = rows[Number(i)+1];
-
-    if(!c){
-        document.getElementById("status").innerText="PARTIDO NO ENCONTRADO";
+    if(!m){
+        document.getElementById("content").innerHTML = "Partido no encontrado";
         return;
     }
 
-    document.getElementById("status").innerText = c[1];
-    document.getElementById("homeName").innerText = c[2];
-    document.getElementById("awayName").innerText = c[4];
-    document.getElementById("score").innerText = c[3] + " - " + c[5];
+    document.getElementById("content").innerHTML = `
+        <div class="card">
 
-    const homeLogo = document.getElementById("homeLogo");
-    const awayLogo = document.getElementById("awayLogo");
+            <div class="status">${m[0]}</div>
 
-    homeLogo.src = fix(c[6]);
-    awayLogo.src = fix(c[7]);
+            <h2>${m[1]} vs ${m[3]}</h2>
 
-    homeLogo.onerror = function(){
-        this.src = "https://via.placeholder.com/80?text=HOME";
-    }
+            <div class="teams">
 
-    awayLogo.onerror = function(){
-        this.src = "https://via.placeholder.com/80?text=AWAY";
-    }
+                <div class="team">
+                    <img src="${m[5]}" onerror="this.src='default.png'">
+                    <div>${m[1]}</div>
+                    <div class="score">${m[2]}</div>
+                </div>
 
-});
+                <div class="team">
+                    <img src="${m[6]}" onerror="this.src='default.png'">
+                    <div>${m[3]}</div>
+                    <div class="score">${m[4]}</div>
+                </div>
 
-
-/* EVENTS */
-fetch(EVENTSHEET)
-.then(r=>r.text())
-.then(text=>{
-
-    const rows = text
-        .trim()
-        .split("\n")
-        .map(r=>r.split(",").map(x=>x.trim()));
-
-    let html="";
-
-    for(let j=1;j<rows.length;j++){
-
-        const c = rows[j];
-
-        if(c[0] != i) continue;
-
-        html += `
-        <div class="event">
-            <div class="minute">${c[1]}'</div>
-            <div>
-                <strong>${c[2]}</strong> - ${c[3]}<br>
-                ${c[5]}
             </div>
+
         </div>
-        `;
-    }
+    `;
+}
 
-    document.getElementById("events").innerHTML = html;
-
-});
+load();
 
 </script>
 
