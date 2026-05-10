@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Match Center</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+
+body{
+    margin:0;
+    background:black;
+    color:white;
+    font-family:'Inter', sans-serif;
+}
+
+header{
+    height:80px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 30px;
+}
+
+.container{
+    padding:120px 8%;
+}
+
+.match-box{
+    background:#f2f2f2;
+    color:black;
+    border-radius:16px;
+    padding:40px;
+    position:relative;
+}
+
+.match-box::after{
+    content:"";
+    position:absolute;
+    bottom:0;
+    right:0;
+    width:120px;
+    height:120px;
+    background:black;
+    clip-path:polygon(100% 0, 0 100%, 100% 100%);
+}
+
+.status{
+    font-family:'Oswald';
+    font-size:16px;
+    font-weight:700;
+    margin-bottom:30px;
+}
+
+.teams{
+    display:flex;
+    justify-content:space-between;
+    margin:25px 0;
+}
+
+.team{
+    font-family:'Oswald';
+    font-size:42px;
+    text-transform:uppercase;
+}
+
+.score{
+    font-family:'Oswald';
+    font-size:42px;
+    color:#5f7890;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+    <div>MATCH CENTER</div>
+    <a href="home.html" style="color:white;text-decoration:none;">← Volver</a>
+</header>
+
+<div class="container">
+    <div class="match-box" id="matchBox">Cargando...</div>
+</div>
+
+<script>
+
+const MATCHES_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
+
+const params=new URLSearchParams(window.location.search);
+const matchId=params.get("id");
+
+function parseRow(row){
+    return row.split(",").map(x=>x.trim());
+}
+
+async function loadMatch(){
+
+    const box=document.getElementById("matchBox");
+
+    const res=await fetch(MATCHES_URL+"&t="+Date.now());
+    const text=await res.text();
+
+    const rows=text.split("\n").filter(r=>r.trim());
+    const matches=rows.map(r=>parseRow(r));
+
+    const match=matches.find(m=>m[0]===matchId);
+
+    if(!match){
+        box.innerHTML="Partido no encontrado";
+        return;
+    }
+
+    box.innerHTML=`
+        <div class="status">${match[1]}</div>
+
+        <div class="teams">
+            <div class="team">${match[2]}</div>
+            <div class="score">${match[3]}</div>
+        </div>
+
+        <div class="teams">
+            <div class="team">${match[4]}</div>
+            <div class="score">${match[5]}</div>
+        </div>
+    `;
+}
+
+loadMatch();
+
+</script>
+
+</body>
+</html>
