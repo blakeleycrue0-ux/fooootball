@@ -37,33 +37,27 @@ header{
     z-index:1000;
 }
 
-/* IZQUIERDA */
 .header-left{
     display:flex;
     align-items:center;
     gap:10px;
 }
 
-/* HAMBURGUESA */
 .menu-icon{
     font-size:26px;
     cursor:pointer;
 }
 
-/* LOGO */
 .logo{
     height:30px;
-    width:auto;
 }
 
-/* TITULO */
 .club-name{
     font-size:16px;
     font-weight:800;
     font-family:'Montserrat', sans-serif;
 }
 
-/* USER */
 .user{
     background:white;
     color:black;
@@ -73,7 +67,7 @@ header{
     font-weight:700;
 }
 
-/* MENU MOBILE */
+/* MENU */
 .mobile-menu{
     position:fixed;
     top:80px;
@@ -113,39 +107,67 @@ header{
     font-family:'Montserrat';
 }
 
-/* SECCIONES */
+/* SECTION */
 .section{
     padding:18px;
 }
 
-/* TITULO */
 .title{
     font-size:12px;
     opacity:0.6;
     margin-bottom:10px;
 }
 
-/* MATCH CARD */
-.card{
-    background:#141414;
-    padding:14px;
-    border-radius:12px;
-    margin-bottom:10px;
+/* ========================= */
+/* 🔥 MATCHES HORIZONTAL PRO */
+/* ========================= */
+
+.matches-scroll{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+    padding-bottom:10px;
 }
 
-/* STATUS */
+.matches-scroll::-webkit-scrollbar{
+    display:none;
+}
+
+.card{
+    min-width:260px;
+    background:#141414;
+    border-radius:16px;
+    padding:14px;
+    flex-shrink:0;
+    border-left:3px solid #ffffff20;
+    transition:0.2s;
+}
+
+.card:active{
+    transform:scale(0.98);
+}
+
 .status{
-    font-size:11px;
+    font-size:10px;
     opacity:0.6;
     margin-bottom:8px;
 }
 
-/* ROW */
 .row{
     display:flex;
     justify-content:space-between;
+    align-items:center;
+    margin:8px 0;
+}
+
+.row span:first-child{
     font-weight:700;
-    margin:6px 0;
+    font-size:14px;
+}
+
+.row span:last-child{
+    font-size:18px;
+    font-weight:800;
 }
 
 /* NEWS */
@@ -173,7 +195,6 @@ header{
     font-size:13px;
 }
 
-/* SPACE */
 .spacer{
     height:80px;
 }
@@ -187,7 +208,7 @@ header{
 
     <div class="header-left">
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
-        <img src="LogoClub.png" class="logo">
+        <img src="Logoclub.png" class="logo">
         <div class="club-name">FEMENINO</div>
     </div>
 
@@ -210,8 +231,9 @@ header{
 
 <!-- MATCHES -->
 <div class="section">
-    <div class="title">PARTIDOS DE ESTA SEMANA</div>
-    <div id="matches"></div>
+    <div class="title">PARTIDOS</div>
+
+    <div class="matches-scroll" id="matches"></div>
 </div>
 
 <!-- NEWS -->
@@ -231,13 +253,14 @@ header{
         </div>
 
     </div>
+
 </div>
 
 <div class="spacer"></div>
 
 <script>
 
-/* LOGIN */
+/* USER */
 const user = localStorage.getItem("user");
 
 if(!user){
@@ -297,9 +320,6 @@ async function load(){
 load();
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
