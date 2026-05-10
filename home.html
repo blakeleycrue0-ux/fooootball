@@ -67,23 +67,25 @@ header{
 }
 
 /* USER */
-.user-dropdown{
+.user-wrapper{
     position:relative;
-    cursor:pointer;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+}
+
+.user-dropdown{
     padding:8px 14px;
     border-radius:20px;
     background:#fff;
     color:#000;
     font-weight:700;
-    max-width:160px;
-    overflow:hidden;
-    text-overflow:ellipsis;
-    white-space:nowrap;
+    cursor:pointer;
 }
 
 .user-menu{
     position:absolute;
-    top:110%;
+    top:45px;
     right:0;
     background:white;
     color:black;
@@ -104,7 +106,7 @@ header{
     text-align:left;
 }
 
-/* MENU MOBILE */
+/* HAMBURGUESA */
 .menu-icon{
     display:none;
     font-size:30px;
@@ -215,7 +217,7 @@ header{
     color:#5f7890;
 }
 
-/* BUTTON */
+/* MATCH BUTTON */
 .match-link{
     margin-top:auto;
     font-family:'Oswald', sans-serif;
@@ -223,11 +225,6 @@ header{
     color:#5f7890;
     font-weight:700;
     cursor:pointer;
-    transition:0.2s;
-}
-
-.match-link:hover{
-    transform:translateX(5px);
 }
 
 /* NEWS */
@@ -261,39 +258,6 @@ header{
 
 .news-content{
     padding:15px;
-}
-
-/* MATCH MENU */
-.match-menu{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.7);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:2000;
-}
-
-.match-menu-box{
-    background:white;
-    color:black;
-    padding:25px;
-    border-radius:12px;
-    width:300px;
-}
-
-.match-item{
-    padding:10px;
-    border-bottom:1px solid #ddd;
-    cursor:pointer;
-    font-weight:700;
-}
-
-.match-item:hover{
-    background:#f2f2f2;
 }
 
 /* MOBILE */
@@ -333,11 +297,16 @@ header{
         <a href="#">Tienda</a>
     </nav>
 
-    <div class="user-dropdown" onclick="toggleUserMenu()">
-        <span id="username">Usuario</span>
-        <div class="user-menu" id="userMenu">
-            <button onclick="logout()">Cerrar sesión</button>
+    <div class="user-wrapper">
+
+        <div class="user-dropdown" id="userBtn">
+            <span id="username">Usuario</span>
         </div>
+
+        <div class="user-menu" id="userMenu">
+            <button id="logoutBtn">Cerrar sesión</button>
+        </div>
+
     </div>
 
 </header>
@@ -377,15 +346,6 @@ header{
     </div>
 </section>
 
-<!-- MATCH MENU -->
-<div id="matchMenu" class="match-menu">
-    <div class="match-menu-box">
-        <h3>Selecciona partido</h3>
-        <div id="matchList"></div>
-        <button onclick="closeMatchMenu()">Cerrar</button>
-    </div>
-</div>
-
 <script>
 
 /* LOGIN */
@@ -398,61 +358,31 @@ if(!user){
 document.getElementById("username").innerText=user;
 
 /* LOGOUT */
-function logout(){
+document.getElementById("logoutBtn").addEventListener("click", ()=>{
     localStorage.removeItem("user");
     window.location.href="login.html";
-}
+});
 
 /* USER MENU */
-function toggleUserMenu(){
-    const menu=document.getElementById("userMenu");
-    menu.style.display = menu.style.display === "block" ? "none" : "block";
-}
+const userBtn = document.getElementById("userBtn");
+const userMenu = document.getElementById("userMenu");
 
-document.addEventListener("click", function(e){
-    const user=document.querySelector(".user-dropdown");
-    const menu=document.getElementById("userMenu");
-
-    if(!user.contains(e.target)){
-        menu.style.display="none";
-    }
+userBtn.addEventListener("click", (e)=>{
+    e.stopPropagation();
+    userMenu.style.display =
+        userMenu.style.display === "block" ? "none" : "block";
 });
 
-/* MOBILE MENU */
+document.addEventListener("click", ()=>{
+    userMenu.style.display="none";
+});
+
+/* MENU MOBILE */
 function toggleMenu(){
     const menu=document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display==="flex" ? "none":"flex";
+    menu.style.display =
+        menu.style.display==="flex" ? "none":"flex";
 }
-
-/* MATCH CENTER MENU */
-function openMatchMenu(){
-    const menu=document.getElementById("matchMenu");
-    menu.style.display="flex";
-
-    const container=document.getElementById("matchList");
-    container.innerHTML="";
-
-    const cards=document.querySelectorAll(".match-card");
-
-    cards.forEach((card,i)=>{
-        const div=document.createElement("div");
-        div.className="match-item";
-        div.innerText="Partido "+(i+1);
-        div.onclick=()=>alert("Abrir partido "+(i+1));
-        container.appendChild(div);
-    });
-}
-
-function closeMatchMenu(){
-    document.getElementById("matchMenu").style.display="none";
-}
-
-/* MATCH BUTTON CLICK */
-document.addEventListener("click", function(e){
-    if(e.target.classList.contains("match-link")){
-        openMatchMenu();
-    }
-});
 
 /* MATCHES */
 const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
@@ -493,9 +423,7 @@ async function loadMatches(){
                     <div class="team-score">${c[4]}</div>
                 </div>
 
-                <div class="match-link">
-                    MATCH CENTER →
-                </div>
+                <div class="match-link">MATCH CENTER →</div>
 
             </div>`;
         }
