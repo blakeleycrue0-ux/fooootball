@@ -106,6 +106,7 @@ header{
     flex-direction:column;
     justify-content:center;
     cursor:pointer;
+    border-radius:10px;
 }
 
 .match-status{
@@ -118,7 +119,9 @@ header{
 .team-row{
     display:flex;
     justify-content:space-between;
+    align-items:center;
     margin-bottom:12px;
+    gap:10px;
 }
 
 .team-name{
@@ -131,6 +134,10 @@ header{
     font-family:'Oswald', sans-serif;
     font-size:30px;
     color:#5f7890;
+}
+
+.team-logo{
+    height:30px;
 }
 
 /* NEWS */
@@ -167,6 +174,7 @@ header{
 <body>
 
 <header>
+
     <div class="header-left">
         <img src="Logoclub.png" class="logo">
         <div class="club-name">FEMENINO</div>
@@ -178,6 +186,7 @@ header{
         <a href="equipos.html">Equipos</a>
         <a href="#">Tienda</a>
     </nav>
+
 </header>
 
 <section class="hero">
@@ -188,11 +197,31 @@ header{
     <div class="matches-scroll" id="matchesContainer"></div>
 </section>
 
+<section class="news-section">
+    <div class="news-scroll">
+
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
+            <div class="news-content">
+                <h3>Victoria del equipo</h3>
+            </div>
+        </div>
+
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
+            <div class="news-content">
+                <h3>Convocatoria del fin de semana</h3>
+            </div>
+        </div>
+
+    </div>
+</section>
+
 <script>
 
 const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
 
-/* 🔥 IMPORTANTE: NO TOCA CARPETAS, SOLO NOMBRE */
+/* 🔥 SOLO USA EL NOMBRE DEL ARCHIVO */
 function fix(url){
     if(!url) return "";
     return String(url).replace(/"/g,"").trim();
@@ -227,13 +256,13 @@ async function loadMatches(){
             <div class="team-row">
                 <div class="team-name">${c[1]}</div>
                 <div class="team-score">${c[2]}</div>
-                <img src="${fix(c[5])}" height="30">
+                <img class="team-logo" src="${fix(c[5])}">
             </div>
 
             <div class="team-row">
                 <div class="team-name">${c[3]}</div>
                 <div class="team-score">${c[4]}</div>
-                <img src="${fix(c[6])}" height="30">
+                <img class="team-logo" src="${fix(c[6])}">
             </div>
 
         </div>`;
