@@ -5,26 +5,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Match Center</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;600;800&family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
 
 <style>
 
 body{
     margin:0;
-    font-family:'Inter', sans-serif;
+    font-family:Inter;
     background:#0b0b0b;
     color:white;
 }
 
-/* HEADER MATCH */
 .top{
-    padding:40px 8%;
     text-align:center;
+    padding:40px 20px;
 }
 
 .status{
-    font-size:14px;
-    font-weight:700;
+    font-weight:800;
     opacity:.7;
     text-transform:uppercase;
 }
@@ -47,11 +45,6 @@ body{
     object-fit:contain;
 }
 
-.team-name{
-    margin-top:10px;
-    font-weight:700;
-}
-
 .score{
     font-size:50px;
     font-weight:900;
@@ -65,29 +58,23 @@ body{
 }
 
 .event{
+    background:#151515;
+    margin-bottom:12px;
+    padding:15px;
+    border-left:4px solid #333;
+    border-radius:8px;
     display:flex;
     gap:15px;
-    padding:15px;
-    border-left:3px solid #333;
-    margin-bottom:15px;
-    background:#151515;
-    border-radius:8px;
 }
 
 .minute{
-    font-weight:900;
-    color:#999;
     width:50px;
-}
-
-.event-text{
-    flex:1;
+    font-weight:900;
+    color:#aaa;
 }
 
 .type{
     font-weight:700;
-    font-size:14px;
-    opacity:.8;
 }
 
 </style>
@@ -102,31 +89,30 @@ body{
     <div class="teams">
 
         <div class="team">
-            <img id="logoHome">
-            <div class="team-name" id="home"></div>
+            <img id="homeLogo">
+            <div id="homeName"></div>
         </div>
 
         <div class="score" id="score">0 - 0</div>
 
         <div class="team">
-            <img id="logoAway">
-            <div class="team-name" id="away"></div>
+            <img id="awayLogo">
+            <div id="awayName"></div>
         </div>
 
     </div>
-
 </div>
 
 <div class="events" id="events"></div>
 
 <script>
 
-const MATCHSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
+const MATCHSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
+const EVENTSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
-const params = new URLSearchParams(window.location.search);
-const id = params.get("id");
+const id = new URLSearchParams(window.location.search).get("id");
 
-/* LOAD DATA */
+/* MATCH DATA */
 fetch(MATCHSHEET)
 .then(r=>r.text())
 .then(text=>{
@@ -140,15 +126,47 @@ fetch(MATCHSHEET)
         if(c[0] !== id) continue;
 
         document.getElementById("status").innerText = c[1];
-        document.getElementById("home").innerText = c[2];
-        document.getElementById("away").innerText = c[4];
+        document.getElementById("homeName").innerText = c[2];
+        document.getElementById("awayName").innerText = c[4];
         document.getElementById("score").innerText = c[3] + " - " + c[5];
 
-        document.getElementById("logoHome").src = c[6];
-        document.getElementById("logoAway").src = c[7];
+        document.getElementById("homeLogo").src = c[6];
+        document.getElementById("awayLogo").src = c[7];
 
         break;
     }
+});
+
+/* EVENTS */
+fetch(EVENTSHEET)
+.then(r=>r.text())
+.then(text=>{
+
+    const rows = text.split("\n").map(r=>r.split(","));
+
+    let html = "";
+
+    for(let i=1;i<rows.length;i++){
+
+        const c = rows[i];
+
+        if(c[0] !== id) continue;
+
+        let icon = "⚽";
+        if(c[2] === "TARJETA") icon = "🟨";
+        if(c[2] === "CAMBIO") icon = "🔁";
+
+        html += `
+        <div class="event">
+            <div class="minute">${c[1]}'</div>
+            <div>
+                <div class="type">${icon} ${c[2]} - ${c[3]}</div>
+                <div>${c[5]}</div>
+            </div>
+        </div>`;
+    }
+
+    document.getElementById("events").innerHTML = html;
 });
 
 </script>
