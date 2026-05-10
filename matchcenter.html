@@ -5,71 +5,89 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Match Center</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;900&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
 
 <style>
 
 body{
     margin:0;
-    background:black;
-    color:white;
     font-family:'Inter', sans-serif;
+    background:#0b0b0b;
+    color:white;
 }
 
-header{
-    height:80px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 30px;
-}
-
-.container{
-    padding:120px 8%;
-}
-
-.match-box{
-    background:#f2f2f2;
-    color:black;
-    border-radius:16px;
-    padding:40px;
-    position:relative;
-}
-
-.match-box::after{
-    content:"";
-    position:absolute;
-    bottom:0;
-    right:0;
-    width:120px;
-    height:120px;
-    background:black;
-    clip-path:polygon(100% 0, 0 100%, 100% 100%);
+/* HEADER MATCH */
+.top{
+    padding:40px 8%;
+    text-align:center;
 }
 
 .status{
-    font-family:'Oswald';
-    font-size:16px;
+    font-size:14px;
     font-weight:700;
-    margin-bottom:30px;
+    opacity:.7;
+    text-transform:uppercase;
 }
 
 .teams{
     display:flex;
-    justify-content:space-between;
-    margin:25px 0;
+    justify-content:center;
+    align-items:center;
+    gap:40px;
+    margin-top:20px;
 }
 
 .team{
-    font-family:'Oswald';
-    font-size:42px;
-    text-transform:uppercase;
+    text-align:center;
+}
+
+.team img{
+    width:70px;
+    height:70px;
+    object-fit:contain;
+}
+
+.team-name{
+    margin-top:10px;
+    font-weight:700;
 }
 
 .score{
-    font-family:'Oswald';
-    font-size:42px;
-    color:#5f7890;
+    font-size:50px;
+    font-weight:900;
+}
+
+/* EVENTS */
+.events{
+    max-width:800px;
+    margin:40px auto;
+    padding:0 20px;
+}
+
+.event{
+    display:flex;
+    gap:15px;
+    padding:15px;
+    border-left:3px solid #333;
+    margin-bottom:15px;
+    background:#151515;
+    border-radius:8px;
+}
+
+.minute{
+    font-weight:900;
+    color:#999;
+    width:50px;
+}
+
+.event-text{
+    flex:1;
+}
+
+.type{
+    font-weight:700;
+    font-size:14px;
+    opacity:.8;
 }
 
 </style>
@@ -77,61 +95,66 @@ header{
 
 <body>
 
-<header>
-    <div>MATCH CENTER</div>
-    <a href="home.html" style="color:white;text-decoration:none;">← Volver</a>
-</header>
+<div class="top">
 
-<div class="container">
-    <div class="match-box" id="matchBox">Cargando...</div>
+    <div class="status" id="status">FINAL</div>
+
+    <div class="teams">
+
+        <div class="team">
+            <img id="logoHome">
+            <div class="team-name" id="home"></div>
+        </div>
+
+        <div class="score" id="score">0 - 0</div>
+
+        <div class="team">
+            <img id="logoAway">
+            <div class="team-name" id="away"></div>
+        </div>
+
+    </div>
+
 </div>
+
+<div class="events" id="events"></div>
 
 <script>
 
-const MATCHES_URL="https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
+const MATCHSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
 
-const params=new URLSearchParams(window.location.search);
-const matchId=params.get("id");
+const params = new URLSearchParams(window.location.search);
+const id = params.get("id");
 
-function parseRow(row){
-    return row.split(",").map(x=>x.trim());
-}
+/* LOAD DATA */
+fetch(MATCHSHEET)
+.then(r=>r.text())
+.then(text=>{
 
-async function loadMatch(){
+    const rows = text.split("\n").map(r=>r.split(","));
 
-    const box=document.getElementById("matchBox");
+    for(let i=1;i<rows.length;i++){
 
-    const res=await fetch(MATCHES_URL+"&t="+Date.now());
-    const text=await res.text();
+        const c = rows[i];
 
-    const rows=text.split("\n").filter(r=>r.trim());
-    const matches=rows.map(r=>parseRow(r));
+        if(c[0] !== id) continue;
 
-    const match=matches.find(m=>m[0]===matchId);
+        document.getElementById("status").innerText = c[1];
+        document.getElementById("home").innerText = c[2];
+        document.getElementById("away").innerText = c[4];
+        document.getElementById("score").innerText = c[3] + " - " + c[5];
 
-    if(!match){
-        box.innerHTML="Partido no encontrado";
-        return;
+        document.getElementById("logoHome").src = c[6];
+        document.getElementById("logoAway").src = c[7];
+
+        break;
     }
-
-    box.innerHTML=`
-        <div class="status">${match[1]}</div>
-
-        <div class="teams">
-            <div class="team">${match[2]}</div>
-            <div class="score">${match[3]}</div>
-        </div>
-
-        <div class="teams">
-            <div class="team">${match[4]}</div>
-            <div class="score">${match[5]}</div>
-        </div>
-    `;
-}
-
-loadMatch();
+});
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
