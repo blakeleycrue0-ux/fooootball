@@ -177,6 +177,7 @@ header{
     display:flex;
     flex-direction:column;
     justify-content:center;
+    cursor:pointer;
 }
 
 .match-card.big::after{
@@ -215,16 +216,6 @@ header{
     font-family:'Oswald', sans-serif;
     font-size:36px;
     color:#5f7890;
-}
-
-/* MATCH BUTTON */
-.match-link{
-    margin-top:auto;
-    font-family:'Oswald', sans-serif;
-    font-size:16px;
-    color:#5f7890;
-    font-weight:700;
-    cursor:pointer;
 }
 
 /* NEWS */
@@ -298,15 +289,9 @@ header{
     </nav>
 
     <div class="user-wrapper">
-
-        <div class="user-dropdown" id="userBtn">
+        <div class="user-dropdown">
             <span id="username">Usuario</span>
         </div>
-
-        <div class="user-menu" id="userMenu">
-            <button id="logoutBtn">Cerrar sesión</button>
-        </div>
-
     </div>
 
 </header>
@@ -357,74 +342,57 @@ if(!user){
 
 document.getElementById("username").innerText=user;
 
-/* LOGOUT */
-document.getElementById("logoutBtn").addEventListener("click", ()=>{
-    localStorage.removeItem("user");
-    window.location.href="login.html";
-});
-
-/* USER MENU */
-const userBtn = document.getElementById("userBtn");
-const userMenu = document.getElementById("userMenu");
-
-userBtn.addEventListener("click", (e)=>{
-    e.stopPropagation();
-    userMenu.style.display =
-        userMenu.style.display === "block" ? "none" : "block";
-});
-
-document.addEventListener("click", ()=>{
-    userMenu.style.display="none";
-});
-
-/* MENU MOBILE */
+/* MENU */
 function toggleMenu(){
     const menu=document.getElementById("mobileMenu");
     menu.style.display =
         menu.style.display==="flex" ? "none":"flex";
 }
 
+/* MATCH CENTER REDIRECT */
+function openMatch(id){
+    window.location.href = "matchcenter.html?id=" + encodeURIComponent(id);
+}
+
 /* MATCHES */
 const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
 
-function loadMatches(){
+async function loadMatches(){
 
     const container=document.getElementById("matchesContainer");
 
-    fetch(MATCHES_URL+"&t="+Date.now())
-    .then(r=>r.text())
-    .then(text=>{
+    const res=await fetch(MATCHES_URL+"&t="+Date.now());
+    const text=await res.text();
 
-        const rows=text.split("\n").filter(r=>r.trim());
+    const rows=text.split("\n").filter(r=>r.trim());
 
-        let html="";
+    let html="";
 
-        for(let i=1;i<rows.length;i++){
+    for(let i=1;i<rows.length;i++){
 
-            const c = rows[i].split(",").map(x => x.replace(/"/g,"").trim());
+        const c = rows[i].split(",").map(x => x.replace(/"/g,"").trim());
 
-            if(!c[1] || !c[2] || !c[3] || !c[4]) continue;
+        if(!c[1] || !c[2] || !c[3] || !c[4]) continue;
 
-            html+=`
-            <div class="match-card big">
+        html += `
+        <div class="match-card big" onclick="openMatch('${c[0]}')">
 
-                <div class="match-status">${c[0]}</div>
+            <div class="match-status">${c[0]}</div>
 
-                <div class="team-row">
-                    <div class="team-name">${c[1]}</div>
-                    <div class="team-score">${c[2]}</div>
-                </div>
+            <div class="team-row">
+                <div class="team-name">${c[1]}</div>
+                <div class="team-score">${c[2]}</div>
+            </div>
 
-                <div class="team-row">
-                    <div class="team-name">${c[3]}</div>
-                    <div class="team-score">${c[4]}</div>
-                </div>
+            <div class="team-row">
+                <div class="team-name">${c[3]}</div>
+                <div class="team-score">${c[4]}</div>
+            </div>
 
-            </div>`;
-        }
+        </div>`;
+    }
 
-        container.innerHTML=html;
-    });
+    container.innerHTML=html;
 }
 
 loadMatches();
