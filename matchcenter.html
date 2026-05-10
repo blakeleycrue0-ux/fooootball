@@ -50,7 +50,6 @@ body{
     font-weight:900;
 }
 
-/* EVENTS */
 .events{
     max-width:800px;
     margin:40px auto;
@@ -84,7 +83,7 @@ body{
 
 <div class="top">
 
-    <div class="status" id="status">FINAL</div>
+    <div class="status" id="status">Cargando...</div>
 
     <div class="teams">
 
@@ -93,7 +92,7 @@ body{
             <div id="homeName"></div>
         </div>
 
-        <div class="score" id="score">0 - 0</div>
+        <div class="score" id="score">-</div>
 
         <div class="team">
             <img id="awayLogo">
@@ -110,39 +109,47 @@ body{
 const MATCHSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 const EVENTSHEET = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
-const id = new URLSearchParams(window.location.search).get("id");
+/* 👇 AQUÍ YA NO USAMOS ID */
+const params = new URLSearchParams(window.location.search);
+const index = params.get("i"); // fila del partido
 
 /* MATCH DATA */
 fetch(MATCHSHEET)
-.then(r=>r.text())
-.then(text=>{
+.then(r => r.text())
+.then(text => {
 
-    const rows = text.split("\n").map(r=>r.split(","));
+    const rows = text
+        .trim()
+        .split("\n")
+        .map(r => r.split(",").map(x => x.replace(/"/g,"").trim()));
 
-    for(let i=1;i<rows.length;i++){
+    const c = rows[Number(index) + 1]; 
+    // +1 porque fila 0 es header
 
-        const c = rows[i];
-
-        if(c[0] !== id) continue;
-
-        document.getElementById("status").innerText = c[1];
-        document.getElementById("homeName").innerText = c[2];
-        document.getElementById("awayName").innerText = c[4];
-        document.getElementById("score").innerText = c[3] + " - " + c[5];
-
-        document.getElementById("homeLogo").src = c[6];
-        document.getElementById("awayLogo").src = c[7];
-
-        break;
+    if(!c){
+        document.getElementById("status").innerText = "PARTIDO NO ENCONTRADO";
+        return;
     }
+
+    document.getElementById("status").innerText = c[1];
+    document.getElementById("homeName").innerText = c[2];
+    document.getElementById("awayName").innerText = c[4];
+    document.getElementById("score").innerText = c[3] + " - " + c[5];
+
+    document.getElementById("homeLogo").src = c[6];
+    document.getElementById("awayLogo").src = c[7];
+
 });
 
 /* EVENTS */
 fetch(EVENTSHEET)
-.then(r=>r.text())
-.then(text=>{
+.then(r => r.text())
+.then(text => {
 
-    const rows = text.split("\n").map(r=>r.split(","));
+    const rows = text
+        .trim()
+        .split("\n")
+        .map(r => r.split(",").map(x => x.replace(/"/g,"").trim()));
 
     let html = "";
 
@@ -150,23 +157,20 @@ fetch(EVENTSHEET)
 
         const c = rows[i];
 
-        if(c[0] !== id) continue;
-
-        let icon = "⚽";
-        if(c[2] === "TARJETA") icon = "🟨";
-        if(c[2] === "CAMBIO") icon = "🔁";
+        if(c[0] != index) continue;
 
         html += `
         <div class="event">
             <div class="minute">${c[1]}'</div>
             <div>
-                <div class="type">${icon} ${c[2]} - ${c[3]}</div>
+                <div class="type">${c[2]} - ${c[3]}</div>
                 <div>${c[5]}</div>
             </div>
         </div>`;
     }
 
     document.getElementById("events").innerHTML = html;
+
 });
 
 </script>
