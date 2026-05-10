@@ -66,7 +66,7 @@ header{
     text-transform:uppercase;
 }
 
-/* USER MENU */
+/* USER */
 .user-dropdown{
     position:relative;
     cursor:pointer;
@@ -104,7 +104,7 @@ header{
     text-align:left;
 }
 
-/* MOBILE MENU */
+/* MENU MOBILE */
 .menu-icon{
     display:none;
     font-size:30px;
@@ -176,17 +176,6 @@ header{
     flex-direction:column;
 }
 
-.match-card.big::after{
-    content:"";
-    position:absolute;
-    bottom:0;
-    right:0;
-    width:70px;
-    height:70px;
-    background:black;
-    clip-path:polygon(100% 0, 0 100%, 100% 100%);
-}
-
 .match-status{
     font-family:'Oswald', sans-serif;
     font-size:14px;
@@ -220,7 +209,7 @@ header{
     color:#5f7890;
 }
 
-/* NEWS (HORIZONTAL) */
+/* NEWS */
 .news-section{
     padding:80px 8%;
 }
@@ -331,13 +320,6 @@ header{
             </div>
         </div>
 
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1522778119026-d647f0596c20">
-            <div class="news-content">
-                <h3>Nuevo fichaje</h3>
-            </div>
-        </div>
-
     </div>
 </section>
 
@@ -364,6 +346,7 @@ function toggleUserMenu(){
     menu.style.display = menu.style.display === "block" ? "none" : "block";
 }
 
+/* cerrar menú usuario al click fuera */
 document.addEventListener("click", function(e){
     const user=document.querySelector(".user-dropdown");
     const menu=document.getElementById("userMenu");
@@ -373,15 +356,15 @@ document.addEventListener("click", function(e){
     }
 });
 
-/* MOBILE MENU */
+/* MENU MOBILE */
 function toggleMenu(){
     const menu=document.getElementById("mobileMenu");
-    menu.style.display=
+    menu.style.display =
         menu.style.display==="flex" ? "none":"flex";
 }
 
 /* MATCHES */
-const MATCHES_URL = "PEGA_AQUI_TU_LINK_CSV";
+const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
 
 function parseRow(row){
     return row.split(",").map(x=>x.trim());
@@ -436,6 +419,9 @@ async function loadMatches(){
 loadMatches();
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
