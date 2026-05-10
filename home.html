@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home - Femenino SP</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;900&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -34,7 +34,6 @@ header{
     align-items:center;
     padding:0 35px;
     z-index:1000;
-    border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
 .header-left{
@@ -51,14 +50,12 @@ header{
     font-family:'Montserrat', sans-serif;
     font-size:28px;
     font-weight:900;
-    text-transform:uppercase;
 }
 
 /* NAV */
 .nav-desktop{
     display:flex;
     gap:25px;
-    align-items:center;
 }
 
 .nav-desktop a{
@@ -67,7 +64,6 @@ header{
     font-size:13px;
     font-weight:700;
     text-transform:uppercase;
-    opacity:0.85;
 }
 
 /* USER */
@@ -77,20 +73,39 @@ header{
     gap:15px;
 }
 
-.username{
-    font-weight:700;
-    font-size:14px;
-}
-
 .logout{
     padding:8px 14px;
     border-radius:20px;
     background:white;
     color:black;
-    font-size:12px;
-    font-weight:800;
-    cursor:pointer;
     border:none;
+    font-weight:800;
+}
+
+/* MENU MOBILE */
+.menu-icon{
+    display:none;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.mobile-menu{
+    position:fixed;
+    top:85px;
+    left:0;
+    width:100%;
+    background:black;
+    display:none;
+    flex-direction:column;
+    padding:20px;
+    z-index:999;
+}
+
+.mobile-menu a{
+    color:white;
+    text-decoration:none;
+    margin-bottom:15px;
+    font-weight:700;
 }
 
 /* HERO */
@@ -110,12 +125,10 @@ header{
     font-family:'Montserrat', sans-serif;
     font-size:70px;
     font-weight:900;
-    text-transform:uppercase;
 }
 
 /* MATCHES */
 .matches-section{
-    background:#000;
     padding:80px 8%;
 }
 
@@ -123,68 +136,66 @@ header{
     display:flex;
     gap:20px;
     overflow-x:auto;
-    padding-bottom:10px;
 }
 
 .matches-scroll::-webkit-scrollbar{
     display:none;
 }
 
-/* CARD */
+/* CARD PSG */
 .match-card.big{
-    min-width:340px;
-    height:200px;
-    background:rgba(17,17,17,0.75);
-    backdrop-filter: blur(12px);
-    border:none;
+    min-width:360px;
+    height:230px;
+    background:#f2f2f2;
+    color:black;
     padding:25px;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    gap:20px;
     position:relative;
     overflow:hidden;
+    display:flex;
+    flex-direction:column;
 }
 
 .match-card.big::after{
     content:"";
     position:absolute;
-    bottom:-18px;
-    right:-18px;
-    width:170px;
-    height:170px;
-    background: linear-gradient(
-        135deg,
-        transparent 55%,
-        #000 56%
-    );
+    bottom:0;
+    right:0;
+    width:70px;
+    height:70px;
+    background:black;
+    clip-path:polygon(100% 0, 0 100%, 100% 100%);
 }
 
-/* EQUIPOS */
-.match-line{
+.match-status{
+    font-family:'Oswald', sans-serif;
+    font-size:14px;
+    font-weight:700;
+    margin-bottom:25px;
+}
+
+.team-row{
     display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:10px;
-    font-family:'Montserrat', sans-serif;
-    font-weight:900;
+    justify-content:space-between;
+    margin-bottom:15px;
+}
+
+.team-name{
+    font-family:'Oswald', sans-serif;
+    font-size:42px;
     text-transform:uppercase;
 }
 
-.team{
-    font-size:18px;
+.team-score{
+    font-family:'Oswald', sans-serif;
+    font-size:42px;
+    color:#5f7890;
 }
 
-.vs{
-    font-size:12px;
-    opacity:0.6;
-}
-
-/* RESULTADO */
-.score{
-    font-size:46px;
-    font-weight:900;
-    text-align:center;
+.match-link{
+    margin-top:auto;
+    font-family:'Oswald', sans-serif;
+    font-size:20px;
+    color:#5f7890;
 }
 
 /* NEWS */
@@ -194,14 +205,8 @@ header{
 
 .news-grid{
     display:grid;
-    grid-template-columns:repeat(2, 1fr);
+    grid-template-columns:repeat(2,1fr);
     gap:25px;
-    max-width:900px;
-    margin:auto;
-}
-
-.news-card{
-    background:#111;
 }
 
 .news-card img{
@@ -212,36 +217,10 @@ header{
 
 .news-content{
     padding:15px;
+    background:#111;
 }
 
 /* MOBILE */
-.menu-icon{
-    display:none;
-    font-size:30px;
-    cursor:pointer;
-    color:white;
-}
-
-.mobile-menu{
-    position:fixed;
-    top:85px;
-    left:0;
-    width:100%;
-    background:#000;
-    display:none;
-    flex-direction:column;
-    padding:20px;
-    gap:15px;
-    z-index:999;
-}
-
-.mobile-menu a{
-    color:white;
-    text-decoration:none;
-    font-weight:700;
-    text-transform:uppercase;
-}
-
 @media(max-width:768px){
 
     .nav-desktop{
@@ -255,6 +234,10 @@ header{
     .hero h1{
         font-size:42px;
     }
+
+    .news-grid{
+        grid-template-columns:1fr;
+    }
 }
 
 </style>
@@ -265,10 +248,7 @@ header{
 <header>
 
     <div class="header-left">
-
-        <!-- ☰ MENÚ -->
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
-
         <img src="Logoclub.png" class="logo">
         <div class="club-name">FEMENINO</div>
     </div>
@@ -281,13 +261,12 @@ header{
     </nav>
 
     <div class="user-area">
-        <div class="username" id="username">Usuario</div>
+        <div id="username">Usuario</div>
         <button class="logout" onclick="logout()">Salir</button>
     </div>
 
 </header>
 
-<!-- MENU MOBILE -->
 <div class="mobile-menu" id="mobileMenu">
     <a href="#">Historia</a>
     <a href="#">Club</a>
@@ -300,85 +279,114 @@ header{
 </section>
 
 <section class="matches-section">
-
-<div class="matches-scroll">
-
-    <div class="match-card big">
-        <div class="match-line">
-            <span class="team">SP</span>
-            <span class="vs">vs</span>
-            <span class="team">PALMA JUV</span>
-        </div>
-        <div class="score">3 - 1</div>
-    </div>
-
-    <div class="match-card big">
-        <div class="match-line">
-            <span class="team">SP</span>
-            <span class="vs">vs</span>
-            <span class="team">BARÇA B</span>
-        </div>
-        <div class="score">2 - 2</div>
-    </div>
-
-</div>
-
+    <div class="matches-scroll" id="matchesContainer"></div>
 </section>
 
 <section class="news-section">
 
-<div class="news-grid">
+    <div class="news-grid">
 
-    <div class="news-card">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
-        <div class="news-content">
-            <span>CLUB</span>
-            <h3>Victoria del equipo</h3>
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
+            <div class="news-content">
+                <h3>Victoria del equipo</h3>
+            </div>
         </div>
-    </div>
 
-    <div class="news-card">
-        <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
-        <div class="news-content">
-            <span>PLANTILLA</span>
-            <h3>Convocatoria del fin de semana</h3>
+        <div class="news-card">
+            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
+            <div class="news-content">
+                <h3>Convocatoria del fin de semana</h3>
+            </div>
         </div>
-    </div>
 
-</div>
+    </div>
 
 </section>
 
 <script>
 
+/* LOGIN */
 const user = localStorage.getItem("user");
 
 if(!user){
-    window.location.href = "login.html";
+    window.location.href="login.html";
 }
 
-document.getElementById("username").innerText = user;
+document.getElementById("username").innerText=user;
 
-/* MENU TOGGLE */
-function toggleMenu(){
-    const menu = document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-}
-
-/* CLICK FUERA */
-document.addEventListener("click", function(e){
-    const menu = document.getElementById("mobileMenu");
-    const icon = document.querySelector(".menu-icon");
-
-    if(!menu.contains(e.target) && !icon.contains(e.target)){
-        menu.style.display = "none";
-    }
-});
-
+/* LOGOUT */
 function logout(){
     localStorage.removeItem("user");
-    window.location.href = "login.html";
+    window.location.href="login.html";
 }
+
+/* MENU */
+function toggleMenu(){
+    const menu=document.getElementById("mobileMenu");
+    menu.style.display=
+        menu.style.display==="flex" ? "none":"flex";
+}
+
+/* GOOGLE SHEETS */
+const MATCHES_URL = "PEGA_AQUI_TU_LINK_CSV";
+
+function parseRow(row){
+    return row.split(",").map(x=>x.trim());
+}
+
+async function loadMatches(){
+
+    const container=document.getElementById("matchesContainer");
+
+    try{
+
+        const res=await fetch(MATCHES_URL+"&t="+Date.now());
+        const text=await res.text();
+
+        const rows=text
+            .split("\n")
+            .filter(r=>r.trim());
+
+        let html="";
+
+        for(let i=1;i<rows.length;i++){
+
+            const c=parseRow(rows[i]);
+
+            html += `
+            
+            <div class="match-card big">
+
+                <div class="match-status">${c[0]}</div>
+
+                <div class="team-row">
+                    <div class="team-name">${c[1]}</div>
+                    <div class="team-score">${c[2]}</div>
+                </div>
+
+                <div class="team-row">
+                    <div class="team-name">${c[3]}</div>
+                    <div class="team-score">${c[4]}</div>
+                </div>
+
+                <div class="match-link">
+                    MATCH CENTER >
+                </div>
+
+            </div>
+            
+            `;
+        }
+
+        container.innerHTML=html;
+
+    }catch(e){
+        container.innerHTML="<p>Error cargando partidos</p>";
+    }
+}
+
+loadMatches();
 
 </script>
 
