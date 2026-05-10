@@ -66,49 +66,6 @@ header{
     text-transform:uppercase;
 }
 
-/* USER */
-.user-wrapper{
-    position:relative;
-    display:flex;
-    flex-direction:column;
-    align-items:flex-end;
-}
-
-.user-dropdown{
-    padding:8px 14px;
-    border-radius:20px;
-    background:#fff;
-    color:#000;
-    font-weight:700;
-    cursor:pointer;
-}
-
-/* HAMBURGUESA */
-.menu-icon{
-    display:none;
-    font-size:30px;
-    cursor:pointer;
-}
-
-.mobile-menu{
-    position:fixed;
-    top:85px;
-    left:0;
-    width:100%;
-    background:black;
-    display:none;
-    flex-direction:column;
-    padding:20px;
-    z-index:999;
-}
-
-.mobile-menu a{
-    color:white;
-    text-decoration:none;
-    margin-bottom:15px;
-    font-weight:700;
-}
-
 /* HERO */
 .hero{
     height:100vh;
@@ -139,18 +96,12 @@ header{
     overflow-x:auto;
 }
 
-.matches-scroll::-webkit-scrollbar{
-    display:none;
-}
-
 .match-card.big{
     min-width:360px;
     height:230px;
     background:#f2f2f2;
     color:black;
-    padding:25px 45px 25px 25px;
-    position:relative;
-    overflow:hidden;
+    padding:25px;
     display:flex;
     flex-direction:column;
     justify-content:center;
@@ -167,22 +118,18 @@ header{
 .team-row{
     display:flex;
     justify-content:space-between;
-    align-items:center;
     margin-bottom:12px;
 }
 
 .team-name{
     font-family:'Oswald', sans-serif;
-    font-size:36px;
+    font-size:30px;
     text-transform:uppercase;
-    display:flex;
-    align-items:center;
-    gap:10px;
 }
 
 .team-score{
     font-family:'Oswald', sans-serif;
-    font-size:36px;
+    font-size:30px;
     color:#5f7890;
 }
 
@@ -200,7 +147,6 @@ header{
 .news-card{
     min-width:320px;
     background:#111;
-    flex-shrink:0;
     border-radius:10px;
     overflow:hidden;
 }
@@ -215,22 +161,13 @@ header{
     padding:15px;
 }
 
-/* MOBILE */
-@media(max-width:768px){
-    .nav-desktop{display:none;}
-    .menu-icon{display:block;}
-    .hero h1{font-size:42px;}
-}
-
 </style>
 </head>
 
 <body>
 
 <header>
-
     <div class="header-left">
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
         <img src="Logoclub.png" class="logo">
         <div class="club-name">FEMENINO</div>
     </div>
@@ -241,21 +178,7 @@ header{
         <a href="equipos.html">Equipos</a>
         <a href="#">Tienda</a>
     </nav>
-
-    <div class="user-wrapper">
-        <div class="user-dropdown">
-            <span id="username">Usuario</span>
-        </div>
-    </div>
-
 </header>
-
-<div class="mobile-menu" id="mobileMenu">
-    <a href="#">Historia</a>
-    <a href="#">Club</a>
-    <a href="equipos.html">Equipos</a>
-    <a href="#">Tienda</a>
-</div>
 
 <section class="hero">
     <h1>FEMENINO<br>SANTA PONSA</h1>
@@ -265,85 +188,36 @@ header{
     <div class="matches-scroll" id="matchesContainer"></div>
 </section>
 
-<section class="news-section">
-    <div class="news-scroll">
-
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
-            <div class="news-content">
-                <h3>Victoria del equipo</h3>
-            </div>
-        </div>
-
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
-            <div class="news-content">
-                <h3>Convocatoria del fin de semana</h3>
-            </div>
-        </div>
-
-    </div>
-</section>
-
 <script>
 
-/* LOGIN */
-const user = localStorage.getItem("user");
-if(!user){
-    window.location.href="login.html";
-}
-document.getElementById("username").innerText=user;
-
-/* MENU */
-function toggleMenu(){
-    const menu=document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display==="flex"?"none":"flex";
-}
-
-/* MATCH CENTER */
-function openMatch(id){
-    window.location.href="matchcenter.html?id="+encodeURIComponent(id);
-}
-
-/* 🔥 FIX LOGOS (AÑADIDO IMPORTANTE) */
-function fix(url){
-
-    if(!url) return "";
-
-    url = url.replace(/"/g,"").trim();
-
-    if(url.includes("drive.google.com")){
-        const id = url.match(/[-\w]{25,}/);
-        if(id){
-            return "https://drive.google.com/uc?export=view&id="+id[0];
-        }
-    }
-
-    if(url.startsWith("http")){
-        return url;
-    }
-
-    const base = window.location.origin + window.location.pathname.replace(/[^/]*$/, "");
-    return base + "logos/" + url;
-}
-
-/* MATCHES */
 const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
+
+/* 🔥 IMPORTANTE: NO TOCA CARPETAS, SOLO NOMBRE */
+function fix(url){
+    if(!url) return "";
+    return String(url).replace(/"/g,"").trim();
+}
+
+function openMatch(id){
+    window.location.href = "matchcenter.html?id=" + encodeURIComponent(id);
+}
 
 async function loadMatches(){
 
-    const container=document.getElementById("matchesContainer");
+    const container = document.getElementById("matchesContainer");
 
-    const res=await fetch(MATCHES_URL+"&t="+Date.now());
-    const text=await res.text();
+    const res = await fetch(MATCHES_URL + "&t=" + Date.now());
+    const text = await res.text();
 
-    const rows=text.split("\n").filter(r=>r.trim());
+    const rows = text.split("\n").filter(r => r.trim());
 
-    let html="";
+    let html = "";
 
-    for(let i=1;i<rows.length;i++){
+    for(let i = 1; i < rows.length; i++){
 
-        const c = rows[i].split(",").map(x=>x.replace(/"/g,"").trim());
+        const c = rows[i].split(",").map(x => x.replace(/"/g,"").trim());
+
+        if(!c[1]) continue;
 
         html += `
         <div class="match-card big" onclick="openMatch('${c[0]}')">
@@ -351,25 +225,21 @@ async function loadMatches(){
             <div class="match-status">${c[0]}</div>
 
             <div class="team-row">
-                <div class="team-name">
-                    <img src="${fix(c[5])}" style="width:22px;height:22px;object-fit:contain;">
-                    ${c[1]}
-                </div>
+                <div class="team-name">${c[1]}</div>
                 <div class="team-score">${c[2]}</div>
+                <img src="${fix(c[5])}" height="30">
             </div>
 
             <div class="team-row">
-                <div class="team-name">
-                    <img src="${fix(c[6])}" style="width:22px;height:22px;object-fit:contain;">
-                    ${c[3]}
-                </div>
+                <div class="team-name">${c[3]}</div>
                 <div class="team-score">${c[4]}</div>
+                <img src="${fix(c[6])}" height="30">
             </div>
 
         </div>`;
     }
 
-    container.innerHTML=html;
+    container.innerHTML = html;
 }
 
 loadMatches();
