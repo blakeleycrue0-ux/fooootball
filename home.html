@@ -66,6 +66,72 @@ header{
     text-transform:uppercase;
 }
 
+/* USER */
+.user-wrapper{
+    position:relative;
+    display:flex;
+    flex-direction:column;
+    align-items:flex-end;
+}
+
+.user-dropdown{
+    padding:8px 14px;
+    border-radius:20px;
+    background:#fff;
+    color:#000;
+    font-weight:700;
+    cursor:pointer;
+}
+
+.user-menu{
+    position:absolute;
+    top:45px;
+    right:0;
+    background:white;
+    color:black;
+    border-radius:10px;
+    padding:8px;
+    display:none;
+    min-width:140px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.3);
+}
+
+.user-menu button{
+    width:100%;
+    border:none;
+    background:none;
+    padding:10px;
+    font-weight:700;
+    cursor:pointer;
+    text-align:left;
+}
+
+/* HAMBURGUESA */
+.menu-icon{
+    display:none;
+    font-size:30px;
+    cursor:pointer;
+}
+
+.mobile-menu{
+    position:fixed;
+    top:85px;
+    left:0;
+    width:100%;
+    background:black;
+    display:none;
+    flex-direction:column;
+    padding:20px;
+    z-index:999;
+}
+
+.mobile-menu a{
+    color:white;
+    text-decoration:none;
+    margin-bottom:15px;
+    font-weight:700;
+}
+
 /* HERO */
 .hero{
     height:100vh;
@@ -96,17 +162,22 @@ header{
     overflow-x:auto;
 }
 
+.matches-scroll::-webkit-scrollbar{
+    display:none;
+}
+
 .match-card.big{
     min-width:360px;
     height:230px;
     background:#f2f2f2;
     color:black;
-    padding:25px;
+    padding:25px 45px 25px 25px;
+    position:relative;
+    overflow:hidden;
     display:flex;
     flex-direction:column;
     justify-content:center;
     cursor:pointer;
-    border-radius:10px;
 }
 
 .match-status{
@@ -121,23 +192,18 @@ header{
     justify-content:space-between;
     align-items:center;
     margin-bottom:12px;
-    gap:10px;
 }
 
 .team-name{
     font-family:'Oswald', sans-serif;
-    font-size:30px;
+    font-size:36px;
     text-transform:uppercase;
 }
 
 .team-score{
     font-family:'Oswald', sans-serif;
-    font-size:30px;
+    font-size:36px;
     color:#5f7890;
-}
-
-.team-logo{
-    height:30px;
 }
 
 /* NEWS */
@@ -151,9 +217,14 @@ header{
     overflow-x:auto;
 }
 
+.news-scroll::-webkit-scrollbar{
+    display:none;
+}
+
 .news-card{
     min-width:320px;
     background:#111;
+    flex-shrink:0;
     border-radius:10px;
     overflow:hidden;
 }
@@ -168,6 +239,23 @@ header{
     padding:15px;
 }
 
+/* MOBILE */
+@media(max-width:768px){
+
+    .nav-desktop{
+        display:none;
+    }
+
+    .menu-icon{
+        display:block;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+}
+
 </style>
 </head>
 
@@ -176,6 +264,7 @@ header{
 <header>
 
     <div class="header-left">
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
         <img src="Logoclub.png" class="logo">
         <div class="club-name">FEMENINO</div>
     </div>
@@ -187,7 +276,20 @@ header{
         <a href="#">Tienda</a>
     </nav>
 
+    <div class="user-wrapper">
+        <div class="user-dropdown">
+            <span id="username">Usuario</span>
+        </div>
+    </div>
+
 </header>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="#">Historia</a>
+    <a href="#">Club</a>
+    <a href="equipos.html">Equipos</a>
+    <a href="#">Tienda</a>
+</div>
 
 <section class="hero">
     <h1>FEMENINO<br>SANTA PONSA</h1>
@@ -202,16 +304,12 @@ header{
 
         <div class="news-card">
             <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
-            <div class="news-content">
-                <h3>Victoria del equipo</h3>
-            </div>
+            <div class="news-content"><h3>Victoria del equipo</h3></div>
         </div>
 
         <div class="news-card">
             <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
-            <div class="news-content">
-                <h3>Convocatoria del fin de semana</h3>
-            </div>
+            <div class="news-content"><h3>Convocatoria del fin de semana</h3></div>
         </div>
 
     </div>
@@ -219,21 +317,31 @@ header{
 
 <script>
 
-const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
+/* LOGIN */
+const user = localStorage.getItem("user");
 
-/* 🔥 SOLO USA EL NOMBRE DEL ARCHIVO */
-function fix(url){
-    if(!url) return "";
-    return String(url).replace(/"/g,"").trim();
+if(!user){
+    window.location.href="login.html";
 }
 
+document.getElementById("username").innerText = user;
+
+/* MENU MOBILE */
+function toggleMenu(){
+    const menu=document.getElementById("mobileMenu");
+    menu.style.display = menu.style.display==="flex" ? "none":"flex";
+}
+
+/* OPEN MATCH */
 function openMatch(id){
     window.location.href = "matchcenter.html?id=" + encodeURIComponent(id);
 }
 
-async function loadMatches(){
+/* MATCHES URL */
+const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
 
-    const container = document.getElementById("matchesContainer");
+/* FIX + MATCHES */
+async function loadMatches(){
 
     const res = await fetch(MATCHES_URL + "&t=" + Date.now());
     const text = await res.text();
@@ -246,29 +354,27 @@ async function loadMatches(){
 
         const c = rows[i].split(",").map(x => x.replace(/"/g,"").trim());
 
-        if(!c[1]) continue;
+        if(!c[0] || !c[1] || !c[2] || !c[3] || !c[4]) continue;
 
         html += `
-        <div class="match-card big" onclick="openMatch('${c[0]}')">
+        <div class="match-card big" onclick="openMatch('${c[1]}-${c[3]}')"
 
             <div class="match-status">${c[0]}</div>
 
             <div class="team-row">
                 <div class="team-name">${c[1]}</div>
                 <div class="team-score">${c[2]}</div>
-                <img class="team-logo" src="${fix(c[5])}">
             </div>
 
             <div class="team-row">
                 <div class="team-name">${c[3]}</div>
                 <div class="team-score">${c[4]}</div>
-                <img class="team-logo" src="${fix(c[6])}">
             </div>
 
         </div>`;
     }
 
-    container.innerHTML = html;
+    document.getElementById("matchesContainer").innerHTML = html;
 }
 
 loadMatches();
