@@ -66,11 +66,11 @@ header{
     text-transform:uppercase;
 }
 
-/* USER DROPDOWN */
+/* USER MENU */
 .user-dropdown{
     position:relative;
     cursor:pointer;
-    padding:8px 12px;
+    padding:8px 14px;
     border-radius:20px;
     background:#fff;
     color:#000;
@@ -104,7 +104,7 @@ header{
     text-align:left;
 }
 
-/* MENU MOBILE */
+/* MOBILE MENU */
 .menu-icon{
     display:none;
     font-size:30px;
@@ -164,13 +164,12 @@ header{
     display:none;
 }
 
-/* CARD */
 .match-card.big{
     min-width:360px;
     height:230px;
     background:#f2f2f2;
     color:black;
-    padding:25px;
+    padding:30px 25px 20px 25px;
     position:relative;
     overflow:hidden;
     display:flex;
@@ -192,35 +191,36 @@ header{
     font-family:'Oswald', sans-serif;
     font-size:14px;
     font-weight:700;
-    margin-bottom:25px;
+    margin-bottom:20px;
 }
 
 .team-row{
     display:flex;
     justify-content:space-between;
-    margin-bottom:15px;
+    margin-bottom:18px;
+    align-items:center;
 }
 
 .team-name{
     font-family:'Oswald', sans-serif;
-    font-size:42px;
+    font-size:36px;
     text-transform:uppercase;
 }
 
 .team-score{
     font-family:'Oswald', sans-serif;
-    font-size:42px;
+    font-size:36px;
     color:#5f7890;
 }
 
 .match-link{
     margin-top:auto;
     font-family:'Oswald', sans-serif;
-    font-size:20px;
+    font-size:18px;
     color:#5f7890;
 }
 
-/* NEWS (AHORA HORIZONTAL) */
+/* NEWS (HORIZONTAL) */
 .news-section{
     padding:80px 8%;
 }
@@ -239,6 +239,8 @@ header{
     min-width:320px;
     background:#111;
     flex-shrink:0;
+    border-radius:10px;
+    overflow:hidden;
 }
 
 .news-card img{
@@ -371,7 +373,7 @@ document.addEventListener("click", function(e){
     }
 });
 
-/* MENU MOBILE */
+/* MOBILE MENU */
 function toggleMenu(){
     const menu=document.getElementById("mobileMenu");
     menu.style.display=
@@ -379,7 +381,7 @@ function toggleMenu(){
 }
 
 /* MATCHES */
-const MATCHES_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQa33RBs9U2PKwF4XVxyYcxfWCsAmlBcowlfUG9B2KIGh6bZLF6MSbTvvYrDuMi_MDXStAlB0p2V1AQ/pub?output=csv";
+const MATCHES_URL = "PEGA_AQUI_TU_LINK_CSV";
 
 function parseRow(row){
     return row.split(",").map(x=>x.trim());
@@ -434,9 +436,6 @@ async function loadMatches(){
 loadMatches();
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
