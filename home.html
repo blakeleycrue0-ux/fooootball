@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Femenino SP</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Montserrat:wght@500;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -13,12 +13,13 @@
     margin:0;
     padding:0;
     box-sizing:border-box;
-    font-family:'Inter', sans-serif;
 }
 
 body{
     background:#0a0a0a;
     color:white;
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
 }
 
 /* HEADER */
@@ -28,103 +29,141 @@ header{
     left:0;
     width:100%;
     height:80px;
-    background:rgba(0,0,0,0.85);
-    backdrop-filter:blur(10px);
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:0 18px;
+    padding:0 20px;
     z-index:1000;
+    background:transparent;
 }
 
 .header-left{
     display:flex;
     align-items:center;
-    gap:10px;
+    gap:12px;
 }
 
 .menu-icon{
-    font-size:26px;
+    font-size:28px;
     cursor:pointer;
 }
 
 .logo{
-    height:30px;
+    height:35px;
 }
 
 .club-name{
-    font-size:16px;
-    font-weight:800;
-    font-family:'Montserrat', sans-serif;
+    font-family:'Oswald', sans-serif;
+    font-size:18px;
+    letter-spacing:1px;
+}
+
+/* USER */
+.user-wrapper{
+    position:relative;
 }
 
 .user{
-    background:white;
-    color:black;
-    padding:6px 12px;
-    border-radius:20px;
-    font-size:12px;
+    cursor:pointer;
     font-weight:700;
 }
 
-/* MENU */
+.user-menu{
+    position:absolute;
+    top:35px;
+    right:0;
+    background:white;
+    color:black;
+    border-radius:10px;
+    padding:10px;
+    display:none;
+    min-width:140px;
+}
+
+.user-menu button{
+    width:100%;
+    border:none;
+    background:none;
+    padding:10px;
+    cursor:pointer;
+    font-weight:700;
+}
+
+/* MOBILE MENU */
 .mobile-menu{
     position:fixed;
-    top:80px;
-    left:0;
+    top:0;
+    left:-100%;
     width:100%;
-    background:#111;
-    display:none;
-    flex-direction:column;
-    padding:15px;
-    z-index:999;
+    height:100vh;
+    background:white;
+    color:black;
+    z-index:2000;
+    padding:30px;
+    transition:0.4s;
+}
+
+.mobile-menu.active{
+    left:0;
+}
+
+.close-menu{
+    font-size:40px;
+    cursor:pointer;
+    margin-bottom:30px;
+}
+
+.menu-title{
+    font-family:'Anton', sans-serif;
+    font-size:45px;
+    margin-bottom:40px;
 }
 
 .mobile-menu a{
-    color:white;
+    display:block;
+    color:black;
     text-decoration:none;
-    padding:14px 0;
-    border-bottom:1px solid #222;
-    font-size:16px;
+    font-size:28px;
+    font-weight:700;
+    margin:25px 0;
 }
 
 /* HERO */
 .hero{
-    height:85vh;
+    height:100vh;
     display:flex;
     align-items:flex-end;
-    padding:20px;
+    padding:30px;
     background:
-    linear-gradient(to top, rgba(0,0,0,0.9), transparent 60%),
+    linear-gradient(to top, rgba(0,0,50,0.85), rgba(0,0,0,0.2)),
     url("https://images.unsplash.com/photo-1574629810360-7efbbe195018");
     background-size:cover;
     background-position:center;
 }
 
 .hero h1{
-    font-size:34px;
-    font-weight:800;
-    font-family:'Montserrat';
+    font-family:'Anton', sans-serif;
+    font-size:58px;
+    line-height:0.95;
+    text-transform:uppercase;
+    max-width:700px;
 }
 
 /* SECTION */
 .section{
-    padding:18px;
+    padding:20px;
 }
 
 .title{
     font-size:12px;
     opacity:0.6;
-    margin-bottom:10px;
+    margin-bottom:15px;
 }
 
-/* ========================= */
-/* 🔥 MATCHES HORIZONTAL PRO */
-/* ========================= */
-
+/* MATCHES */
 .matches-scroll{
     display:flex;
-    gap:12px;
+    gap:15px;
     overflow-x:auto;
     padding-bottom:10px;
 }
@@ -134,65 +173,97 @@ header{
 }
 
 .card{
-    min-width:260px;
-    background:#141414;
-    border-radius:16px;
-    padding:14px;
+    min-width:280px;
+    background:#f2f2f2;
+    color:black;
+    padding:20px;
     flex-shrink:0;
-    border-left:3px solid #ffffff20;
-    transition:0.2s;
-}
-
-.card:active{
-    transform:scale(0.98);
+    position:relative;
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        100% 82%,
+        90% 100%,
+        0 100%
+    );
 }
 
 .status{
-    font-size:10px;
-    opacity:0.6;
-    margin-bottom:8px;
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    font-weight:700;
+    margin-bottom:15px;
 }
 
 .row{
     display:flex;
     justify-content:space-between;
-    align-items:center;
-    margin:8px 0;
+    margin:10px 0;
 }
 
 .row span:first-child{
-    font-weight:700;
-    font-size:14px;
+    font-family:'Oswald', sans-serif;
+    font-size:28px;
+    text-transform:uppercase;
 }
 
 .row span:last-child{
-    font-size:18px;
-    font-weight:800;
+    font-family:'Oswald', sans-serif;
+    font-size:28px;
+    color:#5e7891;
 }
 
 /* NEWS */
-.news{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-}
-
-.news-card{
-    min-width:200px;
-    background:#141414;
-    border-radius:10px;
+.main-news{
+    background:#111;
+    border-radius:14px;
     overflow:hidden;
+    margin-bottom:20px;
 }
 
-.news-card img{
+.main-news img{
     width:100%;
-    height:110px;
+    height:240px;
     object-fit:cover;
 }
 
-.news-card div{
-    padding:8px;
-    font-size:13px;
+.main-news-content{
+    padding:20px;
+}
+
+.main-news-content h2{
+    font-family:'Anton', sans-serif;
+    font-size:32px;
+    margin-bottom:10px;
+}
+
+.main-news-content p{
+    color:#ccc;
+    line-height:1.5;
+}
+
+.small-news{
+    display:flex;
+    gap:12px;
+    overflow-x:auto;
+}
+
+.small-news-card{
+    min-width:220px;
+    background:#111;
+    border-radius:12px;
+    overflow:hidden;
+}
+
+.small-news-card img{
+    width:100%;
+    height:120px;
+    object-fit:cover;
+}
+
+.small-news-card div{
+    padding:12px;
+    font-weight:600;
 }
 
 .spacer{
@@ -205,57 +276,72 @@ header{
 <body>
 
 <header>
-
     <div class="header-left">
         <div class="menu-icon" onclick="toggleMenu()">☰</div>
         <img src="Logoclub.png" class="logo">
         <div class="club-name">FEMENINO</div>
     </div>
 
-    <div class="user" id="username">Usuario</div>
+    <div class="user-wrapper">
+        <div class="user" onclick="toggleUserMenu()">
+            <span id="username">Usuario</span>
+        </div>
 
+        <div class="user-menu" id="userMenu">
+            <button onclick="logout()">Cerrar sesión</button>
+        </div>
+    </div>
 </header>
 
 <!-- MENU -->
 <div class="mobile-menu" id="mobileMenu">
+    <div class="close-menu" onclick="toggleMenu()">×</div>
 
-    <a href="home.html">Inicio</a>
-    <a href="equipos.html">Equipos</a>
-    <a href="#">Club</a>
-    <a href="#">Tienda</a>
+    <div class="menu-title">FEMENINO SP</div>
 
+    <a href="home.html">NEWS</a>
+    <a href="equipos.html">TEAMS</a>
+    <a href="#">CLUB</a>
+    <a href="#">SHOP</a>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-    <h1>FEMENINO<br>SANTA PONSA</h1>
+    <h1><br>FEMENINO<br>SANTA PONSA</h1>
 </div>
 
 <!-- MATCHES -->
 <div class="section">
-    <div class="title">PARTIDOS</div>
-
+    <div class="title">MATCHES</div>
     <div class="matches-scroll" id="matches"></div>
 </div>
 
 <!-- NEWS -->
 <div class="section">
-    <div class="title">NOTICIAS</div>
+    <div class="title">LATEST NEWS</div>
 
-    <div class="news">
-
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
-            <div>Victoria del equipo</div>
+    <div class="main-news">
+        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
+        <div class="main-news-content">
+            <h2>Gran victoria del Femenino Santa Ponsa</h2>
+            <p>
+                El equipo logró una victoria importante este fin de semana
+                tras dominar durante todo el partido.
+            </p>
         </div>
-
-        <div class="news-card">
-            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
-            <div>Convocatoria</div>
-        </div>
-
     </div>
 
+    <div class="small-news">
+        <div class="small-news-card">
+            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
+            <div>Convocatoria oficial</div>
+        </div>
+
+        <div class="small-news-card">
+            <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0">
+            <div>Entrenamiento semanal</div>
+        </div>
+    </div>
 </div>
 
 <div class="spacer"></div>
@@ -271,10 +357,23 @@ if(!user){
 
 document.getElementById("username").innerText = user;
 
-/* MENU */
+/* USER MENU */
+function toggleUserMenu(){
+    const menu = document.getElementById("userMenu");
+    menu.style.display =
+        menu.style.display === "block" ? "none" : "block";
+}
+
+function logout(){
+    localStorage.removeItem("user");
+    window.location.href="login.html";
+}
+
+/* MOBILE MENU */
 function toggleMenu(){
-    const menu = document.getElementById("mobileMenu");
-    menu.style.display = menu.style.display === "flex" ? "none" : "flex";
+    document
+        .getElementById("mobileMenu")
+        .classList.toggle("active");
 }
 
 /* MATCHES */
@@ -299,7 +398,6 @@ async function load(){
 
         html += `
         <div class="card">
-
             <div class="status">${c[0]}</div>
 
             <div class="row">
@@ -311,7 +409,6 @@ async function load(){
                 <span>${c[3]}</span>
                 <span>${c[4]}</span>
             </div>
-
         </div>
         `;
     }
@@ -322,6 +419,9 @@ async function load(){
 load();
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
