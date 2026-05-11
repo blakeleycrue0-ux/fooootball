@@ -135,7 +135,7 @@ header{
     align-items:flex-end;
     padding:30px;
     background:
-    linear-gradient(to top, rgba(0,0,50,0.85), rgba(0,0,0,0.2)),
+    linear-gradient(to top, rgba(45,11,89,0.9), rgba(0,0,0,0.2)),
     url("https://images.unsplash.com/photo-1574629810360-7efbbe195018");
     background-size:cover;
     background-position:center;
@@ -146,7 +146,6 @@ header{
     font-size:58px;
     line-height:0.95;
     text-transform:uppercase;
-    max-width:700px;
 }
 
 /* SECTION */
@@ -163,7 +162,7 @@ header{
 /* MATCHES */
 .matches-scroll{
     display:flex;
-    gap:15px;
+    gap:18px;
     overflow-x:auto;
     padding-bottom:10px;
 }
@@ -172,13 +171,13 @@ header{
     display:none;
 }
 
+/* NUEVAS CARDS estilo equipos */
 .card{
-    min-width:280px;
+    min-width:290px;
     background:#f2f2f2;
     color:black;
-    padding:20px;
+    padding:22px;
     flex-shrink:0;
-    position:relative;
     clip-path:polygon(
         0 0,
         100% 0,
@@ -186,31 +185,39 @@ header{
         90% 100%,
         0 100%
     );
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
 }
 
 .status{
-    font-family:'Oswald', sans-serif;
-    font-size:12px;
+    color:#7c3aed;
     font-weight:700;
+    font-size:12px;
     margin-bottom:15px;
+    text-transform:uppercase;
 }
 
 .row{
     display:flex;
     justify-content:space-between;
-    margin:10px 0;
+    align-items:center;
+    margin:14px 0;
 }
 
 .row span:first-child{
-    font-family:'Oswald', sans-serif;
+    font-family:'Anton', sans-serif;
     font-size:28px;
     text-transform:uppercase;
+    line-height:0.9;
 }
 
 .row span:last-child{
-    font-family:'Oswald', sans-serif;
-    font-size:28px;
-    color:#5e7891;
+    font-family:'Anton', sans-serif;
+    font-size:32px;
+    color:#7c3aed;
 }
 
 /* NEWS */
@@ -307,7 +314,7 @@ header{
 
 <!-- HERO -->
 <div class="hero">
-    <h1><br>FEMENINO<br>SANTA PONSA</h1>
+    <h1>FEMENINO<br>SANTA PONSA</h1>
 </div>
 
 <!-- MATCHES -->
@@ -348,7 +355,6 @@ header{
 
 <script>
 
-/* USER */
 const user = localStorage.getItem("user");
 
 if(!user){
@@ -357,7 +363,6 @@ if(!user){
 
 document.getElementById("username").innerText = user;
 
-/* USER MENU */
 function toggleUserMenu(){
     const menu = document.getElementById("userMenu");
     menu.style.display =
@@ -369,7 +374,6 @@ function logout(){
     window.location.href="login.html";
 }
 
-/* MOBILE MENU */
 function toggleMenu(){
     document
         .getElementById("mobileMenu")
