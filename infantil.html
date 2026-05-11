@@ -167,6 +167,17 @@ header{
     font-size:14px;
 }
 
+/* SANTA PONSA HIGHLIGHT */
+.santa-row{
+    background:linear-gradient(
+        90deg,
+        rgba(124,58,237,0.25),
+        rgba(124,58,237,0.08)
+    );
+    border-left:4px solid #a855f7;
+    font-weight:700;
+}
+
 /* MOBILE */
 @media(max-width:768px){
 
@@ -267,6 +278,25 @@ async function loadTable(){
         const text = await res.text();
         const rows = text.split("\n").filter(r => r.trim());
 
+        let teams = [];
+
+        for(let i=1;i<rows.length;i++){
+
+            const c = parseRow(rows[i]);
+
+            teams.push({
+                name: c[0] || "-",
+                pj: c[1] || "0",
+                pg: c[2] || "0",
+                pe: c[3] || "0",
+                pp: c[4] || "0",
+                pts: parseInt(c[5]) || 0
+            });
+        }
+
+        /* ordenar por puntos */
+        teams.sort((a,b) => b.pts - a.pts);
+
         let html = `
         <div class="row head">
             <span>TEAM</span>
@@ -278,29 +308,32 @@ async function loadTable(){
         </div>
         `;
 
-        for(let i=1;i<rows.length;i++){
+        teams.forEach(team=>{
 
-            const c = parseRow(rows[i]);
+            const isSantaPonsa =
+                team.name.toLowerCase().includes("santa ponsa");
 
             html += `
-            <div class="row">
-                <span>${c[0] || "-"}</span>
-                <span>${c[1] || "0"}</span>
-                <span>${c[2] || "0"}</span>
-                <span>${c[3] || "0"}</span>
-                <span>${c[4] || "0"}</span>
-                <span>${c[5] || "0"}</span>
+            <div class="row ${isSantaPonsa ? "santa-row" : ""}">
+                <span>${team.name}</span>
+                <span>${team.pj}</span>
+                <span>${team.pg}</span>
+                <span>${team.pe}</span>
+                <span>${team.pp}</span>
+                <span>${team.pts}</span>
             </div>
             `;
-        }
+        });
 
         container.innerHTML = html;
 
-    } catch(err){
+    }catch(err){
+
         container.innerHTML = `
         <div style="padding:20px;text-align:center;">
             Error cargando datos
-        </div>`;
+        </div>
+        `;
     }
 }
 
