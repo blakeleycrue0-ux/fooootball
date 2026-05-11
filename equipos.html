@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Equipos</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
@@ -16,75 +16,149 @@
 }
 
 body{
-    background:#000;
+    background:#0a0a0a;
     color:white;
-    font-family:'Rajdhani', sans-serif;
+    font-family:'Inter', sans-serif;
+    overflow-x:hidden;
 }
 
 /* HEADER */
 header{
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:80px;
     display:flex;
     justify-content:space-between;
     align-items:center;
-    padding:20px 40px;
-    border-bottom:1px solid rgba(255,255,255,0.1);
+    padding:0 20px;
+    z-index:1000;
+    background:transparent;
 }
 
-header a{
+.logo-title{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.logo{
+    height:35px;
+}
+
+.club-name{
+    font-family:'Oswald', sans-serif;
+    font-size:18px;
+    letter-spacing:1px;
+}
+
+.back-btn{
     color:white;
     text-decoration:none;
-    font-weight:600;
+    font-weight:700;
 }
 
-/* TITULO */
-h1{
-    text-align:center;
-    margin:50px 0 30px;
-    font-family:'Montserrat', sans-serif;
-    font-size:40px;
-    font-weight:900;
+/* HERO LILA */
+.hero{
+    height:45vh;
+    display:flex;
+    align-items:flex-end;
+    padding:30px;
+    background:
+    linear-gradient(
+        135deg,
+        #2d0b59 0%,
+        #5b21b6 45%,
+        #7c3aed 100%
+    );
+    border-bottom:1px solid rgba(255,255,255,0.08);
+}
+
+.hero h1{
+    font-family:'Anton', sans-serif;
+    font-size:55px;
+    line-height:0.95;
     text-transform:uppercase;
-    letter-spacing:1px;
+}
+
+/* SECTION */
+.teams-section{
+    padding:30px 20px;
+}
+
+.section-title{
+    font-size:12px;
+    opacity:0.6;
+    margin-bottom:20px;
 }
 
 /* GRID */
 .grid{
     display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
     gap:20px;
-    max-width:1000px;
-    margin:auto;
-    padding:20px;
 }
 
-/* CARD COMO BOTÓN REAL */
+/* CARDS */
 .card{
     display:block;
-    background:#111;
-    border:1px solid rgba(255,255,255,0.1);
-    border-radius:18px;
-    padding:30px;
     text-decoration:none;
-    color:white;
+    color:black;
+    background:#f2f2f2;
+    padding:25px;
+    min-height:180px;
+    position:relative;
+    clip-path:polygon(
+        0 0,
+        100% 0,
+        100% 82%,
+        90% 100%,
+        0 100%
+    );
     transition:0.3s;
 }
 
 .card:hover{
-    transform:translateY(-8px);
-    box-shadow:0 0 20px rgba(255,255,255,0.15);
-    background:#1a1a1a;
+    transform:translateY(-5px);
+}
+
+.card small{
+    font-family:'Oswald', sans-serif;
+    font-size:12px;
+    color:#7c3aed;
+    font-weight:700;
 }
 
 .card h2{
-    font-family:'Montserrat', sans-serif;
-    font-size:20px;
-    margin-bottom:10px;
+    font-family:'Anton', sans-serif;
+    font-size:42px;
+    margin:15px 0;
+    line-height:0.9;
     text-transform:uppercase;
 }
 
 .card p{
-    color:#aaa;
     font-size:14px;
+    color:#444;
+    max-width:220px;
+}
+
+/* MOBILE */
+@media(max-width:768px){
+
+    .hero{
+        height:40vh;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
 }
 
 </style>
@@ -93,40 +167,62 @@ h1{
 <body>
 
 <header>
-    <div><strong>Santa Ponsa Femenino</strong></div>
-    <a href="home.html">← Volver</a>
+
+    <div class="logo-title">
+        <img src="Logoclub.png" class="logo">
+        <div class="club-name">FEMENINO</div>
+    </div>
+
+    <a href="home.html" class="back-btn">← Volver</a>
+
 </header>
 
-<h1>Equipos</h1>
+<section class="hero">
+    <h1>OUR<br>TEAMS</h1>
+</section>
 
-<div class="grid">
+<section class="teams-section">
 
-    <a href="infantil.html" class="card">
-        <h2>Infantil</h2>
-        <p>Formación base</p>
-    </a>
+    <div class="section-title">ACADEMY & FIRST TEAM</div>
 
-    <a href="alevin.html" class="card">
-        <h2>Alevín</h2>
-        <p>Desarrollo técnico</p>
-    </a>
+    <div class="grid">
 
-    <a href="cadete.html" class="card">
-        <h2>Cadete</h2>
-        <p>Competición media</p>
-    </a>
+        <a href="infantil.html" class="card">
+            <small>ACADEMY</small>
+            <h2>INFANTIL</h2>
+            <p>Formación base y desarrollo inicial.</p>
+        </a>
 
-    <a href="juvenil.html" class="card">
-        <h2>Juvenil</h2>
-        <p>Alto rendimiento</p>
-    </a>
+        <a href="alevin.html" class="card">
+            <small>ACADEMY</small>
+            <h2>ALEVÍN</h2>
+            <p>Desarrollo técnico y crecimiento.</p>
+        </a>
 
-    <a href="autonomica.html" class="card">
-        <h2>Autonómica</h2>
-        <p>Primer equipo</p>
-    </a>
+        <a href="cadete.html" class="card">
+            <small>ACADEMY</small>
+            <h2>CADETE</h2>
+            <p>Competición y preparación avanzada.</p>
+        </a>
 
-</div>
+        <a href="juvenil.html" class="card">
+            <small>ACADEMY</small>
+            <h2>JUVENIL</h2>
+            <p>Alto rendimiento antes del primer equipo.</p>
+        </a>
+
+        <a href="autonomica.html" class="card">
+            <small>FIRST TEAM</small>
+            <h2>AUTONÓMICA</h2>
+            <p>Máximo nivel competitivo del club.</p>
+        </a>
+
+    </div>
+
+</section>
+
+</body>
+</html>
 
 </body>
 </html>
