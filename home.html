@@ -3,268 +3,308 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Femenino SP</title>
+<title>Femenino Santa Ponsa</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    background:#0a0a0a;
-    color:white;
-    font-family:'Inter', sans-serif;
-    overflow-x:hidden;
+background:#0a0a0a;
+color:white;
+font-family:'Inter',sans-serif;
+overflow-x:hidden;
+}
+
+/* ANIMACIONES */
+.fade-up{
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.fade-up.show{
+opacity:1;
+transform:translateY(0);
 }
 
 /* HEADER */
 header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:80px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 20px;
-    z-index:1000;
-    background:transparent;
-}
-
-.header-left{
-    display:flex;
-    align-items:center;
-    gap:12px;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:75px;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:1000;
+background:#0a0a0a;
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .menu-icon{
-    font-size:28px;
-    cursor:pointer;
+position:absolute;
+left:20px;
+font-size:22px;
+cursor:pointer;
+font-weight:300;
 }
 
 .logo{
-    height:35px;
+height:45px;
 }
 
-.club-name{
-    font-family:'Oswald', sans-serif;
-    font-size:18px;
-    letter-spacing:1px;
-}
-
-/* USER */
-.user-wrapper{
-    position:relative;
-}
-
-.user{
-    cursor:pointer;
-    font-weight:700;
-}
-
-.user-menu{
-    position:absolute;
-    top:35px;
-    right:0;
-    background:white;
-    color:black;
-    border-radius:10px;
-    padding:10px;
-    display:none;
-    min-width:140px;
-}
-
-/* MOBILE MENU */
+/* MENU LATERAL */
 .mobile-menu{
-    position:fixed;
-    top:0;
-    left:-100%;
-    width:100%;
-    height:100vh;
-    background:white;
-    color:black;
-    z-index:2000;
-    padding:30px;
-    transition:0.4s;
+position:fixed;
+top:75px;
+left:-320px;
+width:280px;
+background:#111;
+padding:25px;
+border-radius:0 0 20px 0;
+transition:.4s;
+z-index:2000;
+box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
 .mobile-menu.active{
-    left:0;
+left:0;
 }
 
 .close-menu{
-    font-size:40px;
-    cursor:pointer;
-    margin-bottom:30px;
-}
-
-.menu-title{
-    font-family:'Anton', sans-serif;
-    font-size:45px;
-    margin-bottom:40px;
+font-size:28px;
+cursor:pointer;
+margin-bottom:20px;
+color:#8b5cf6;
 }
 
 .mobile-menu a{
-    display:block;
-    color:black;
-    text-decoration:none;
-    font-size:28px;
-    font-weight:700;
-    margin:25px 0;
+display:block;
+color:white;
+text-decoration:none;
+font-family:'Oswald';
+font-size:22px;
+margin:18px 0;
+text-transform:uppercase;
+}
+
+.mobile-menu a:hover{
+color:#8b5cf6;
 }
 
 /* HERO */
 .hero{
-    height:100vh;
-    display:flex;
-    align-items:flex-end;
-    padding:30px;
-    background:
-    linear-gradient(to top, rgba(45,11,89,0.9), rgba(0,0,0,0.2)),
-    url("https://images.unsplash.com/photo-1574629810360-7efbbe195018");
-    background-size:cover;
-    background-position:center;
+height:100vh;
+display:flex;
+align-items:flex-end;
+padding:30px;
+background:url("https://images.unsplash.com/photo-1574629810360-7efbbe195018");
+background-size:cover;
+background-position:center;
 }
 
 .hero h1{
-    font-family:'Anton', sans-serif;
-    font-size:58px;
-    line-height:0.95;
-    text-transform:uppercase;
+font-family:'Anton';
+font-size:60px;
+line-height:0.9;
+text-transform:uppercase;
 }
 
 /* SECTION */
 .section{
-    padding:20px;
+padding:25px;
 }
 
 .title{
-    font-size:12px;
-    opacity:0.6;
-    margin-bottom:15px;
+font-size:12px;
+opacity:0.6;
+letter-spacing:2px;
+margin-bottom:20px;
 }
 
 /* MATCHES */
 .matches-scroll{
-    display:flex;
-    gap:18px;
-    overflow-x:auto;
-    padding-bottom:10px;
+display:flex;
+gap:18px;
+overflow-x:auto;
 }
 
 .matches-scroll::-webkit-scrollbar{
-    display:none;
+display:none;
 }
 
 .card{
-    min-width:290px;
-    background:#f2f2f2;
-    color:black;
-    padding:22px;
-    flex-shrink:0;
-    clip-path:polygon(
-        0 0,
-        100% 0,
-        100% 82%,
-        90% 100%,
-        0 100%
-    );
-    transition:0.3s;
-}
-
-.card:hover{
-    transform:translateY(-5px);
+min-width:290px;
+background:white;
+color:black;
+padding:22px;
+clip-path:polygon(
+0 0,
+100% 0,
+100% 82%,
+90% 100%,
+0 100%
+);
 }
 
 .status{
-    color:#7c3aed;
-    font-weight:700;
-    font-size:12px;
-    margin-bottom:15px;
-    text-transform:uppercase;
+color:#8b5cf6;
+font-size:12px;
+font-weight:700;
+margin-bottom:15px;
 }
 
 .row{
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    margin:14px 0;
+display:flex;
+justify-content:space-between;
+margin:14px 0;
 }
 
 .row span:first-child{
-    font-family:'Anton', sans-serif;
-    font-size:28px;
-    text-transform:uppercase;
-    line-height:0.9;
+font-family:'Anton';
+font-size:26px;
 }
 
 .row span:last-child{
-    font-family:'Anton', sans-serif;
-    font-size:32px;
-    color:#7c3aed;
+font-family:'Anton';
+font-size:30px;
+color:#8b5cf6;
+}
+
+/* HISTORIA */
+.history{
+padding:40px 25px;
+}
+
+.history-main{
+font-family:'Anton';
+font-size:70px;
+line-height:0.9;
+margin-bottom:20px;
+}
+
+.history-sub{
+font-family:'Oswald';
+font-size:35px;
+color:#8b5cf6;
+margin-bottom:20px;
+text-transform:uppercase;
+}
+
+.history p{
+max-width:850px;
+line-height:1.8;
+color:#ccc;
+margin-bottom:35px;
+}
+
+/* BOTON */
+.cta-btn{
+display:inline-block;
+background:black;
+color:white;
+text-decoration:none;
+padding:16px 30px;
+border-radius:40px;
+font-weight:700;
+border:2px solid #8b5cf6;
+transition:.3s;
+}
+
+.cta-btn:hover{
+background:#8b5cf6;
 }
 
 /* NEWS */
 .main-news{
-    background:#111;
-    border-radius:14px;
-    overflow:hidden;
-    margin-bottom:20px;
+background:#111;
+border-radius:16px;
+overflow:hidden;
+margin-bottom:20px;
 }
 
 .main-news img{
-    width:100%;
-    height:240px;
-    object-fit:cover;
+width:100%;
+height:250px;
+object-fit:cover;
 }
 
 .main-news-content{
-    padding:20px;
+padding:20px;
 }
 
 .main-news-content h2{
-    font-family:'Anton', sans-serif;
-    font-size:32px;
-    margin-bottom:10px;
-}
-
-.main-news-content p{
-    color:#ccc;
-    line-height:1.5;
+font-family:'Anton';
+font-size:34px;
+margin-bottom:10px;
 }
 
 .small-news{
-    display:flex;
-    gap:12px;
-    overflow-x:auto;
+display:flex;
+gap:12px;
+overflow-x:auto;
+}
+
+.small-news::-webkit-scrollbar{
+display:none;
 }
 
 .small-news-card{
-    min-width:220px;
-    background:#111;
-    border-radius:12px;
-    overflow:hidden;
+min-width:220px;
+background:#111;
+border-radius:12px;
+overflow:hidden;
 }
 
 .small-news-card img{
-    width:100%;
-    height:120px;
-    object-fit:cover;
+width:100%;
+height:130px;
+object-fit:cover;
 }
 
 .small-news-card div{
-    padding:12px;
-    font-weight:600;
+padding:12px;
 }
 
-.spacer{
-    height:80px;
+/* SPONSORS */
+.sponsors{
+background:black;
+padding:90px 20px;
+text-align:center;
+}
+
+.sponsors h2{
+font-family:'Anton';
+font-size:48px;
+margin-bottom:15px;
+}
+
+.sponsors p{
+max-width:650px;
+margin:auto;
+color:#aaa;
+line-height:1.7;
+margin-bottom:40px;
+}
+
+.sponsors-grid{
+display:flex;
+justify-content:center;
+gap:80px;
+flex-wrap:wrap;
+}
+
+.sponsors-grid img{
+height:140px;
+object-fit:contain;
 }
 
 </style>
@@ -273,137 +313,169 @@ header{
 <body>
 
 <header>
-    <div class="header-left">
-        <div class="menu-icon" onclick="toggleMenu()">☰</div>
-        <img src="Logoclub.png" class="logo">
-        <div class="club-name">FEMENINO</div>
-    </div>
-
-    <div class="user-wrapper">
-        <div class="user" onclick="toggleUserMenu()">
-            <span id="username">Usuario</span>
-        </div>
-
-        <div class="user-menu" id="userMenu">
-            <!-- eliminado logout -->
-        </div>
-    </div>
+<div class="menu-icon" onclick="toggleMenu()">☰</div>
+<img src="Logoclub.png" class="logo">
 </header>
 
 <!-- MENU -->
 <div class="mobile-menu" id="mobileMenu">
-    <div class="close-menu" onclick="toggleMenu()">×</div>
+<div class="close-menu" onclick="toggleMenu()">✕</div>
 
-    <div class="menu-title">FEMENINO SP</div>
-
-    <a href="home.html">NEWS</a>
-    <a href="equipos.html">TEAMS</a>
-    <a href="#">CLUB</a>
-    <a href="#">SHOP</a>
+<a href="home.html">Inicio</a>
+<a href="equipos.html">Equipos</a>
+<a href="#">Club</a>
+<a href="#">Tienda</a>
 </div>
 
 <!-- HERO -->
 <div class="hero">
-    <h1>FEMENINO<br>SANTA PONSA</h1>
+<h1>FEMENINO<br>SANTA PONSA</h1>
 </div>
 
-<!-- MATCHES -->
-<div class="section">
-    <div class="title">MATCHES</div>
-    <div class="matches-scroll" id="matches"></div>
+<!-- PARTIDOS -->
+<div class="section fade-up">
+<div class="title">PARTIDOS</div>
+<div class="matches-scroll" id="matches"></div>
 </div>
 
-<!-- NEWS -->
-<div class="section">
-    <div class="title">LATEST NEWS</div>
+<!-- HISTORIA -->
+<div class="history fade-up">
 
-    <div class="main-news">
-        <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
-        <div class="main-news-content">
-            <h2>Gran victoria del Femenino Santa Ponsa</h2>
-            <p>
-                El equipo logró una victoria importante este fin de semana
-                tras dominar durante todo el partido.
-            </p>
-        </div>
-    </div>
+<h2 class="history-main">
+FEMENINO<br>SANTA PONSA
+</h2>
 
-    <div class="small-news">
-        <div class="small-news-card">
-            <img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
-            <div>Convocatoria oficial</div>
-        </div>
+<h3 class="history-sub">
+ÚNETE A NUESTRO NUEVO PROYECTO
+</h3>
 
-        <div class="small-news-card">
-            <img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0">
-            <div>Entrenamiento semanal</div>
-        </div>
-    </div>
+<p>
+El Femenino Santa Ponsa nace con la ambición de convertirse
+en una referencia del fútbol femenino en Baleares.
+
+Buscamos desarrollar talento desde la base hasta competir
+al máximo nivel, ofreciendo oportunidades reales para
+jugadoras que quieran crecer dentro de una estructura seria,
+moderna y profesional.
+</p>
+
+<a href="#" class="cta-btn">
+ACCEDER AL FORMULARIO DE INSCRIPCIÓN Y PAGO
+</a>
+
 </div>
 
-<div class="spacer"></div>
+<!-- NOTICIAS -->
+<div class="section fade-up">
+
+<div class="title">ÚLTIMAS NOTICIAS</div>
+
+<div class="main-news">
+<img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
+
+<div class="main-news-content">
+<h2>GRAN VICTORIA DEL EQUIPO</h2>
+<p>Santa Ponsa consigue una victoria clave este fin de semana.</p>
+</div>
+</div>
+
+<div class="small-news">
+
+<div class="small-news-card">
+<img src="https://images.unsplash.com/photo-1518604666860-9ed391f76460">
+<div>Convocatoria oficial</div>
+</div>
+
+<div class="small-news-card">
+<img src="https://images.unsplash.com/photo-1547347298-4074fc3086f0">
+<div>Entrenamiento semanal</div>
+</div>
+
+<div class="small-news-card">
+<img src="https://images.unsplash.com/photo-1508098682722-e99c643e7485">
+<div>Nuevas incorporaciones</div>
+</div>
+
+</div>
+</div>
+
+<!-- SPONSORS -->
+<div class="sponsors fade-up">
+
+<h2>BUILDING THE FUTURE OF WOMEN'S FOOTBALL</h2>
+
+<p>
+Gracias a nuestros patrocinadores por impulsar
+el crecimiento del fútbol femenino en Mallorca.
+</p>
+
+<div class="sponsors-grid">
+<img src="palmaflooring.png">
+<img src="universalnautic.png">
+</div>
+
+</div>
 
 <script>
 
-const user = localStorage.getItem("user");
-
-if(!user){
-    window.location.href="login.html";
-}
-
-document.getElementById("username").innerText = user;
-
-function toggleUserMenu(){
-    const menu = document.getElementById("userMenu");
-    menu.style.display =
-        menu.style.display === "block" ? "none" : "block";
-}
-
 function toggleMenu(){
-    document.getElementById("mobileMenu").classList.toggle("active");
+document.getElementById("mobileMenu").classList.toggle("active");
 }
 
-/* MATCHES */
+/* PARTIDOS */
 const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
 async function load(){
 
-    const res = await fetch(URL);
-    const text = await res.text();
+const res = await fetch(URL);
+const text = await res.text();
 
-    const rows = text.split("\n").filter(r => r.trim());
+const rows = text.split("\n").filter(r => r.trim());
 
-    let html = "";
+let html = "";
 
-    for(let i=1;i<rows.length;i++){
+for(let i=1;i<rows.length;i++){
 
-        const c = rows[i]
-            .split(",")
-            .map(x => x.replace(/"/g,"").trim());
+const c = rows[i]
+.split(",")
+.map(x => x.replace(/"/g,"").trim());
 
-        if(!c[1]) continue;
+if(!c[1]) continue;
 
-        html += `
-        <div class="card">
-            <div class="status">${c[0]}</div>
+html += `
+<div class="card">
+<div class="status">${c[0]}</div>
 
-            <div class="row">
-                <span>${c[1]}</span>
-                <span>${c[2]}</span>
-            </div>
+<div class="row">
+<span>${c[1]}</span>
+<span>${c[2]}</span>
+</div>
 
-            <div class="row">
-                <span>${c[3]}</span>
-                <span>${c[4]}</span>
-            </div>
-        </div>
-        `;
-    }
+<div class="row">
+<span>${c[3]}</span>
+<span>${c[4]}</span>
+</div>
+</div>
+`;
+}
 
-    document.getElementById("matches").innerHTML = html;
+document.getElementById("matches").innerHTML = html;
 }
 
 load();
+
+/* ANIMACIONES */
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".fade-up").forEach(el=>{
+observer.observe(el);
+});
 
 </script>
 
