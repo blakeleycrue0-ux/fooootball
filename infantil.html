@@ -78,7 +78,7 @@ header{
     text-transform:uppercase;
 }
 
-/* SECTION */
+/* SECCIONES */
 .section{
     padding:30px 20px;
 }
@@ -87,61 +87,55 @@ header{
     font-size:12px;
     opacity:0.6;
     margin-bottom:20px;
-}
-
-/* PLAYERS */
-.players-grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:20px;
-}
-
-.player-card{
-    background:#f2f2f2;
-    color:black;
-    text-decoration:none;
-    padding:25px;
-    min-height:180px;
-    clip-path:polygon(
-        0 0,
-        100% 0,
-        100% 82%,
-        90% 100%,
-        0 100%
-    );
-    transition:0.3s;
-}
-
-.player-card:hover{
-    transform:translateY(-5px);
-}
-
-.player-card small{
-    color:#7c3aed;
-    font-weight:700;
-}
-
-.player-card h3{
-    font-family:'Anton', sans-serif;
-    font-size:32px;
-    margin:12px 0;
     text-transform:uppercase;
 }
 
-.player-card p{
-    color:#444;
-    margin-bottom:15px;
+/* JUGADORAS DROPDOWN */
+.squad-dropdown{
+    background:#111;
+    border-radius:16px;
+    overflow:hidden;
+    border:1px solid rgba(124,58,237,0.25);
 }
 
-.number{
-    display:inline-block;
-    background:black;
+.squad-dropdown summary{
+    list-style:none;
+    cursor:pointer;
+    padding:22px;
+    font-size:18px;
+    font-weight:800;
     color:white;
-    padding:8px 14px;
+}
+
+.squad-dropdown summary::-webkit-details-marker{
+    display:none;
+}
+
+.players-list{
+    padding:0 20px 20px;
+}
+
+.player-item{
+    display:flex;
+    justify-content:space-between;
+    padding:14px 0;
+    border-bottom:1px solid rgba(255,255,255,0.06);
+}
+
+.player-item:last-child{
+    border-bottom:none;
+}
+
+.player-item span:first-child{
+    font-weight:600;
+}
+
+.player-item span:last-child{
+    color:#a855f7;
     font-weight:700;
 }
 
-/* TABLE */
+/* TABLA */
 .table{
     background:#111;
     border-radius:16px;
@@ -167,7 +161,7 @@ header{
     font-size:14px;
 }
 
-/* SANTA PONSA HIGHLIGHT */
+/* DESTACAR SANTA PONSA */
 .santa-row{
     background:linear-gradient(
         90deg,
@@ -213,45 +207,55 @@ header{
 
 <!-- HERO -->
 <section class="hero">
-    <h1>INFANTIL<br>TEAM</h1>
+    <h1>INFANTIL</h1>
 </section>
 
-<!-- PLAYERS -->
+<!-- JUGADORAS -->
 <section class="section">
 
-    <div class="section-title">SQUAD</div>
+    <div class="section-title">Plantilla</div>
 
-    <div class="players-grid">
+    <details class="squad-dropdown">
 
-        <a href="lucia.html" class="player-card">
-            <small>FORWARD</small>
-            <h3>LUCÍA</h3>
-            <p>Lucía Martínez</p>
-            <div class="number">#9</div>
-        </a>
+        <summary>Ver jugadoras</summary>
 
-        <a href="sofia.html" class="player-card">
-            <small>MIDFIELDER</small>
-            <h3>SOFÍA</h3>
-            <p>Sofía Pérez</p>
-            <div class="number">#8</div>
-        </a>
+        <div class="players-list">
 
-        <a href="carla.html" class="player-card">
-            <small>DEFENDER</small>
-            <h3>CARLA</h3>
-            <p>Carla Gómez</p>
-            <div class="number">#4</div>
-        </a>
+            <div class="player-item">
+                <span>Lucía Martínez</span>
+                <span>#9 · Delantera</span>
+            </div>
 
-    </div>
+            <div class="player-item">
+                <span>Sofía Pérez</span>
+                <span>#8 · Centrocampista</span>
+            </div>
+
+            <div class="player-item">
+                <span>Carla Gómez</span>
+                <span>#4 · Defensa</span>
+            </div>
+
+            <div class="player-item">
+                <span>Paula Serra</span>
+                <span>#11 · Extremo</span>
+            </div>
+
+            <div class="player-item">
+                <span>Marina Torres</span>
+                <span>#1 · Portera</span>
+            </div>
+
+        </div>
+
+    </details>
 
 </section>
 
-<!-- TABLE -->
+<!-- CLASIFICACIÓN -->
 <section class="section">
 
-    <div class="section-title">LEAGUE TABLE</div>
+    <div class="section-title">Clasificación</div>
 
     <div id="table" class="table"></div>
 
@@ -278,28 +282,27 @@ async function loadTable(){
         const text = await res.text();
         const rows = text.split("\n").filter(r => r.trim());
 
-        let teams = [];
+        let equipos = [];
 
         for(let i=1;i<rows.length;i++){
 
             const c = parseRow(rows[i]);
 
-            teams.push({
-                name: c[0] || "-",
+            equipos.push({
+                nombre: c[0] || "-",
                 pj: c[1] || "0",
                 pg: c[2] || "0",
                 pe: c[3] || "0",
                 pp: c[4] || "0",
-                pts: parseInt(c[5]) || 0
+                puntos: parseInt(c[5]) || 0
             });
         }
 
-        /* ordenar por puntos */
-        teams.sort((a,b) => b.pts - a.pts);
+        equipos.sort((a,b)=> b.puntos-a.puntos);
 
         let html = `
         <div class="row head">
-            <span>TEAM</span>
+            <span>Equipo</span>
             <span>PJ</span>
             <span>PG</span>
             <span>PE</span>
@@ -308,19 +311,19 @@ async function loadTable(){
         </div>
         `;
 
-        teams.forEach(team=>{
+        equipos.forEach(equipo=>{
 
-            const isSantaPonsa =
-                team.name.toLowerCase().includes("santa ponsa");
+            const esSantaPonsa =
+                equipo.nombre.toLowerCase().includes("santa ponsa");
 
             html += `
-            <div class="row ${isSantaPonsa ? "santa-row" : ""}">
-                <span>${team.name}</span>
-                <span>${team.pj}</span>
-                <span>${team.pg}</span>
-                <span>${team.pe}</span>
-                <span>${team.pp}</span>
-                <span>${team.pts}</span>
+            <div class="row ${esSantaPonsa ? "santa-row" : ""}">
+                <span>${equipo.nombre}</span>
+                <span>${equipo.pj}</span>
+                <span>${equipo.pg}</span>
+                <span>${equipo.pe}</span>
+                <span>${equipo.pp}</span>
+                <span>${equipo.puntos}</span>
             </div>
             `;
         });
@@ -341,8 +344,5 @@ loadTable();
 
 </script>
 
-</body>
-</html>
-</script>
 </body>
 </html>
