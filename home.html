@@ -80,15 +80,6 @@ header{
     min-width:140px;
 }
 
-.user-menu button{
-    width:100%;
-    border:none;
-    background:none;
-    padding:10px;
-    cursor:pointer;
-    font-weight:700;
-}
-
 /* MOBILE MENU */
 .mobile-menu{
     position:fixed;
@@ -171,7 +162,6 @@ header{
     display:none;
 }
 
-/* NUEVAS CARDS estilo equipos */
 .card{
     min-width:290px;
     background:#f2f2f2;
@@ -295,7 +285,7 @@ header{
         </div>
 
         <div class="user-menu" id="userMenu">
-            <button onclick="logout()">Cerrar sesión</button>
+            <!-- eliminado logout -->
         </div>
     </div>
 </header>
@@ -369,15 +359,8 @@ function toggleUserMenu(){
         menu.style.display === "block" ? "none" : "block";
 }
 
-function logout(){
-    localStorage.removeItem("user");
-    window.location.href="login.html";
-}
-
 function toggleMenu(){
-    document
-        .getElementById("mobileMenu")
-        .classList.toggle("active");
+    document.getElementById("mobileMenu").classList.toggle("active");
 }
 
 /* MATCHES */
@@ -423,9 +406,6 @@ async function load(){
 load();
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
