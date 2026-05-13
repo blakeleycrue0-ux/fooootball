@@ -34,6 +34,32 @@ opacity:1;
 transform:translateY(0);
 }
 
+@keyframes heroSlide{
+from{
+opacity:0;
+transform:translateY(60px);
+}
+to{
+opacity:1;
+transform:translateY(0);
+}
+}
+
+@keyframes glowPurple{
+from{
+text-shadow:0 0 0px transparent;
+}
+to{
+text-shadow:0 0 20px rgba(139,92,246,0.5);
+}
+}
+
+@keyframes pulseText{
+0%{transform:scale(1);}
+50%{transform:scale(1.05);}
+100%{transform:scale(1);}
+}
+
 /* HEADER */
 header{
 position:fixed;
@@ -54,14 +80,13 @@ position:absolute;
 left:20px;
 font-size:22px;
 cursor:pointer;
-font-weight:300;
 }
 
 .logo{
 height:45px;
 }
 
-/* MENU LATERAL */
+/* MENU */
 .mobile-menu{
 position:fixed;
 top:75px;
@@ -72,7 +97,6 @@ padding:25px;
 border-radius:0 0 20px 0;
 transition:.4s;
 z-index:2000;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
 .mobile-menu.active{
@@ -96,10 +120,6 @@ margin:18px 0;
 text-transform:uppercase;
 }
 
-.mobile-menu a:hover{
-color:#8b5cf6;
-}
-
 /* HERO */
 .hero{
 height:100vh;
@@ -116,16 +136,17 @@ font-family:'Anton';
 font-size:60px;
 line-height:0.9;
 text-transform:uppercase;
+animation:heroSlide 1.3s ease;
 }
 
-/* SECTION */
+/* SECTIONS */
 .section{
 padding:25px;
 }
 
 .title{
 font-size:12px;
-opacity:0.6;
+opacity:.6;
 letter-spacing:2px;
 margin-bottom:20px;
 }
@@ -184,19 +205,13 @@ color:#8b5cf6;
 padding:40px 25px;
 }
 
-.history-main{
-font-family:'Anton';
-font-size:70px;
-line-height:0.9;
-margin-bottom:20px;
-}
-
 .history-sub{
 font-family:'Oswald';
 font-size:35px;
 color:#8b5cf6;
 margin-bottom:20px;
 text-transform:uppercase;
+animation:glowPurple 2.5s infinite alternate;
 }
 
 .history p{
@@ -216,11 +231,6 @@ padding:16px 30px;
 border-radius:40px;
 font-weight:700;
 border:2px solid #8b5cf6;
-transition:.3s;
-}
-
-.cta-btn:hover{
-background:#8b5cf6;
 }
 
 /* NEWS */
@@ -274,6 +284,81 @@ object-fit:cover;
 padding:12px;
 }
 
+/* SOCIAL */
+.social-section{
+padding:80px 20px;
+text-align:center;
+}
+
+.social-section h2{
+font-family:'Anton';
+font-size:50px;
+margin-bottom:30px;
+animation:pulseText 3s infinite;
+}
+
+.social-icons{
+display:flex;
+justify-content:center;
+gap:20px;
+flex-wrap:wrap;
+}
+
+.social-btn{
+background:black;
+border:2px solid #8b5cf6;
+padding:14px 28px;
+border-radius:40px;
+color:white;
+text-decoration:none;
+font-weight:700;
+}
+
+/* FORM */
+.form-section{
+padding:80px 20px;
+max-width:700px;
+margin:auto;
+}
+
+.form-section h2{
+font-family:'Anton';
+font-size:50px;
+margin-bottom:30px;
+text-align:center;
+}
+
+.join-form{
+display:flex;
+flex-direction:column;
+gap:15px;
+}
+
+.join-form input,
+.join-form textarea{
+background:#111;
+border:1px solid rgba(255,255,255,0.1);
+padding:18px;
+color:white;
+border-radius:12px;
+outline:none;
+}
+
+.join-form textarea{
+height:120px;
+resize:none;
+}
+
+.join-form button{
+background:black;
+border:2px solid #8b5cf6;
+color:white;
+padding:18px;
+border-radius:40px;
+font-weight:700;
+cursor:pointer;
+}
+
 /* SPONSORS */
 .sponsors{
 background:black;
@@ -317,17 +402,14 @@ object-fit:contain;
 <img src="Logoclub.png" class="logo">
 </header>
 
-<!-- MENU -->
 <div class="mobile-menu" id="mobileMenu">
 <div class="close-menu" onclick="toggleMenu()">✕</div>
-
 <a href="home.html">Inicio</a>
 <a href="equipos.html">Equipos</a>
 <a href="#">Club</a>
 <a href="#">Tienda</a>
 </div>
 
-<!-- HERO -->
 <div class="hero">
 <h1>FEMENINO<br>SANTA PONSA</h1>
 </div>
@@ -340,28 +422,18 @@ object-fit:contain;
 
 <!-- HISTORIA -->
 <div class="history fade-up">
-
-<h2 class="history-main">
-</h2>
-
-<h3 class="history-sub">
-ÚNETE A NUESTRO NUEVO PROYECTO
-</h3>
+<h3 class="history-sub">ÚNETE A NUESTRO NUEVO PROYECTO</h3>
 
 <p>
 El Femenino Santa Ponsa nace con la ambición de convertirse
 en una referencia del fútbol femenino en Baleares.
-
 Buscamos desarrollar talento desde la base hasta competir
-al máximo nivel, ofreciendo oportunidades reales para
-jugadoras que quieran crecer dentro de una estructura seria,
-moderna y profesional.
+al máximo nivel.
 </p>
 
 <a href="#" class="cta-btn">
 ACCEDER AL FORMULARIO DE INSCRIPCIÓN Y PAGO
 </a>
-
 </div>
 
 <!-- NOTICIAS -->
@@ -371,7 +443,6 @@ ACCEDER AL FORMULARIO DE INSCRIPCIÓN Y PAGO
 
 <div class="main-news">
 <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
-
 <div class="main-news-content">
 <h2>GRAN VICTORIA DEL EQUIPO</h2>
 <p>Santa Ponsa consigue una victoria clave este fin de semana.</p>
@@ -396,6 +467,35 @@ ACCEDER AL FORMULARIO DE INSCRIPCIÓN Y PAGO
 </div>
 
 </div>
+</div>
+
+<!-- REDES -->
+<div class="social-section fade-up">
+<h2>SÍGUENOS</h2>
+
+<div class="social-icons">
+<a href="TU_LINK_INSTAGRAM" target="_blank" class="social-btn">Instagram</a>
+<a href="TU_LINK_TIKTOK" target="_blank" class="social-btn">TikTok</a>
+<a href="TU_LINK_FACEBOOK" target="_blank" class="social-btn">Facebook</a>
+</div>
+</div>
+
+<!-- FORM -->
+<div class="form-section fade-up">
+<h2>INSCRIPCIÓN</h2>
+
+<form class="join-form">
+<input type="text" placeholder="Nombre completo">
+<input type="number" placeholder="Edad">
+<input type="text" placeholder="Posición">
+<input type="email" placeholder="Email">
+<input type="tel" placeholder="Teléfono">
+<textarea placeholder="Cuéntanos sobre ti"></textarea>
+
+<button type="submit">
+ENVIAR SOLICITUD
+</button>
+</form>
 </div>
 
 <!-- SPONSORS -->
@@ -478,5 +578,7 @@ observer.observe(el);
 
 </script>
 
+</body>
+</html>
 </body>
 </html>
