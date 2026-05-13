@@ -8,6 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
+
 *{
 margin:0;
 padding:0;
@@ -31,26 +32,6 @@ transition:1s;
 .fade-up.show{
 opacity:1;
 transform:translateY(0);
-}
-
-@keyframes heroSlide{
-from{
-opacity:0;
-transform:translateY(60px);
-}
-to{
-opacity:1;
-transform:translateY(0);
-}
-}
-
-@keyframes glowPurple{
-from{
-text-shadow:0 0 0px transparent;
-}
-to{
-text-shadow:0 0 20px rgba(139,92,246,0.5);
-}
 }
 
 /* HEADER */
@@ -113,6 +94,23 @@ margin:18px 0;
 text-transform:uppercase;
 }
 
+.menu-socials{
+display:flex;
+gap:20px;
+margin-top:35px;
+}
+
+.menu-socials img{
+width:35px;
+height:35px;
+object-fit:contain;
+transition:.3s;
+}
+
+.menu-socials img:hover{
+transform:scale(1.1);
+}
+
 /* HERO */
 .hero{
 height:100vh;
@@ -129,7 +127,6 @@ font-family:'Anton';
 font-size:60px;
 line-height:0.9;
 text-transform:uppercase;
-animation:heroSlide 1.3s ease;
 }
 
 /* SECTION */
@@ -204,7 +201,6 @@ font-size:35px;
 color:#8b5cf6;
 margin-bottom:20px;
 text-transform:uppercase;
-animation:glowPurple 2.5s infinite alternate;
 }
 
 .history p{
@@ -286,7 +282,7 @@ text-align:center;
 
 .sponsors h2{
 font-family:'Anton';
-font-size:48px;
+font-size:32px;
 margin-bottom:15px;
 }
 
@@ -330,6 +326,7 @@ transition:.3s;
 .social-logo:hover{
 transform:scale(1.15);
 }
+
 </style>
 </head>
 
@@ -342,11 +339,29 @@ transform:scale(1.15);
 
 <!-- MENU -->
 <div class="mobile-menu" id="mobileMenu">
+
 <div class="close-menu" onclick="toggleMenu()">✕</div>
+
 <a href="home.html">Inicio</a>
 <a href="equipos.html">Equipos</a>
 <a href="#">Club</a>
-<a href="#">Tienda</a>
+
+<div class="menu-socials">
+
+<a href="#">
+<img src="instagram.png">
+</a>
+
+<a href="#">
+<img src="facebook.png">
+</a>
+
+<a href="#">
+<img src="tiktok.png">
+</a>
+
+</div>
+
 </div>
 
 <!-- HERO -->
@@ -362,20 +377,31 @@ transform:scale(1.15);
 
 <!-- HISTORIA -->
 <div class="history fade-up">
+
 <h3 class="history-sub">
 ÚNETE A NUESTRO NUEVO PROYECTO
 </h3>
 
 <p>
-El Femenino Santa Ponsa nace con la ambición de convertirse
-en una referencia del fútbol femenino en Baleares.
-Buscamos desarrollar talento desde la base hasta competir
-al máximo nivel.
+El Femenino Santa Ponsa nace con el objetivo de construir
+una estructura sólida y profesional dentro del fútbol femenino
+balear, apostando por el desarrollo real de jugadoras desde
+las categorías base hasta niveles competitivos superiores.
+
+Nuestro proyecto combina formación, disciplina,
+visibilidad y oportunidades reales para todas las jugadoras
+que quieran crecer dentro de un club ambicioso,
+moderno y preparado para el futuro.
+
+Buscamos crear algo grande desde Mallorca,
+dando protagonismo al talento femenino y construyendo
+una identidad propia dentro del fútbol nacional.
 </p>
 
 <a href="#" class="cta-btn">
-ACCEDER AL FORMULARIO DE INSCRIPCIÓN Y PAGO
+PRÓXIMAMENTE INSCRIPCIONES
 </a>
+
 </div>
 
 <!-- NOTICIAS -->
@@ -427,19 +453,19 @@ el crecimiento del fútbol femenino en Mallorca.
 <img src="universalnautic.png">
 </div>
 
-<!-- REDES SOCIALES ABAJO -->
+<!-- REDES ABAJO -->
 <div class="social-icons">
 
-<a href="TU_LINK_INSTAGRAM" target="_blank">
-<img src="intagram.png" class="social-logo">
+<a href="#">
+<img src="instagram.png" class="social-logo">
 </a>
 
-<a href="TU_LINK_TIKTOK" target="_blank">
-<img src="tiktok.png" class="social-logo">
-</a>
-
-<a href="TU_LINK_FACEBOOK" target="_blank">
+<a href="#">
 <img src="facebook.png" class="social-logo">
+</a>
+
+<a href="#">
+<img src="tiktok.png" class="social-logo">
 </a>
 
 </div>
@@ -447,6 +473,7 @@ el crecimiento del fútbol femenino en Mallorca.
 </div>
 
 <script>
+
 function toggleMenu(){
 document.getElementById("mobileMenu").classList.toggle("active");
 }
@@ -455,9 +482,11 @@ document.getElementById("mobileMenu").classList.toggle("active");
 const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
 async function load(){
+
 const res = await fetch(URL);
 const text = await res.text();
-const rows = text.split("\\n").filter(r => r.trim());
+
+const rows = text.split("\n").filter(r => r.trim());
 
 let html = "";
 
@@ -471,6 +500,7 @@ if(!c[1]) continue;
 
 html += `
 <div class="card">
+
 <div class="status">${c[0]}</div>
 
 <div class="row">
@@ -482,6 +512,7 @@ html += `
 <span>${c[3]}</span>
 <span>${c[4]}</span>
 </div>
+
 </div>
 `;
 }
@@ -503,6 +534,7 @@ entry.target.classList.add("show");
 document.querySelectorAll(".fade-up").forEach(el=>{
 observer.observe(el);
 });
+
 </script>
 
 </body>
