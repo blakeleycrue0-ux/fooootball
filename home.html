@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -52,12 +51,6 @@ text-shadow:0 0 0px transparent;
 to{
 text-shadow:0 0 20px rgba(139,92,246,0.5);
 }
-}
-
-@keyframes pulseText{
-0%{transform:scale(1);}
-50%{transform:scale(1.05);}
-100%{transform:scale(1);}
 }
 
 /* HEADER */
@@ -139,14 +132,14 @@ text-transform:uppercase;
 animation:heroSlide 1.3s ease;
 }
 
-/* SECTIONS */
+/* SECTION */
 .section{
 padding:25px;
 }
 
 .title{
 font-size:12px;
-opacity:.6;
+opacity:0.6;
 letter-spacing:2px;
 margin-bottom:20px;
 }
@@ -284,81 +277,6 @@ object-fit:cover;
 padding:12px;
 }
 
-/* SOCIAL */
-.social-section{
-padding:80px 20px;
-text-align:center;
-}
-
-.social-section h2{
-font-family:'Anton';
-font-size:50px;
-margin-bottom:30px;
-animation:pulseText 3s infinite;
-}
-
-.social-icons{
-display:flex;
-justify-content:center;
-gap:20px;
-flex-wrap:wrap;
-}
-
-.social-btn{
-background:black;
-border:2px solid #8b5cf6;
-padding:14px 28px;
-border-radius:40px;
-color:white;
-text-decoration:none;
-font-weight:700;
-}
-
-/* FORM */
-.form-section{
-padding:80px 20px;
-max-width:700px;
-margin:auto;
-}
-
-.form-section h2{
-font-family:'Anton';
-font-size:50px;
-margin-bottom:30px;
-text-align:center;
-}
-
-.join-form{
-display:flex;
-flex-direction:column;
-gap:15px;
-}
-
-.join-form input,
-.join-form textarea{
-background:#111;
-border:1px solid rgba(255,255,255,0.1);
-padding:18px;
-color:white;
-border-radius:12px;
-outline:none;
-}
-
-.join-form textarea{
-height:120px;
-resize:none;
-}
-
-.join-form button{
-background:black;
-border:2px solid #8b5cf6;
-color:white;
-padding:18px;
-border-radius:40px;
-font-weight:700;
-cursor:pointer;
-}
-
 /* SPONSORS */
 .sponsors{
 background:black;
@@ -392,6 +310,26 @@ height:140px;
 object-fit:contain;
 }
 
+/* REDES ABAJO */
+.social-icons{
+display:flex;
+justify-content:center;
+gap:25px;
+margin-top:50px;
+padding-top:30px;
+border-top:1px solid rgba(255,255,255,0.08);
+}
+
+.social-logo{
+width:42px;
+height:42px;
+object-fit:contain;
+transition:.3s;
+}
+
+.social-logo:hover{
+transform:scale(1.15);
+}
 </style>
 </head>
 
@@ -402,6 +340,7 @@ object-fit:contain;
 <img src="Logoclub.png" class="logo">
 </header>
 
+<!-- MENU -->
 <div class="mobile-menu" id="mobileMenu">
 <div class="close-menu" onclick="toggleMenu()">✕</div>
 <a href="home.html">Inicio</a>
@@ -410,6 +349,7 @@ object-fit:contain;
 <a href="#">Tienda</a>
 </div>
 
+<!-- HERO -->
 <div class="hero">
 <h1>FEMENINO<br>SANTA PONSA</h1>
 </div>
@@ -422,7 +362,9 @@ object-fit:contain;
 
 <!-- HISTORIA -->
 <div class="history fade-up">
-<h3 class="history-sub">ÚNETE A NUESTRO NUEVO PROYECTO</h3>
+<h3 class="history-sub">
+ÚNETE A NUESTRO NUEVO PROYECTO
+</h3>
 
 <p>
 El Femenino Santa Ponsa nace con la ambición de convertirse
@@ -443,6 +385,7 @@ ACCEDER AL FORMULARIO DE INSCRIPCIÓN Y PAGO
 
 <div class="main-news">
 <img src="https://images.unsplash.com/photo-1574629810360-7efbbe195018">
+
 <div class="main-news-content">
 <h2>GRAN VICTORIA DEL EQUIPO</h2>
 <p>Santa Ponsa consigue una victoria clave este fin de semana.</p>
@@ -469,35 +412,6 @@ ACCEDER AL FORMULARIO DE INSCRIPCIÓN Y PAGO
 </div>
 </div>
 
-<!-- REDES -->
-<div class="social-section fade-up">
-<h2>SÍGUENOS</h2>
-
-<div class="social-icons">
-<a href="TU_LINK_INSTAGRAM" target="_blank" class="social-btn">Instagram</a>
-<a href="TU_LINK_TIKTOK" target="_blank" class="social-btn">TikTok</a>
-<a href="TU_LINK_FACEBOOK" target="_blank" class="social-btn">Facebook</a>
-</div>
-</div>
-
-<!-- FORM -->
-<div class="form-section fade-up">
-<h2>INSCRIPCIÓN</h2>
-
-<form class="join-form">
-<input type="text" placeholder="Nombre completo">
-<input type="number" placeholder="Edad">
-<input type="text" placeholder="Posición">
-<input type="email" placeholder="Email">
-<input type="tel" placeholder="Teléfono">
-<textarea placeholder="Cuéntanos sobre ti"></textarea>
-
-<button type="submit">
-ENVIAR SOLICITUD
-</button>
-</form>
-</div>
-
 <!-- SPONSORS -->
 <div class="sponsors fade-up">
 
@@ -513,10 +427,26 @@ el crecimiento del fútbol femenino en Mallorca.
 <img src="universalnautic.png">
 </div>
 
+<!-- REDES SOCIALES ABAJO -->
+<div class="social-icons">
+
+<a href="TU_LINK_INSTAGRAM" target="_blank">
+<img src="intagram.png" class="social-logo">
+</a>
+
+<a href="TU_LINK_TIKTOK" target="_blank">
+<img src="tiktok.png" class="social-logo">
+</a>
+
+<a href="TU_LINK_FACEBOOK" target="_blank">
+<img src="facebook.png" class="social-logo">
+</a>
+
+</div>
+
 </div>
 
 <script>
-
 function toggleMenu(){
 document.getElementById("mobileMenu").classList.toggle("active");
 }
@@ -525,11 +455,9 @@ document.getElementById("mobileMenu").classList.toggle("active");
 const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
 async function load(){
-
 const res = await fetch(URL);
 const text = await res.text();
-
-const rows = text.split("\n").filter(r => r.trim());
+const rows = text.split("\\n").filter(r => r.trim());
 
 let html = "";
 
@@ -575,10 +503,10 @@ entry.target.classList.add("show");
 document.querySelectorAll(".fade-up").forEach(el=>{
 observer.observe(el);
 });
-
 </script>
 
 </body>
+</html>
 </html>
 </body>
 </html>
