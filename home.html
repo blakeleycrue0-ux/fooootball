@@ -8,7 +8,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-
 *{
 margin:0;
 padding:0;
@@ -54,7 +53,6 @@ position:absolute;
 left:20px;
 font-size:22px;
 cursor:pointer;
-font-weight:300;
 }
 
 .logo{
@@ -72,7 +70,6 @@ padding:25px;
 border-radius:0 0 20px 0;
 transition:.4s;
 z-index:2000;
-box-shadow:0 10px 30px rgba(0,0,0,0.5);
 }
 
 .mobile-menu.active{
@@ -94,10 +91,6 @@ font-family:'Oswald';
 font-size:22px;
 margin:18px 0;
 text-transform:uppercase;
-}
-
-.mobile-menu a:hover{
-color:#8b5cf6;
 }
 
 /* HERO */
@@ -179,7 +172,7 @@ font-size:30px;
 color:#8b5cf6;
 }
 
-/* HISTORIA CLUB */
+/* HISTORIA */
 .club-history{
 padding:60px 25px;
 max-width:1000px;
@@ -208,7 +201,6 @@ color:#8b5cf6;
 .club-history p{
 color:#cfcfcf;
 line-height:1.8;
-font-size:16px;
 margin-bottom:20px;
 }
 
@@ -230,6 +222,31 @@ margin-top:20px;
 background:#8b5cf6;
 }
 
+/* CONTACTO */
+.contact{
+padding:70px 25px;
+background:#111;
+text-align:center;
+}
+
+.contact h2{
+font-family:'Anton';
+font-size:45px;
+margin-bottom:20px;
+}
+
+.contact p{
+color:#ccc;
+font-size:18px;
+margin-bottom:15px;
+}
+
+.contact a{
+color:#8b5cf6;
+text-decoration:none;
+font-weight:700;
+}
+
 /* SPONSORS */
 .sponsors{
 background:black;
@@ -239,7 +256,7 @@ text-align:center;
 
 .sponsors h2{
 font-family:'Anton';
-font-size:34px;
+font-size:28px;
 margin-bottom:20px;
 }
 
@@ -261,7 +278,6 @@ margin-bottom:40px;
 
 .sponsors-grid img{
 height:110px;
-object-fit:contain;
 }
 
 /* REDES */
@@ -271,20 +287,18 @@ justify-content:center;
 gap:25px;
 }
 
-.socials a img{
+.socials img{
 height:45px;
 transition:.3s;
 }
 
-.socials a img:hover{
+.socials img:hover{
 transform:scale(1.1);
 }
 
-/* SPACER */
 .spacer{
 height:80px;
 }
-
 </style>
 </head>
 
@@ -315,13 +329,13 @@ height:80px;
 <div class="matches-scroll" id="matches"></div>
 </div>
 
-<!-- NUESTRA HISTORIA -->
+<!-- HISTORIA -->
 <section class="club-history fade-up">
 
 <span class="history-tag">NUESTRA HISTORIA</span>
 
 <h2>
- <span>FÚTBOL FEMENINO</span>
+<span>FÚTBOL FEMENINO</span>
 EN SANTA PONSA
 </h2>
 
@@ -348,6 +362,29 @@ y convertirnos en una referencia en los próximos años.
 
 </section>
 
+<!-- CONTACTO -->
+<section class="contact fade-up">
+
+<h2>CONTACTO</h2>
+
+<p>
+Para pruebas, colaboraciones o información:
+</p>
+
+<p>
+<a href="mailto:futbolfemeninosantaponca@gmail.com">
+futbolfemeninosantaponca@gmail.com
+</a>
+</p>
+
+<p>
+<a href="tel:+34628836708">
++34 628 836 708
+</a>
+</p>
+
+</section>
+
 <!-- SPONSORS -->
 <section class="sponsors fade-up">
 
@@ -366,8 +403,8 @@ el crecimiento del fútbol femenino.
 <!-- REDES -->
 <div class="socials">
 
-<a href="#">
-<img src="intagram.png">
+<a href="https://www.instagram.com/femeninosantaponsa?igsh=Zmtvc3p4eDA1NDQ0&utm_source=qr" target="_blank">
+<img src="instagram.png">
 </a>
 
 <a href="#">
@@ -446,6 +483,9 @@ observer.observe(el);
 });
 
 </script>
+
+</body>
+</html>
 
 </body>
 </html>
