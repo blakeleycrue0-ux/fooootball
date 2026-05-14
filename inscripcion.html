@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Inscripción | Femenino Santa Ponsa</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background:#0a0a0a;
+color:white;
+font-family:'Inter',sans-serif;
+overflow-x:hidden;
+}
+
+/* HEADER */
+header{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:75px;
+background:#0a0a0a;
+display:flex;
+justify-content:center;
+align-items:center;
+border-bottom:1px solid rgba(255,255,255,0.08);
+z-index:1000;
+}
+
+.logo{
+height:45px;
+}
+
+/* HERO */
+.hero{
+height:60vh;
+display:flex;
+align-items:flex-end;
+padding:30px;
+background:
+linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.2)),
+url("https://images.unsplash.com/photo-1574629810360-7efbbe195018");
+background-size:cover;
+background-position:center;
+}
+
+.hero h1{
+font-family:'Anton';
+font-size:60px;
+line-height:0.9;
+text-transform:uppercase;
+}
+
+/* FORM SECTION */
+.form-section{
+padding:50px 25px;
+max-width:900px;
+margin:auto;
+}
+
+.form-title{
+font-family:'Anton';
+font-size:55px;
+line-height:0.9;
+margin-bottom:20px;
+}
+
+.form-sub{
+font-family:'Oswald';
+font-size:28px;
+color:#8b5cf6;
+margin-bottom:25px;
+text-transform:uppercase;
+}
+
+.form-text{
+color:#bdbdbd;
+line-height:1.8;
+margin-bottom:40px;
+max-width:700px;
+}
+
+/* FORM CARD */
+.form-box{
+background:#111;
+padding:30px;
+border-radius:20px;
+border:1px solid rgba(255,255,255,0.08);
+}
+
+.input-group{
+margin-bottom:25px;
+}
+
+label{
+display:block;
+font-family:'Oswald';
+font-size:18px;
+margin-bottom:10px;
+text-transform:uppercase;
+}
+
+input,
+select,
+textarea{
+width:100%;
+padding:16px;
+background:#1b1b1b;
+border:none;
+border-radius:12px;
+color:white;
+font-size:16px;
+outline:none;
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+border:1px solid #8b5cf6;
+}
+
+textarea{
+height:140px;
+resize:none;
+}
+
+/* BOTON */
+button{
+width:100%;
+padding:18px;
+background:black;
+color:white;
+border:2px solid #8b5cf6;
+border-radius:50px;
+font-weight:700;
+font-size:16px;
+cursor:pointer;
+transition:.3s;
+}
+
+button:hover{
+background:#8b5cf6;
+}
+
+/* VOLVER */
+.back-btn{
+display:inline-block;
+margin-top:30px;
+color:white;
+text-decoration:none;
+font-family:'Oswald';
+font-size:20px;
+}
+
+.back-btn:hover{
+color:#8b5cf6;
+}
+
+/* ANIMACION */
+.fade-up{
+opacity:0;
+transform:translateY(40px);
+transition:1s;
+}
+
+.fade-up.show{
+opacity:1;
+transform:translateY(0);
+}
+
+</style>
+</head>
+<body>
+
+<header>
+<img src="Logoclub.png" class="logo">
+</header>
+
+<!-- HERO -->
+<section class="hero">
+<h1>INSCRIPCIÓN<br>OFICIAL</h1>
+</section>
+
+<!-- FORM -->
+<section class="form-section fade-up">
+
+<h2 class="form-title">FORMA PARTE DEL FUTURO</h2>
+
+<h3 class="form-sub">Femenino Santa Ponsa</h3>
+
+<p class="form-text">
+Estamos construyendo uno de los proyectos más ambiciosos
+del fútbol femenino en Baleares.
+
+Si quieres crecer, competir y formar parte de una estructura
+profesional con visión de futuro, completa tu inscripción
+y nuestro equipo se pondrá en contacto contigo.
+</p>
+
+<form 
+name="inscripcion"
+method="POST"
+data-netlify="true"
+class="form-box"
+>
+
+<input type="hidden" name="form-name" value="inscripcion">
+
+<div class="input-group">
+<label>Nombre completo</label>
+<input type="text" name="nombre" required>
+</div>
+
+<div class="input-group">
+<label>Edad</label>
+<input type="number" name="edad" required>
+</div>
+
+<div class="input-group">
+<label>Posición</label>
+<select name="posicion">
+<option>Portera</option>
+<option>Defensa</option>
+<option>Centrocampista</option>
+<option>Delantera</option>
+</select>
+</div>
+
+<div class="input-group">
+<label>Teléfono</label>
+<input type="tel" name="telefono" required>
+</div>
+
+<div class="input-group">
+<label>Email</label>
+<input type="email" name="email" required>
+</div>
+
+<div class="input-group">
+<label>Experiencia</label>
+<textarea 
+name="experiencia"
+placeholder="Clubes anteriores, años jugando, nivel, etc">
+</textarea>
+</div>
+
+<button type="submit">
+ENVIAR INSCRIPCIÓN
+</button>
+
+</form>
+
+<a href="home.html" class="back-btn">
+← VOLVER AL INICIO
+</a>
+
+</section>
+
+<script>
+
+const observer = new IntersectionObserver(entries=>{
+entries.forEach(entry=>{
+if(entry.isIntersecting){
+entry.target.classList.add("show");
+}
+});
+});
+
+document.querySelectorAll(".fade-up").forEach(el=>{
+observer.observe(el);
+});
+
+</script>
+
+</body>
+</html>
