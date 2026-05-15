@@ -21,7 +21,7 @@ scroll-behavior:smooth;
 }
 
 body{
-background:#050505;
+background:#000;
 color:white;
 font-family:'Inter',sans-serif;
 overflow-x:hidden;
@@ -46,13 +46,13 @@ top:0;
 left:0;
 width:100%;
 height:70px;
-background:rgba(0,0,0,0.92);
+background:rgba(0,0,0,0.95);
 backdrop-filter:blur(12px);
 display:flex;
 justify-content:center;
 align-items:center;
 z-index:1000;
-border-bottom:1px solid rgba(255,255,255,0.05);
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .logo{
@@ -61,19 +61,19 @@ height:42px;
 
 .menu-btn{
 position:absolute;
-left:18px;
+left:20px;
 font-size:24px;
 cursor:pointer;
 }
 
-/* MENU MOBILE */
+/* MENU */
 .mobile-menu{
 position:fixed;
 top:0;
 left:-100%;
 width:75%;
 height:100vh;
-background:#111;
+background:#0d0d0d;
 z-index:2000;
 padding:30px;
 transition:.4s;
@@ -84,10 +84,10 @@ left:0;
 }
 
 .close-btn{
-font-size:32px;
+font-size:30px;
 margin-bottom:40px;
 cursor:pointer;
-color:#8b5cf6;
+color:white;
 }
 
 .mobile-menu a{
@@ -95,7 +95,7 @@ display:block;
 color:white;
 text-decoration:none;
 font-family:'Oswald';
-font-size:26px;
+font-size:24px;
 margin:25px 0;
 text-transform:uppercase;
 }
@@ -104,17 +104,13 @@ text-transform:uppercase;
 .hero{
 height:85vh;
 background:
-linear-gradient(to top, rgba(0,0,0,0.8), rgba(0,0,0,0.2)),
+linear-gradient(to top, rgba(0,0,0,0.85), rgba(0,0,0,0.2)),
 url("https://images.unsplash.com/photo-1574629810360-7efbbe195018");
 background-size:cover;
 background-position:center;
 display:flex;
 align-items:flex-end;
 padding:25px;
-}
-
-.hero-content{
-max-width:100%;
 }
 
 .hero h1{
@@ -128,28 +124,31 @@ margin-bottom:15px;
 .hero p{
 font-size:15px;
 line-height:1.7;
-color:#ddd;
+color:#d9d9d9;
 margin-bottom:25px;
 }
 
 .hero-btn{
 display:inline-block;
 padding:14px 28px;
-background:#8b5cf6;
-color:white;
+background:white;
+color:black;
 text-decoration:none;
 border-radius:40px;
 font-weight:700;
-font-size:14px;
 }
 
-/* GENERAL SECTIONS */
+.hero-btn:hover{
+background:#d9d9d9;
+}
+
+/* GENERAL */
 .section{
 padding:55px 20px;
 }
 
 .section-sub{
-color:#8b5cf6;
+color:#bdbdbd;
 font-size:12px;
 font-weight:700;
 letter-spacing:2px;
@@ -166,7 +165,7 @@ text-transform:uppercase;
 }
 
 .section-text{
-color:#cfcfcf;
+color:#d1d1d1;
 line-height:1.8;
 font-size:15px;
 }
@@ -185,7 +184,7 @@ display:none;
 
 .card{
 min-width:260px;
-background:#f2f2f2;
+background:white;
 color:black;
 padding:20px;
 flex-shrink:0;
@@ -203,7 +202,7 @@ font-family:'Oswald';
 font-size:12px;
 font-weight:700;
 margin-bottom:15px;
-color:#8b5cf6;
+color:black;
 }
 
 .row{
@@ -220,10 +219,10 @@ font-size:24px;
 .row span:last-child{
 font-family:'Anton';
 font-size:24px;
-color:#8b5cf6;
+color:black;
 }
 
-/* PROJECT CARDS */
+/* PROYECTO */
 .project-grid{
 display:flex;
 flex-direction:column;
@@ -232,10 +231,10 @@ margin-top:30px;
 }
 
 .project-card{
-background:#111;
+background:#0d0d0d;
 padding:25px;
 border-radius:18px;
-border:1px solid rgba(255,255,255,0.06);
+border:1px solid rgba(255,255,255,0.08);
 }
 
 .project-card h3{
@@ -245,14 +244,14 @@ margin-bottom:12px;
 }
 
 .project-card p{
-color:#bbb;
+color:#bdbdbd;
 line-height:1.7;
 font-size:14px;
 }
 
-/* INSCRIPCION */
+/* INSCRIPCIÓN */
 .join{
-background:#111;
+background:#0d0d0d;
 padding:60px 20px;
 text-align:center;
 }
@@ -261,11 +260,16 @@ text-align:center;
 display:inline-block;
 margin-top:25px;
 padding:14px 28px;
-border:2px solid #8b5cf6;
+border:2px solid white;
 border-radius:40px;
 color:white;
 text-decoration:none;
 font-weight:700;
+}
+
+.join-btn:hover{
+background:white;
+color:black;
 }
 
 /* CONTACTO */
@@ -275,18 +279,17 @@ text-align:center;
 
 .contact p{
 margin:12px 0;
-color:#ccc;
-font-size:15px;
+color:#d1d1d1;
 }
 
 .contact a{
-color:#8b5cf6;
+color:white;
 text-decoration:none;
 }
 
 /* SPONSORS */
 .sponsors{
-background:#111;
+background:#0d0d0d;
 text-align:center;
 padding:60px 20px;
 }
@@ -304,7 +307,6 @@ height:65px;
 object-fit:contain;
 }
 
-/* SOCIALS */
 .socials{
 display:flex;
 justify-content:center;
@@ -320,10 +322,6 @@ object-fit:contain;
 
 /* DESKTOP */
 @media(min-width:900px){
-
-.mobile-menu{
-width:350px;
-}
 
 .hero{
 padding:60px;
@@ -379,12 +377,12 @@ width:45px;
 
 <!-- HERO -->
 <section class="hero">
-<div class="hero-content">
+<div>
 <h1>FEMENINO SANTA PONSA</h1>
 
 <p>
 Un proyecto de fútbol femenino en Mallorca creado para formar,
-competir y dar oportunidades reales a jugadoras que quieren crecer.
+competir y ofrecer oportunidades reales a jugadoras con ambición.
 </p>
 
 <a href="inscripcion.html" class="hero-btn">
@@ -409,34 +407,33 @@ INSCRIBIRME
 <div class="section-sub">Nuestro proyecto</div>
 
 <h2 class="section-title">
-Más que un club
+Más que fútbol
 </h2>
 
 <p class="section-text">
 Femenino Santa Ponsa nace con una visión clara:
-crear una estructura seria dentro del fútbol femenino balear.
+crear una estructura seria y profesional dentro del fútbol femenino en Mallorca.
 
-Trabajamos formación técnica, preparación física,
-desarrollo táctico y crecimiento personal para cada jugadora.
-Buscamos crear oportunidades reales dentro del fútbol femenino
-y construir un proyecto sostenible a largo plazo.
+Nuestro objetivo es desarrollar jugadoras dentro y fuera del campo,
+apostando por formación técnica, preparación física, mentalidad competitiva
+y oportunidades reales de crecimiento deportivo.
 </p>
 
 <div class="project-grid">
 
 <div class="project-card">
-<h3>Formación</h3>
-<p>Entrenamientos modernos y metodología profesional.</p>
+<h3>FORMACIÓN</h3>
+<p>Entrenamientos modernos con metodología profesional.</p>
 </div>
 
 <div class="project-card">
-<h3>Competición</h3>
+<h3>COMPETICIÓN</h3>
 <p>Equipos preparados para competir al máximo nivel.</p>
 </div>
 
 <div class="project-card">
-<h3>Futuro</h3>
-<p>Un proyecto pensado para crecer durante años.</p>
+<h3>FUTURO</h3>
+<p>Proyecto diseñado para crecer durante muchos años.</p>
 </div>
 
 </div>
@@ -449,13 +446,12 @@ y construir un proyecto sostenible a largo plazo.
 <div class="section-sub">Únete</div>
 
 <h2 class="section-title">
-Forma parte del proyecto
+Forma parte del club
 </h2>
 
 <p class="section-text">
-Si quieres competir con nosotras y formar parte
-del crecimiento del fútbol femenino en Mallorca,
-te estamos buscando.
+Buscamos jugadoras comprometidas,
+con ganas de crecer y competir.
 </p>
 
 <a href="inscripcion.html" class="join-btn">
@@ -523,7 +519,7 @@ function toggleMenu(){
 document.getElementById("menu").classList.toggle("active");
 }
 
-/* PARTIDOS GOOGLE SHEETS */
+/* PARTIDOS */
 const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
 async function load(){
@@ -543,7 +539,7 @@ const c=rows[i]
 
 if(!c[1]) continue;
 
-html+=`
+html += `
 <div class="card">
 <div class="status">${c[0]}</div>
 
