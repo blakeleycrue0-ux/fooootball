@@ -7,7 +7,7 @@
 
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
-<!-- SOLO AÑADIDO: parser CSV fiable -->
+<!-- SOLO AÑADIDO (necesario para arreglar CSV) -->
 <script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 
 <style>
@@ -28,7 +28,7 @@ font-family:'Inter',sans-serif;
 overflow-x:hidden;
 }
 
-/* TU DISEÑO ORIGINAL SE MANTIENE */
+/* ANIMACIONES */
 .fade-up{
 opacity:0;
 transform:translateY(40px);
@@ -40,6 +40,7 @@ opacity:1;
 transform:translateY(0);
 }
 
+/* HEADER */
 header{
 position:fixed;
 top:0;
@@ -55,7 +56,9 @@ z-index:1000;
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
-.logo{height:42px;}
+.logo{
+height:42px;
+}
 
 .menu-btn{
 position:absolute;
@@ -64,6 +67,7 @@ font-size:24px;
 cursor:pointer;
 }
 
+/* MENU */
 .mobile-menu{
 position:fixed;
 top:0;
@@ -76,7 +80,9 @@ padding:30px;
 transition:.4s;
 }
 
-.mobile-menu.active{left:0;}
+.mobile-menu.active{
+left:0;
+}
 
 .close-btn{
 font-size:30px;
@@ -94,7 +100,7 @@ margin:25px 0;
 text-transform:uppercase;
 }
 
-/* HERO (NO TOCADO) */
+/* HERO */
 .hero{
 height:85vh;
 background:
@@ -132,8 +138,10 @@ border-radius:40px;
 font-weight:700;
 }
 
-/* RESTO IGUAL */
-.section{padding:55px 20px;}
+/* SECCIONES */
+.section{
+padding:55px 20px;
+}
 
 .section-sub{
 color:#bdbdbd;
@@ -158,7 +166,7 @@ line-height:1.8;
 font-size:15px;
 }
 
-/* PARTIDOS (solo mejora mínima) */
+/* PARTIDOS */
 .matches-scroll{
 display:flex;
 gap:15px;
@@ -166,7 +174,9 @@ overflow-x:auto;
 padding-bottom:10px;
 }
 
-.matches-scroll::-webkit-scrollbar{display:none;}
+.matches-scroll::-webkit-scrollbar{
+display:none;
+}
 
 .card{
 min-width:260px;
@@ -196,7 +206,7 @@ font-family:'Anton';
 font-size:24px;
 }
 
-/* resto tu CSS intacto */
+/* PROYECTO */
 .project-grid{
 display:flex;
 flex-direction:column;
@@ -217,6 +227,13 @@ font-size:24px;
 margin-bottom:12px;
 }
 
+.project-card p{
+color:#bdbdbd;
+line-height:1.7;
+font-size:14px;
+}
+
+/* INSCRIPCIÓN */
 .join{
 background:#0d0d0d;
 padding:60px 20px;
@@ -234,12 +251,27 @@ text-decoration:none;
 font-weight:700;
 }
 
-.contact{text-align:center;}
+.join-btn:hover{
+background:white;
+color:black;
+}
 
-.contact p{margin:12px 0;color:#d1d1d1;}
+/* CONTACTO */
+.contact{
+text-align:center;
+}
 
-.contact a{color:white;text-decoration:none;}
+.contact p{
+margin:12px 0;
+color:#d1d1d1;
+}
 
+.contact a{
+color:white;
+text-decoration:none;
+}
+
+/* SPONSORS */
 .sponsors{
 background:#0d0d0d;
 text-align:center;
@@ -254,7 +286,10 @@ flex-wrap:wrap;
 margin:30px 0;
 }
 
-.sponsors-grid img{height:65px;}
+.sponsors-grid img{
+height:65px;
+object-fit:contain;
+}
 
 .socials{
 display:flex;
@@ -263,7 +298,34 @@ gap:18px;
 margin-top:20px;
 }
 
-.socials img{height:35px;width:35px;}
+.socials img{
+height:35px;
+width:35px;
+object-fit:contain;
+}
+
+/* DESKTOP */
+@media(min-width:900px){
+
+.hero{padding:60px;}
+
+.section{padding:90px 80px;}
+
+.project-grid{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+}
+
+.sponsors-grid img{
+height:90px;
+}
+
+.socials img{
+height:45px;
+width:45px;
+}
+
+}
 
 </style>
 </head>
@@ -284,12 +346,19 @@ margin-top:20px;
 <a href="inscripcion.html">Inscripción</a>
 </div>
 
-<!-- HERO (NO TOCADO) -->
+<!-- HERO -->
 <section class="hero">
 <div>
 <h1>FEMENINO SANTA PONSA</h1>
-<p>Un proyecto de fútbol femenino en Mallorca creado para formar y competir.</p>
-<a href="inscripcion.html" class="hero-btn">INSCRIBIRME</a>
+
+<p>
+Un proyecto de fútbol femenino en Mallorca creado para formar,
+competir y ofrecer oportunidades reales.
+</p>
+
+<a href="inscripcion.html" class="hero-btn">
+INSCRIBIRME
+</a>
 </div>
 </section>
 
@@ -303,14 +372,100 @@ margin-top:20px;
 
 </section>
 
-<!-- SCRIPT (SOLO ARREGLADO LO NECESARIO) -->
+<!-- PROYECTO -->
+<section class="section fade-up">
+
+<div class="section-sub">Nuestro proyecto</div>
+
+<h2 class="section-title">Más que fútbol</h2>
+
+<p class="section-text">
+Proyecto serio de desarrollo deportivo femenino en Mallorca.
+</p>
+
+<div class="project-grid">
+
+<div class="project-card">
+<h3>FORMACIÓN</h3>
+<p>Metodología profesional.</p>
+</div>
+
+<div class="project-card">
+<h3>COMPETICIÓN</h3>
+<p>Alto nivel competitivo.</p>
+</div>
+
+<div class="project-card">
+<h3>FUTURO</h3>
+<p>Proyecto a largo plazo.</p>
+</div>
+
+</div>
+</section>
+
+<!-- INSCRIPCIÓN -->
+<section class="join fade-up">
+
+<h2 class="section-title">Forma parte del club</h2>
+
+<p class="section-text">
+Buscamos jugadoras comprometidas.
+</p>
+
+<a href="inscripcion.html" class="join-btn">
+QUIERO INSCRIBIRME
+</a>
+
+</section>
+
+<!-- CONTACTO -->
+<section class="section contact fade-up">
+
+<h2 class="section-title">Contacto</h2>
+
+<p>
+<a href="mailto:futbolfemeninosantaponca@gmail.com">
+futbolfemeninosantaponca@gmail.com
+</a>
+</p>
+
+<p>
+<a href="tel:+34628836708">
++34 628 836 708
+</a>
+</p>
+
+</section>
+
+<!-- SPONSORS -->
+<section class="sponsors fade-up">
+
+<h2 class="section-title">Patrocinadores</h2>
+
+<div class="sponsors-grid">
+<img src="palmaflooring.png">
+<img src="universalnautic.png">
+</div>
+
+<div class="socials">
+<a href="https://www.instagram.com/femeninosantaponsa">
+<img src="instagram.png">
+</a>
+
+<a href="#"><img src="facebook.png"></a>
+<a href="#"><img src="tiktok.png"></a>
+</div>
+
+</section>
+
 <script>
 
+/* MENU */
 function toggleMenu(){
 document.getElementById("menu").classList.toggle("active");
 }
 
-/* ANIMACIONES (igual que el tuyo) */
+/* ANIMACIONES */
 const observer = new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
 if(entry.isIntersecting){
@@ -323,7 +478,7 @@ document.querySelectorAll(".fade-up").forEach(el=>{
 observer.observe(el);
 });
 
-/* PARTIDOS ARREGLADO (SIN TOCAR DISEÑO) */
+/* PARTIDOS (ARREGLADO SOLO LO NECESARIO) */
 const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
 
 async function load(){
@@ -338,8 +493,7 @@ let html="";
 
 for(let i=1;i<data.length;i++){
 const c=data[i];
-if(!c || c.length<3) continue;
-if(!c[1]) continue;
+if(!c || !c[1]) continue;
 
 html+=`
 <div class="card">
