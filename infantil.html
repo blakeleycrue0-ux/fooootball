@@ -10,182 +10,184 @@
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    background:#0a0a0a;
-    color:white;
-    font-family:'Inter', sans-serif;
+background:#0a0a0a;
+color:white;
+font-family:'Inter', sans-serif;
 }
 
 /* HEADER */
 header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:80px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 20px;
-    z-index:1000;
-    background:transparent;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:80px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+z-index:1000;
+background:transparent;
 }
 
 .logo-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
+display:flex;
+align-items:center;
+gap:10px;
 }
 
 .logo{
-    height:35px;
+height:35px;
 }
 
 .club-name{
-    font-family:'Oswald', sans-serif;
-    font-size:18px;
+font-family:'Oswald', sans-serif;
+font-size:18px;
 }
 
 .back-btn{
-    color:white;
-    text-decoration:none;
-    font-weight:700;
+color:white;
+text-decoration:none;
+font-weight:700;
 }
 
-/* HERO */
+/* HERO (SIN MORADO, MÁS PRO) */
 .hero{
-    height:45vh;
-    display:flex;
-    align-items:flex-end;
-    padding:30px;
-    background:linear-gradient(
-        135deg,
-        #2d0b59 0%,
-        #5b21b6 45%,
-        #7c3aed 100%
-    );
+height:45vh;
+display:flex;
+align-items:flex-end;
+padding:30px;
+background:
+linear-gradient(
+135deg,
+#0a0a0a 0%,
+#111111 55%,
+#1a1a1a 100%
+);
 }
 
 .hero h1{
-    font-family:'Anton', sans-serif;
-    font-size:55px;
-    line-height:0.9;
-    text-transform:uppercase;
+font-family:'Anton', sans-serif;
+font-size:55px;
+line-height:0.9;
+text-transform:uppercase;
 }
 
 /* SECCIONES */
 .section{
-    padding:30px 20px;
+padding:30px 20px;
 }
 
 .section-title{
-    font-size:12px;
-    opacity:0.6;
-    margin-bottom:20px;
-    text-transform:uppercase;
+font-size:12px;
+opacity:0.6;
+margin-bottom:20px;
+text-transform:uppercase;
+letter-spacing:1px;
 }
 
-/* JUGADORAS DROPDOWN */
+/* JUGADORAS DROPDOWN (QUITADO MORADO) */
 .squad-dropdown{
-    background:#111;
-    border-radius:16px;
-    overflow:hidden;
-    border:1px solid rgba(124,58,237,0.25);
+background:#111;
+border-radius:16px;
+overflow:hidden;
+border:1px solid rgba(255,255,255,0.08);
 }
 
 .squad-dropdown summary{
-    list-style:none;
-    cursor:pointer;
-    padding:22px;
-    font-size:18px;
-    font-weight:800;
-    color:white;
+list-style:none;
+cursor:pointer;
+padding:22px;
+font-size:18px;
+font-weight:800;
+color:white;
 }
 
 .squad-dropdown summary::-webkit-details-marker{
-    display:none;
+display:none;
 }
 
 .players-list{
-    padding:0 20px 20px;
+padding:0 20px 20px;
 }
 
 .player-item{
-    display:flex;
-    justify-content:space-between;
-    padding:14px 0;
-    border-bottom:1px solid rgba(255,255,255,0.06);
+display:flex;
+justify-content:space-between;
+padding:14px 0;
+border-bottom:1px solid rgba(255,255,255,0.06);
 }
 
 .player-item:last-child{
-    border-bottom:none;
+border-bottom:none;
 }
 
 .player-item span:first-child{
-    font-weight:600;
+font-weight:600;
 }
 
 .player-item span:last-child{
-    color:#a855f7;
-    font-weight:700;
+color:#e5e5e5;
+font-weight:700;
 }
 
 /* TABLA */
 .table{
-    background:#111;
-    border-radius:16px;
-    overflow:hidden;
+background:#111;
+border-radius:16px;
+overflow:hidden;
 }
 
 .row{
-    display:flex;
-    justify-content:space-between;
-    padding:15px;
-    border-bottom:1px solid rgba(255,255,255,0.05);
+display:flex;
+justify-content:space-between;
+padding:15px;
+border-bottom:1px solid rgba(255,255,255,0.05);
 }
 
 .head{
-    background:#1a1a1a;
-    font-weight:700;
-    text-transform:uppercase;
+background:#1a1a1a;
+font-weight:700;
+text-transform:uppercase;
 }
 
 .row span{
-    width:16%;
-    text-align:center;
-    font-size:14px;
+width:16%;
+text-align:center;
+font-size:14px;
 }
 
-/* DESTACAR SANTA PONSA */
+/* DESTACAR SANTA PONSA (SIN COLOR LILA) */
 .santa-row{
-    background:linear-gradient(
-        90deg,
-        rgba(124,58,237,0.25),
-        rgba(124,58,237,0.08)
-    );
-    border-left:4px solid #a855f7;
-    font-weight:700;
+background:linear-gradient(
+90deg,
+rgba(255,255,255,0.06),
+rgba(255,255,255,0.02)
+);
+border-left:3px solid #ffffff;
+font-weight:700;
 }
 
 /* MOBILE */
 @media(max-width:768px){
 
-    .hero{
-        height:35vh;
-    }
+.hero{
+height:35vh;
+}
 
-    .hero h1{
-        font-size:42px;
-    }
+.hero h1{
+font-size:42px;
+}
 
-    .row span{
-        font-size:11px;
-    }
+.row span{
+font-size:11px;
+}
 
 }
 
@@ -196,68 +198,68 @@ header{
 
 <header>
 
-    <div class="logo-title">
-        <img src="Logoclub.png" class="logo">
-        <div class="club-name">FEMENINO</div>
-    </div>
+<div class="logo-title">
+<img src="Logoclub.png" class="logo">
+<div class="club-name">FEMENINO</div>
+</div>
 
-    <a href="equipos.html" class="back-btn">← Volver</a>
+<a href="equipos.html" class="back-btn">← Volver</a>
 
 </header>
 
 <!-- HERO -->
 <section class="hero">
-    <h1>INFANTIL</h1>
+<h1>INFANTIL</h1>
 </section>
 
 <!-- JUGADORAS -->
 <section class="section">
 
-    <div class="section-title">Plantilla</div>
+<div class="section-title">Plantilla</div>
 
-    <details class="squad-dropdown">
+<details class="squad-dropdown">
 
-        <summary>Ver jugadoras</summary>
+<summary>Ver jugadoras</summary>
 
-        <div class="players-list">
+<div class="players-list">
 
-            <div class="player-item">
-                <span>Lucía Martínez</span>
-                <span>#9 · Delantera</span>
-            </div>
+<div class="player-item">
+<span>Lucía Martínez</span>
+<span>#9 · Delantera</span>
+</div>
 
-            <div class="player-item">
-                <span>Sofía Pérez</span>
-                <span>#8 · Centrocampista</span>
-            </div>
+<div class="player-item">
+<span>Sofía Pérez</span>
+<span>#8 · Centrocampista</span>
+</div>
 
-            <div class="player-item">
-                <span>Carla Gómez</span>
-                <span>#4 · Defensa</span>
-            </div>
+<div class="player-item">
+<span>Carla Gómez</span>
+<span>#4 · Defensa</span>
+</div>
 
-            <div class="player-item">
-                <span>Paula Serra</span>
-                <span>#11 · Extremo</span>
-            </div>
+<div class="player-item">
+<span>Paula Serra</span>
+<span>#11 · Extremo</span>
+</div>
 
-            <div class="player-item">
-                <span>Marina Torres</span>
-                <span>#1 · Portera</span>
-            </div>
+<div class="player-item">
+<span>Marina Torres</span>
+<span>#1 · Portera</span>
+</div>
 
-        </div>
+</div>
 
-    </details>
+</details>
 
 </section>
 
 <!-- CLASIFICACIÓN -->
 <section class="section">
 
-    <div class="section-title">Clasificación</div>
+<div class="section-title">Clasificación</div>
 
-    <div id="table" class="table"></div>
+<div id="table" class="table"></div>
 
 </section>
 
@@ -266,78 +268,78 @@ header{
 const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vS5vTKhCnEoTacQdpcmWgqiiBGrVZmyQBpG59Pdg1ipAT2nAYuFynAlfa9i_ICdd9Kt2UvHlbC1JCE4/pub?output=csv";
 
 function parseRow(row){
-    return row.split(/[,;]/).map(x => x.trim());
+return row.split(/[,;]/).map(x => x.trim());
 }
 
 async function loadTable(){
 
-    const container = document.getElementById("table");
+const container = document.getElementById("table");
 
-    try{
+try{
 
-        const res = await fetch(URL + "&t=" + Date.now(), {
-            cache:"no-store"
-        });
+const res = await fetch(URL + "&t=" + Date.now(), {
+cache:"no-store"
+});
 
-        const text = await res.text();
-        const rows = text.split("\n").filter(r => r.trim());
+const text = await res.text();
+const rows = text.split("\n").filter(r => r.trim());
 
-        let equipos = [];
+let equipos = [];
 
-        for(let i=1;i<rows.length;i++){
+for(let i=1;i<rows.length;i++){
 
-            const c = parseRow(rows[i]);
+const c = parseRow(rows[i]);
 
-            equipos.push({
-                nombre: c[0] || "-",
-                pj: c[1] || "0",
-                pg: c[2] || "0",
-                pe: c[3] || "0",
-                pp: c[4] || "0",
-                puntos: parseInt(c[5]) || 0
-            });
-        }
+equipos.push({
+nombre: c[0] || "-",
+pj: c[1] || "0",
+pg: c[2] || "0",
+pe: c[3] || "0",
+pp: c[4] || "0",
+puntos: parseInt(c[5]) || 0
+});
+}
 
-        equipos.sort((a,b)=> b.puntos-a.puntos);
+equipos.sort((a,b)=> b.puntos-a.puntos);
 
-        let html = `
-        <div class="row head">
-            <span>Equipo</span>
-            <span>PJ</span>
-            <span>PG</span>
-            <span>PE</span>
-            <span>PP</span>
-            <span>PTS</span>
-        </div>
-        `;
+let html = `
+<div class="row head">
+<span>Equipo</span>
+<span>PJ</span>
+<span>PG</span>
+<span>PE</span>
+<span>PP</span>
+<span>PTS</span>
+</div>
+`;
 
-        equipos.forEach(equipo=>{
+equipos.forEach(equipo=>{
 
-            const esSantaPonsa =
-                equipo.nombre.toLowerCase().includes("santa ponsa");
+const esSantaPonsa =
+equipo.nombre.toLowerCase().includes("santa ponsa");
 
-            html += `
-            <div class="row ${esSantaPonsa ? "santa-row" : ""}">
-                <span>${equipo.nombre}</span>
-                <span>${equipo.pj}</span>
-                <span>${equipo.pg}</span>
-                <span>${equipo.pe}</span>
-                <span>${equipo.pp}</span>
-                <span>${equipo.puntos}</span>
-            </div>
-            `;
-        });
+html += `
+<div class="row ${esSantaPonsa ? "santa-row" : ""}">
+<span>${equipo.nombre}</span>
+<span>${equipo.pj}</span>
+<span>${equipo.pg}</span>
+<span>${equipo.pe}</span>
+<span>${equipo.pp}</span>
+<span>${equipo.puntos}</span>
+</div>
+`;
+});
 
-        container.innerHTML = html;
+container.innerHTML = html;
 
-    }catch(err){
+}catch(err){
 
-        container.innerHTML = `
-        <div style="padding:20px;text-align:center;">
-            Error cargando datos
-        </div>
-        `;
-    }
+container.innerHTML = `
+<div style="padding:20px;text-align:center;">
+Error cargando datos
+</div>
+`;
+}
 }
 
 loadTable();
