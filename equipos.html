@@ -5,159 +5,166 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Equipos</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
+<!-- NUEVA TIPOGRAFÍA MÁS PRO -->
+<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;400;600;700&family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
 
 <style>
 
 *{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
 body{
-    background:#0a0a0a;
-    color:white;
-    font-family:'Inter', sans-serif;
-    overflow-x:hidden;
+background:#0a0a0a;
+color:white;
+font-family:'Saira Condensed', sans-serif;
+overflow-x:hidden;
 }
 
 /* HEADER */
 header{
-    position:fixed;
-    top:0;
-    left:0;
-    width:100%;
-    height:80px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-    padding:0 20px;
-    z-index:1000;
-    background:transparent;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:80px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+padding:0 20px;
+z-index:1000;
+background:transparent;
 }
 
 .logo-title{
-    display:flex;
-    align-items:center;
-    gap:10px;
+display:flex;
+align-items:center;
+gap:10px;
 }
 
 .logo{
-    height:35px;
+height:35px;
 }
 
 .club-name{
-    font-family:'Oswald', sans-serif;
-    font-size:18px;
-    letter-spacing:1px;
+font-family:'Oswald', sans-serif;
+font-size:18px;
+letter-spacing:1px;
 }
 
 .back-btn{
-    color:white;
-    text-decoration:none;
-    font-weight:700;
+color:white;
+text-decoration:none;
+font-weight:700;
 }
 
-/* HERO LILA */
+/* HERO (negro limpio) */
 .hero{
-    height:45vh;
-    display:flex;
-    align-items:flex-end;
-    padding:30px;
-    background:
-    linear-gradient(
-        135deg,
-        #2d0b59 0%,
-        #5b21b6 45%,
-        #7c3aed 100%
-    );
-    border-bottom:1px solid rgba(255,255,255,0.08);
+height:45vh;
+display:flex;
+align-items:flex-end;
+padding:30px;
+background:
+linear-gradient(
+135deg,
+#0a0a0a 0%,
+#111111 55%,
+#1a1a1a 100%
+);
+border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
 .hero h1{
-    font-family:'Anton', sans-serif;
-    font-size:55px;
-    line-height:0.95;
-    text-transform:uppercase;
+font-family:'Anton', sans-serif;
+font-size:55px;
+line-height:0.95;
+text-transform:uppercase;
 }
 
 /* SECTION */
 .teams-section{
-    padding:30px 20px;
+padding:30px 20px;
 }
 
 .section-title{
-    font-size:12px;
-    opacity:0.6;
-    margin-bottom:20px;
+font-size:12px;
+opacity:0.6;
+margin-bottom:20px;
+letter-spacing:1px;
+font-family:'Oswald', sans-serif;
 }
 
 /* GRID */
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-    gap:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:20px;
 }
 
 /* CARDS */
 .card{
-    display:block;
-    text-decoration:none;
-    color:black;
-    background:#f2f2f2;
-    padding:25px;
-    min-height:180px;
-    position:relative;
-    clip-path:polygon(
-        0 0,
-        100% 0,
-        100% 82%,
-        90% 100%,
-        0 100%
-    );
-    transition:0.3s;
+display:block;
+text-decoration:none;
+color:black;
+background:#f2f2f2;
+padding:25px;
+min-height:180px;
+position:relative;
+clip-path:polygon(
+0 0,
+100% 0,
+100% 82%,
+90% 100%,
+0 100%
+);
+transition:0.25s ease;
+border:1px solid rgba(0,0,0,0.05);
 }
 
 .card:hover{
-    transform:translateY(-5px);
+transform:translateY(-6px);
 }
 
 .card small{
-    font-family:'Oswald', sans-serif;
-    font-size:12px;
-    color:#7c3aed;
-    font-weight:700;
+font-family:'Oswald', sans-serif;
+font-size:12px;
+color:#111;
+font-weight:700;
+opacity:0.75;
+letter-spacing:0.5px;
 }
 
 .card h2{
-    font-family:'Anton', sans-serif;
-    font-size:42px;
-    margin:15px 0;
-    line-height:0.9;
-    text-transform:uppercase;
+font-family:'Anton', sans-serif;
+font-size:42px;
+margin:15px 0;
+line-height:0.9;
+text-transform:uppercase;
 }
 
 .card p{
-    font-size:14px;
-    color:#444;
-    max-width:220px;
+font-size:14px;
+color:#444;
+max-width:220px;
+line-height:1.5;
 }
 
 /* MOBILE */
 @media(max-width:768px){
 
-    .hero{
-        height:40vh;
-    }
+.hero{
+height:40vh;
+}
 
-    .hero h1{
-        font-size:42px;
-    }
+.hero h1{
+font-size:42px;
+}
 
-    .grid{
-        grid-template-columns:1fr;
-    }
+.grid{
+grid-template-columns:1fr;
+}
 
 }
 
@@ -168,61 +175,58 @@ header{
 
 <header>
 
-    <div class="logo-title">
-        <img src="Logoclub.png" class="logo">
-        <div class="club-name">FEMENINO</div>
-    </div>
+<div class="logo-title">
+<img src="Logoclub.png" class="logo" alt="Logo club">
+<div class="club-name">FEMENINO</div>
+</div>
 
-    <a href="home.html" class="back-btn">← Volver</a>
+<a href="home.html" class="back-btn">← Volver</a>
 
 </header>
 
 <section class="hero">
-    <h1>OUR<br>TEAMS</h1>
+<h1>OUR<br>TEAMS</h1>
 </section>
 
 <section class="teams-section">
 
-    <div class="section-title">ACADEMY & FIRST TEAM</div>
+<div class="section-title">ACADEMY & FIRST TEAM</div>
 
-    <div class="grid">
+<div class="grid">
 
-        <a href="infantil.html" class="card">
-            <small>ACADEMY</small>
-            <h2>INFANTIL</h2>
-            <p>Formación base y desarrollo inicial.</p>
-        </a>
+<a href="infantil.html" class="card">
+<small>ACADEMY</small>
+<h2>INFANTIL</h2>
+<p>Formación base y desarrollo inicial.</p>
+</a>
 
-        <a href="alevin.html" class="card">
-            <small>ACADEMY</small>
-            <h2>ALEVÍN</h2>
-            <p>Desarrollo técnico y crecimiento.</p>
-        </a>
+<a href="alevin.html" class="card">
+<small>ACADEMY</small>
+<h2>ALEVÍN</h2>
+<p>Desarrollo técnico y crecimiento.</p>
+</a>
 
-        <a href="cadete.html" class="card">
-            <small>ACADEMY</small>
-            <h2>CADETE</h2>
-            <p>Competición y preparación avanzada.</p>
-        </a>
+<a href="cadete.html" class="card">
+<small>ACADEMY</small>
+<h2>CADETE</h2>
+<p>Competición y preparación avanzada.</p>
+</a>
 
-        <a href="juvenil.html" class="card">
-            <small>ACADEMY</small>
-            <h2>JUVENIL</h2>
-            <p>Alto rendimiento antes del primer equipo.</p>
-        </a>
+<a href="juvenil.html" class="card">
+<small>ACADEMY</small>
+<h2>JUVENIL</h2>
+<p>Alto rendimiento antes del primer equipo.</p>
+</a>
 
-        <a href="autonomica.html" class="card">
-            <small>FIRST TEAM</small>
-            <h2>AUTONÓMICA</h2>
-            <p>Máximo nivel competitivo del club.</p>
-        </a>
+<a href="autonomica.html" class="card">
+<small>FIRST TEAM</small>
+<h2>AUTONÓMICA</h2>
+<p>Máximo nivel competitivo del club.</p>
+</a>
 
-    </div>
+</div>
 
 </section>
-
-</body>
-</html>
 
 </body>
 </html>
