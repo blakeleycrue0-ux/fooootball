@@ -520,47 +520,40 @@ document.getElementById("menu").classList.toggle("active");
 }
 
 /* PARTIDOS */
-const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
-
+const URL = "/.netlify/functions/ffib";
 async function load(){
 
 const res = await fetch(URL);
-const text = await res.text();
-
-const rows = text.split("\n").filter(r=>r.trim());
+const matches = await res.json();
 
 let html="";
 
-for(let i=1;i<rows.length;i++){
-
-const c=rows[i]
-.split(",")
-.map(x=>x.replace(/"/g,"").trim());
-
-if(!c[1]) continue;
+matches.forEach(match => {
 
 html += `
 <div class="card">
-<div class="status">${c[0]}</div>
+
+<div class="status">${match.date}</div>
 
 <div class="row">
-<span>${c[1]}</span>
-<span>${c[2]}</span>
+<span>${match.home}</span>
+<span>${match.score}</span>
 </div>
 
 <div class="row">
-<span>${c[3]}</span>
-<span>${c[4]}</span>
+<span>${match.away}</span>
+<span></span>
 </div>
+
 </div>
 `;
-}
+
+});
 
 document.getElementById("matches").innerHTML=html;
 }
 
 load();
-
 /* ANIMACIONES */
 const observer = new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
