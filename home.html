@@ -5,9 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Femenino Santa Ponsa</title>
 
+
+
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
 
+
+
 <style>
+
+
 
 *{
 margin:0;
@@ -16,9 +22,13 @@ box-sizing:border-box;
 -webkit-tap-highlight-color: transparent;
 }
 
+
+
 html{
 scroll-behavior:smooth;
 }
+
+
 
 body{
 background:#000;
@@ -27,6 +37,8 @@ font-family:'Inter',sans-serif;
 overflow-x:hidden;
 }
 
+
+
 /* ANIMACIONES */
 .fade-up{
 opacity:0;
@@ -34,10 +46,14 @@ transform:translateY(40px);
 transition:.9s ease;
 }
 
+
+
 .fade-up.show{
 opacity:1;
 transform:translateY(0);
 }
+
+
 
 /* HEADER */
 header{
@@ -55,9 +71,13 @@ z-index:1000;
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
+
+
 .logo{
 height:42px;
 }
+
+
 
 .menu-btn{
 position:absolute;
@@ -65,6 +85,8 @@ left:20px;
 font-size:24px;
 cursor:pointer;
 }
+
+
 
 /* MENU */
 .mobile-menu{
@@ -79,9 +101,13 @@ padding:30px;
 transition:.4s;
 }
 
+
+
 .mobile-menu.active{
 left:0;
 }
+
+
 
 .close-btn{
 font-size:30px;
@@ -89,6 +115,8 @@ margin-bottom:40px;
 cursor:pointer;
 color:white;
 }
+
+
 
 .mobile-menu a{
 display:block;
@@ -99,6 +127,8 @@ font-size:24px;
 margin:25px 0;
 text-transform:uppercase;
 }
+
+
 
 /* HERO */
 .hero{
@@ -113,6 +143,8 @@ align-items:flex-end;
 padding:25px;
 }
 
+
+
 .hero h1{
 font-family:'Anton';
 font-size:clamp(42px,12vw,75px);
@@ -121,12 +153,16 @@ text-transform:uppercase;
 margin-bottom:15px;
 }
 
+
+
 .hero p{
 font-size:15px;
 line-height:1.7;
 color:#d9d9d9;
 margin-bottom:25px;
 }
+
+
 
 .hero-btn{
 display:inline-block;
@@ -138,14 +174,20 @@ border-radius:40px;
 font-weight:700;
 }
 
+
+
 .hero-btn:hover{
 background:#d9d9d9;
 }
+
+
 
 /* GENERAL */
 .section{
 padding:55px 20px;
 }
+
+
 
 .section-sub{
 color:#bdbdbd;
@@ -156,6 +198,8 @@ margin-bottom:12px;
 text-transform:uppercase;
 }
 
+
+
 .section-title{
 font-family:'Anton';
 font-size:clamp(30px,8vw,55px);
@@ -164,11 +208,15 @@ margin-bottom:20px;
 text-transform:uppercase;
 }
 
+
+
 .section-text{
 color:#d1d1d1;
 line-height:1.8;
 font-size:15px;
 }
+
+
 
 /* PARTIDOS */
 .matches-scroll{
@@ -178,9 +226,13 @@ overflow-x:auto;
 padding-bottom:10px;
 }
 
+
+
 .matches-scroll::-webkit-scrollbar{
 display:none;
 }
+
+
 
 .card{
 min-width:260px;
@@ -197,6 +249,8 @@ clip-path:polygon(
 );
 }
 
+
+
 .status{
 font-family:'Oswald';
 font-size:12px;
@@ -205,22 +259,30 @@ margin-bottom:15px;
 color:black;
 }
 
+
+
 .row{
 display:flex;
 justify-content:space-between;
 margin:10px 0;
 }
 
+
+
 .row span:first-child{
 font-family:'Anton';
 font-size:24px;
 }
+
+
 
 .row span:last-child{
 font-family:'Anton';
 font-size:24px;
 color:black;
 }
+
+
 
 /* PROYECTO */
 .project-grid{
@@ -230,6 +292,8 @@ gap:16px;
 margin-top:30px;
 }
 
+
+
 .project-card{
 background:#0d0d0d;
 padding:25px;
@@ -237,11 +301,15 @@ border-radius:18px;
 border:1px solid rgba(255,255,255,0.08);
 }
 
+
+
 .project-card h3{
 font-family:'Anton';
 font-size:24px;
 margin-bottom:12px;
 }
+
+
 
 .project-card p{
 color:#bdbdbd;
@@ -249,12 +317,16 @@ line-height:1.7;
 font-size:14px;
 }
 
+
+
 /* INSCRIPCIÓN */
 .join{
 background:#0d0d0d;
 padding:60px 20px;
 text-align:center;
 }
+
+
 
 .join-btn{
 display:inline-block;
@@ -267,25 +339,35 @@ text-decoration:none;
 font-weight:700;
 }
 
+
+
 .join-btn:hover{
 background:white;
 color:black;
 }
+
+
 
 /* CONTACTO */
 .contact{
 text-align:center;
 }
 
+
+
 .contact p{
 margin:12px 0;
 color:#d1d1d1;
 }
 
+
+
 .contact a{
 color:white;
 text-decoration:none;
 }
+
+
 
 /* SPONSORS */
 .sponsors{
@@ -293,6 +375,8 @@ background:#0d0d0d;
 text-align:center;
 padding:60px 20px;
 }
+
+
 
 .sponsors-grid{
 display:flex;
@@ -302,10 +386,14 @@ flex-wrap:wrap;
 margin:30px 0;
 }
 
+
+
 .sponsors-grid img{
 height:65px;
 object-fit:contain;
 }
+
+
 
 .socials{
 display:flex;
@@ -314,76 +402,112 @@ gap:18px;
 margin-top:20px;
 }
 
+
+
 .socials img{
 height:35px;
 width:35px;
 object-fit:contain;
 }
 
+
+
 /* DESKTOP */
 @media(min-width:900px){
+
+
 
 .hero{
 padding:60px;
 }
+
+
 
 .hero p{
 max-width:600px;
 font-size:18px;
 }
 
+
+
 .section{
 padding:90px 80px;
 }
+
+
 
 .project-grid{
 display:grid;
 grid-template-columns:repeat(3,1fr);
 }
 
+
+
 .card{
 min-width:280px;
 }
 
+
+
 .sponsors-grid img{
 height:90px;
 }
+
+
 
 .socials img{
 height:45px;
 width:45px;
 }
 
+
+
 }
+
+
 
 </style>
 </head>
 
+
+
 <body>
+
+
 
 <header>
 <div class="menu-btn" onclick="toggleMenu()">☰</div>
 <img src="Logoclub.png" class="logo">
 </header>
 
+
+
 <!-- MENU -->
 <div class="mobile-menu" id="menu">
 <div class="close-btn" onclick="toggleMenu()">✕</div>
+
+
 
 <a href="home.html">Inicio</a>
 <a href="equipos.html">Equipos</a>
 <a href="inscripcion.html">Inscripción</a>
 </div>
 
+
+
 <!-- HERO -->
 <section class="hero">
 <div>
 <h1>FEMENINO SANTA PONSA</h1>
 
+
+
 <p>
 Un proyecto de fútbol femenino en Mallorca creado para formar,
 competir y ofrecer oportunidades reales a jugadoras con ambición.
 </p>
+
+
 
 <a href="inscripcion.html" class="hero-btn">
 INSCRIBIRME
@@ -391,83 +515,133 @@ INSCRIBIRME
 </div>
 </section>
 
+
+
 <!-- PARTIDOS -->
 <section class="section fade-up">
+
+
 
 <div class="section-sub">Calendario</div>
 <h2 class="section-title">Partidos</h2>
 
+
+
 <div class="matches-scroll" id="matches"></div>
 
+
+
 </section>
+
+
 
 <!-- PROYECTO -->
 <section class="section fade-up">
 
+
+
 <div class="section-sub">Nuestro proyecto</div>
+
+
 
 <h2 class="section-title">
 Más que fútbol
 </h2>
 
+
+
 <p class="section-text">
 Femenino Santa Ponsa nace con una visión clara:
 crear una estructura seria y profesional dentro del fútbol femenino en Mallorca.
+
+
 
 Nuestro objetivo es desarrollar jugadoras dentro y fuera del campo,
 apostando por formación técnica, preparación física, mentalidad competitiva
 y oportunidades reales de crecimiento deportivo.
 </p>
 
+
+
 <div class="project-grid">
+
+
 
 <div class="project-card">
 <h3>FORMACIÓN</h3>
 <p>Entrenamientos modernos con metodología profesional.</p>
 </div>
 
+
+
 <div class="project-card">
 <h3>COMPETICIÓN</h3>
 <p>Equipos preparados para competir al máximo nivel.</p>
 </div>
+
+
 
 <div class="project-card">
 <h3>FUTURO</h3>
 <p>Proyecto diseñado para crecer durante muchos años.</p>
 </div>
 
+
+
 </div>
 
+
+
 </section>
+
+
 
 <!-- INSCRIPCIÓN -->
 <section class="join fade-up">
 
+
+
 <div class="section-sub">Únete</div>
+
+
 
 <h2 class="section-title">
 Forma parte del club
 </h2>
+
+
 
 <p class="section-text">
 Buscamos jugadoras comprometidas,
 con ganas de crecer y competir.
 </p>
 
+
+
 <a href="inscripcion.html" class="join-btn">
 QUIERO INSCRIBIRME
 </a>
 
+
+
 </section>
+
+
 
 <!-- CONTACTO -->
 <section class="section contact fade-up">
 
+
+
 <div class="section-sub">Contacto</div>
+
+
 
 <h2 class="section-title">
 Hablemos
 </h2>
+
+
 
 <p>
 <a href="mailto:futbolfemeninosantaponca@gmail.com">
@@ -475,85 +649,144 @@ futbolfemeninosantaponca@gmail.com
 </a>
 </p>
 
+
+
 <p>
 <a href="tel:+34628836708">
 +34 628 836 708
 </a>
 </p>
 
+
+
 </section>
+
+
 
 <!-- SPONSORS -->
 <section class="sponsors fade-up">
 
+
+
 <div class="section-sub">Partners</div>
+
+
 
 <h2 class="section-title">
 Patrocinadores
 </h2>
+
+
 
 <div class="sponsors-grid">
 <img src="palmaflooring.png">
 <img src="universalnautic.png">
 </div>
 
+
+
 <div class="socials">
 <a href="https://www.instagram.com/femeninosantaponsa?igsh=Zmtvc3p4eDA1NDQ0&utm_source=qr">
 <img src="instagram.png">
 </a>
 
+
+
 <a href="#">
 <img src="facebook.png">
 </a>
+
+
 
 <a href="#">
 <img src="tiktok.png">
 </a>
 </div>
 
+
+
 </section>
 
+
+
 <script>
+
+
 
 function toggleMenu(){
 document.getElementById("menu").classList.toggle("active");
 }
 
+
+
 /* PARTIDOS */
-const URL = "/.netlify/functions/ffib";
+const URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQfAIC8-HY_kpednFu3CUewnmg-_Uy52_ZOBGWQx_oSe_0Dr4hVZS_BicuNUnIFLXu18L4LdZXin2qx/pub?output=csv";
+
+
+
 async function load(){
 
+
+
 const res = await fetch(URL);
-const matches = await res.json();
+const text = await res.text();
+
+
+
+const rows = text.split("\n").filter(r=>r.trim());
+
+
 
 let html="";
 
-matches.forEach(match => {
+
+
+for(let i=1;i<rows.length;i++){
+
+
+
+const c=rows[i]
+.split(",")
+.map(x=>x.replace(/"/g,"").trim());
+
+
+
+if(!c[1]) continue;
+
+
 
 html += `
 <div class="card">
+<div class="status">${c[0]}</div>
 
-<div class="status">${match.date}</div>
 
-<div class="row">
-<span>${match.home}</span>
-<span>${match.score}</span>
-</div>
 
 <div class="row">
-<span>${match.away}</span>
-<span></span>
+<span>${c[1]}</span>
+<span>${c[2]}</span>
 </div>
 
+
+
+<div class="row">
+<span>${c[3]}</span>
+<span>${c[4]}</span>
+</div>
 </div>
 `;
+}
 
-});
+
 
 document.getElementById("matches").innerHTML=html;
 }
 
+
+
 load();
+
+
+
 /* ANIMACIONES */
 const observer = new IntersectionObserver(entries=>{
 entries.forEach(entry=>{
@@ -563,11 +796,17 @@ entry.target.classList.add("show");
 });
 });
 
+
+
 document.querySelectorAll(".fade-up").forEach(el=>{
 observer.observe(el);
 });
 
+
+
 </script>
+
+
 
 </body>
 </html>
