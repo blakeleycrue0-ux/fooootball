@@ -22,7 +22,7 @@ font-family:'Inter',sans-serif;
 overflow-x:hidden;
 }
 
-/* HEADER */
+/* HEADER (sin cambios) */
 header{
 position:fixed;
 top:0;
@@ -41,14 +41,13 @@ z-index:1000;
 height:45px;
 }
 
-/* HERO NUEVO */
+/* HERO (solo quitado degradado raro, nada más) */
 .hero{
 height:45vh;
 display:flex;
 align-items:flex-end;
 padding:30px;
-background:
-linear-gradient(135deg,#0a0a0a 20%, #181818 50%, #8b5cf6 140%);
+background:linear-gradient(135deg,#0a0a0a 30%, #151515 100%);
 border-bottom:1px solid rgba(255,255,255,0.08);
 }
 
@@ -60,7 +59,7 @@ text-transform:uppercase;
 max-width:700px;
 }
 
-/* FORM SECTION */
+/* FORM SECTION (NO TOCO TU TEXTO NI ESTRUCTURA) */
 .form-section{
 padding:60px 25px;
 max-width:900px;
@@ -77,7 +76,7 @@ margin-bottom:15px;
 .form-sub{
 font-family:'Oswald';
 font-size:24px;
-color:#8b5cf6;
+color:#e5e5e5;
 margin-bottom:25px;
 text-transform:uppercase;
 }
@@ -109,6 +108,7 @@ font-family:'Oswald';
 font-size:18px;
 margin-bottom:10px;
 text-transform:uppercase;
+color:#f1f1f1;
 }
 
 input,
@@ -116,58 +116,63 @@ select,
 textarea{
 width:100%;
 padding:16px;
-background:#1b1b1b;
-border:none;
+background:#1a1a1a;
+border:1px solid rgba(255,255,255,0.08);
 border-radius:12px;
 color:white;
 font-size:16px;
 outline:none;
 }
 
+/* SOLO LIMPIO, SIN COLORES */
 input:focus,
 select:focus,
 textarea:focus{
-border:1px solid #8b5cf6;
+border:1px solid #ffffff;
+background:#151515;
 }
 
+/* TEXTAREA */
 textarea{
 height:140px;
 resize:none;
 }
 
-/* BOTÓN */
+/* BOTÓN (BLANCO/NEGRO LIMPIO, SIN MORADO) */
 button{
 width:100%;
 padding:18px;
-background:black;
-color:white;
-border:2px solid #8b5cf6;
+background:#ffffff;
+color:#000;
+border:1px solid #ffffff;
 border-radius:50px;
 font-weight:700;
 font-size:16px;
 cursor:pointer;
-transition:.3s;
+transition:.2s ease;
 }
 
 button:hover{
-background:#8b5cf6;
+background:#0a0a0a;
+color:#ffffff;
+border:1px solid #ffffff;
 }
 
 /* VOLVER */
 .back-btn{
 display:inline-block;
 margin-top:30px;
-color:white;
+color:#d0d0d0;
 text-decoration:none;
 font-family:'Oswald';
 font-size:20px;
 }
 
 .back-btn:hover{
-color:#8b5cf6;
+color:#ffffff;
 }
 
-/* ANIMACIÓN */
+/* ANIMACIÓN (igual) */
 .fade-up{
 opacity:0;
 transform:translateY(40px);
@@ -181,87 +186,86 @@ transform:translateY(0);
 
 </style>
 </head>
+
 <body>
 
 <header>
-    <img src="Logoclub.png" class="logo">
+<img src="Logoclub.png" class="logo">
 </header>
 
 <!-- HERO -->
 <section class="hero">
-    <h1>ÚNETE AL<br>PROYECTO</h1>
+<h1>ÚNETE AL<br>PROYECTO</h1>
 </section>
 
-<!-- FORM -->
+<!-- SOLO ESTO (NO HE AÑADIDO NI QUITADO TEXTO TUYO) -->
 <section class="form-section fade-up">
 
-    <h2 class="form-title">FORMA PARTE DEL FUTURO</h2>
+<h2 class="form-title">FORMA PARTE DEL FUTURO</h2>
 
-    <h3 class="form-sub">Femenino Santa Ponsa</h3>
+<h3 class="form-sub">Femenino Santa Ponsa</h3>
 
-    <p class="form-text">
-        Estamos creando un proyecto ambicioso para impulsar 
-        el fútbol femenino en Mallorca.
+<p class="form-text">
+Estamos creando un proyecto ambicioso para impulsar
+el fútbol femenino en Mallorca.
 
-        Buscamos jugadoras comprometidas que quieran crecer,
-        competir y formar parte de una estructura moderna
-        con objetivos grandes para los próximos años.
-    </p>
+Buscamos jugadoras comprometidas que quieran crecer,
+competir y formar parte de una estructura moderna
+con objetivos grandes para los próximos años.
+</p>
 
-    <div class="form-box">
+<div class="form-box">
 
-        <form name="inscripcion" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="inscripcion">
+<form name="inscripcion" method="POST" data-netlify="true">
+<input type="hidden" name="form-name" value="inscripcion">
 
-            <div class="input-group">
-                <label>Nombre completo</label>
-                <input type="text" name="nombre" required>
-            </div>
+<div class="input-group">
+<label>Nombre completo</label>
+<input type="text" name="nombre" required>
+</div>
 
-            <div class="input-group">
-                <label>Edad</label>
-                <input type="number" name="edad" required>
-            </div>
+<div class="input-group">
+<label>Edad</label>
+<input type="number" name="edad" required>
+</div>
 
-            <div class="input-group">
-                <label>Posición</label>
-                <select name="posicion">
-                    <option>Portera</option>
-                    <option>Defensa</option>
-                    <option>Centrocampista</option>
-                    <option>Delantera</option>
-                </select>
-            </div>
+<div class="input-group">
+<label>Posición</label>
+<select name="posicion">
+<option>Portera</option>
+<option>Defensa</option>
+<option>Centrocampista</option>
+<option>Delantera</option>
+</select>
+</div>
 
-            <div class="input-group">
-                <label>Teléfono</label>
-                <input type="tel" name="telefono" required>
-            </div>
+<div class="input-group">
+<label>Teléfono</label>
+<input type="tel" name="telefono" required>
+</div>
 
-            <div class="input-group">
-                <label>Email</label>
-                <input type="email" name="email" required>
-            </div>
+<div class="input-group">
+<label>Email</label>
+<input type="email" name="email" required>
+</div>
 
-            <div class="input-group">
-                <label>Experiencia</label>
-                <textarea 
-                    name="experiencia"
-                    placeholder="Clubes anteriores, años jugando, nivel, etc">
-                </textarea>
-            </div>
+<div class="input-group">
+<label>Experiencia</label>
+<textarea name="experiencia"
+placeholder="Clubes anteriores, años jugando, nivel, etc"></textarea>
+</div>
 
-            <button type="submit">
-                ENVIAR SOLICITUD
-            </button>
+<button type="submit">
+ENVIAR SOLICITUD
+</button>
 
-        </form>
+</form>
 
-    </div>
+</div>
 
-    <a href="home.html" class="back-btn">
-        ← VOLVER AL INICIO
-    </a>
+<a href="home.html" class="back-btn">
+← VOLVER AL INICIO
+</a>
 
 </section>
 
@@ -280,9 +284,6 @@ observer.observe(el);
 });
 
 </script>
-
-</body>
-</html>
 
 </body>
 </html>
