@@ -9,18 +9,19 @@ const html = await response.text();
 
 const matches = [];
 
-/* Extract results */
-const regex = /#####\s(\d{2}-\d{2}-\d{4}).*?#####\s(.+?)\s+#####\s(.+?)\s+\|\s+#####\s([0-9\- ]+)/gms;
+/* Match extraction */
+const regex = /(\d{2}\/\d{2}\/\d{4}).*?([A-Za-zÀ-ÿ\s]+)\s+(\d+)\s*-\s*(\d+)\s+([A-Za-zÀ-ÿ\s]+)/gms;
 
 let match;
 
 while ((match = regex.exec(html)) !== null) {
 
 matches.push({
-date: match[1].trim(),
+date: match[1],
 home: match[2].trim(),
-away: match[3].trim(),
-score: match[4].trim()
+homeScore: match[3],
+awayScore: match[4],
+away: match[5].trim()
 });
 
 }
@@ -44,4 +45,5 @@ error: err.message
 };
 
 }
+
 };
