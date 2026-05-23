@@ -3,230 +3,376 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Equipos</title>
-
-<!-- NUEVA TIPOGRAFÍA MÁS PRO -->
-<link href="https://fonts.googleapis.com/css2?family=Saira+Condensed:wght@300;400;600;700&family=Anton&family=Oswald:wght@400;500;700&display=swap" rel="stylesheet">
-
+<title>Equipos | Femenino Santa Ponsa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+:root {
+  --white: #f5f2ec;
+  --black: #080808;
+  --purple: #c084fc;
+  --purple-dark: #2d0a52;
+  --gray: #a0a09a;
+  --card-bg: #0f0f0f;
+  --border: rgba(245,242,236,0.09);
 }
 
-body{
-background:#0a0a0a;
-color:white;
-font-family:'Saira Condensed', sans-serif;
-overflow-x:hidden;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9990; opacity: 0.35;
+}
+
+/* CURSOR */
+#cursor {
+  position: fixed; top: 0; left: 0;
+  width: 10px; height: 10px;
+  background: var(--purple);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.12s, background 0.3s;
+}
+#cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(192,132,252,0.45);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width 0.3s, height 0.3s;
 }
 
 /* HEADER */
-header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:80px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-padding:0 20px;
-z-index:1000;
-background:transparent;
+header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  z-index: 1000;
+  transition: background 0.4s;
+}
+header.scrolled {
+  background: rgba(8,8,8,0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.logo { height: 40px; }
+.back-link {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--gray); text-decoration: none;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  transition: color 0.3s;
+}
+.back-link:hover { color: var(--white); }
+.back-link svg { width: 16px; height: 16px; }
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 52vh; min-height: 340px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url("https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1400&q=80") center/cover no-repeat;
+  filter: brightness(0.28) saturate(0.5);
+  transform: scale(1.04);
+  transition: transform 6s ease;
+}
+.hero-bg.loaded { transform: scale(1); }
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.3) 50%, transparent 80%),
+              linear-gradient(to right, rgba(8,8,8,0.6), transparent 60%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 40px 28px;
+}
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 14px;
+  opacity: 0; transform: translateY(16px);
+  animation: fadeUp 0.7s 0.2s forwards;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 14vw, 110px);
+  line-height: 0.88; letter-spacing: 0.01em;
+  opacity: 0; transform: translateY(24px);
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero h1 em { font-style: normal; -webkit-text-stroke: 1.5px var(--white); color: transparent; }
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* PAGE */
+.page { padding: 60px 28px 100px; max-width: 1100px; margin: 0 auto; }
+
+/* SECTION LABEL */
+.section-label {
+  display: flex; align-items: center; gap: 14px;
+  margin-bottom: 20px;
+}
+.section-label-text {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--purple);
+}
+.section-label-line { flex: 1; height: 1px; background: var(--border); }
+
+/* ACADEMY BLOCK */
+.block { margin-bottom: 60px; }
+
+/* TEAM GRID */
+.team-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2px;
 }
 
-.logo-title{
-display:flex;
-align-items:center;
-gap:10px;
+/* TEAM CARD */
+.team-card {
+  display: block;
+  text-decoration: none;
+  color: var(--white);
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  padding: 32px 36px;
+  position: relative; overflow: hidden;
+  transition: border-color 0.35s, background 0.35s;
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 20px;
+}
+.team-card::before {
+  content: '';
+  position: absolute; top: 0; left: 0; bottom: 0; width: 2px;
+  background: var(--purple);
+  transform: scaleY(0); transform-origin: top;
+  transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+}
+.team-card::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(192,132,252,0.05) 0%, transparent 60%);
+  opacity: 0; transition: opacity 0.4s;
+}
+.team-card:hover { border-color: rgba(192,132,252,0.3); background: #111; }
+.team-card:hover::before { transform: scaleY(1); }
+.team-card:hover::after { opacity: 1; }
+.team-card:hover .card-arrow { transform: translateX(6px); opacity: 1; }
+.team-card:hover .card-num { color: rgba(192,132,252,0.35); }
+
+.card-left { display: flex; align-items: center; gap: 28px; }
+
+.card-num {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 48px; line-height: 1;
+  color: rgba(245,242,236,0.07);
+  flex-shrink: 0; min-width: 52px;
+  transition: color 0.4s;
 }
 
-.logo{
-height:35px;
+.card-info {}
+.card-tag {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 10px; font-weight: 600;
+  letter-spacing: 0.25em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 6px;
+}
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(30px, 6vw, 48px);
+  line-height: 0.92; letter-spacing: 0.02em;
+}
+.card-desc {
+  font-size: 13px; color: var(--gray);
+  font-weight: 300; margin-top: 6px; line-height: 1.5;
 }
 
-.club-name{
-font-family:'Oswald', sans-serif;
-font-size:18px;
-letter-spacing:1px;
+.card-arrow {
+  flex-shrink: 0;
+  opacity: 0.2; transition: transform 0.35s, opacity 0.35s;
+  color: var(--purple);
 }
+.card-arrow svg { width: 22px; height: 22px; }
 
-.back-btn{
-color:white;
-text-decoration:none;
-font-weight:700;
+/* FIRST TEAM CARD — bigger, highlighted */
+.team-card.featured {
+  background: var(--purple-dark);
+  border-color: rgba(192,132,252,0.2);
+  padding: 40px 36px;
 }
+.team-card.featured .card-num { color: rgba(192,132,252,0.15); }
+.team-card.featured .card-desc { color: rgba(245,242,236,0.6); }
+.team-card.featured:hover { background: #3a0f68; border-color: rgba(192,132,252,0.5); }
+.team-card.featured:hover .card-num { color: rgba(192,132,252,0.4); }
+.team-card.featured .card-tag { color: #d8b4fe; }
+.team-card.featured .card-arrow { opacity: 0.4; }
+.team-card.featured:hover .card-arrow { opacity: 1; }
 
-/* HERO (negro limpio) */
-.hero{
-height:45vh;
-display:flex;
-align-items:flex-end;
-padding:30px;
-background:
-linear-gradient(
-135deg,
-#0a0a0a 0%,
-#111111 55%,
-#1a1a1a 100%
-);
-border-bottom:1px solid rgba(255,255,255,0.08);
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.75s ease, transform 0.75s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* DESKTOP */
+@media (min-width: 700px) {
+  header { padding: 0 60px; }
+  .hero-content { padding: 50px 60px; }
+  .page { padding: 70px 60px 120px; }
+  .team-grid { grid-template-columns: 1fr 1fr; }
+  .team-card.featured { grid-column: 1 / -1; }
 }
-
-.hero h1{
-font-family:'Anton', sans-serif;
-font-size:55px;
-line-height:0.95;
-text-transform:uppercase;
-}
-
-/* SECTION */
-.teams-section{
-padding:30px 20px;
-}
-
-.section-title{
-font-size:12px;
-opacity:0.6;
-margin-bottom:20px;
-letter-spacing:1px;
-font-family:'Oswald', sans-serif;
-}
-
-/* GRID */
-.grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:20px;
-}
-
-/* CARDS */
-.card{
-display:block;
-text-decoration:none;
-color:black;
-background:#f2f2f2;
-padding:25px;
-min-height:180px;
-position:relative;
-clip-path:polygon(
-0 0,
-100% 0,
-100% 82%,
-90% 100%,
-0 100%
-);
-transition:0.25s ease;
-border:1px solid rgba(0,0,0,0.05);
-}
-
-.card:hover{
-transform:translateY(-6px);
-}
-
-.card small{
-font-family:'Oswald', sans-serif;
-font-size:12px;
-color:#111;
-font-weight:700;
-opacity:0.75;
-letter-spacing:0.5px;
-}
-
-.card h2{
-font-family:'Anton', sans-serif;
-font-size:42px;
-margin:15px 0;
-line-height:0.9;
-text-transform:uppercase;
-}
-
-.card p{
-font-size:14px;
-color:#444;
-max-width:220px;
-line-height:1.5;
-}
-
-/* MOBILE */
-@media(max-width:768px){
-
-.hero{
-height:40vh;
-}
-
-.hero h1{
-font-size:42px;
-}
-
-.grid{
-grid-template-columns:1fr;
-}
-
-}
-
 </style>
 </head>
-
 <body>
 
-<header>
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
 
-<div class="logo-title">
-<img src="Logoclub.png" class="logo" alt="Logo club">
-<div class="club-name">FEMENINO</div>
-</div>
-
-<a href="home.html" class="back-btn">← Volver</a>
-
+<header id="header">
+  <img src="Logoclub.png" class="logo" alt="Femenino Santa Ponsa">
+  <a href="home.html" class="back-link">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Volver
+  </a>
 </header>
 
+<!-- HERO -->
 <section class="hero">
-<h1>OUR<br>TEAMS</h1>
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Femenino Santa Ponsa</p>
+    <h1>Nuestros<br><em>equipos</em></h1>
+  </div>
 </section>
 
-<section class="teams-section">
+<!-- PAGE -->
+<div class="page">
 
-<div class="section-title">ACADEMY & FIRST TEAM</div>
+  <!-- ACADEMY -->
+  <div class="block reveal">
+    <div class="section-label">
+      <span class="section-label-text">Academy</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="team-grid">
 
-<div class="grid">
+      <a href="infantil.html" class="team-card">
+        <div class="card-left">
+          <div class="card-num">01</div>
+          <div class="card-info">
+            <div class="card-tag">Academy</div>
+            <div class="card-name">Infantil</div>
+            <div class="card-desc">Formación base y primeros pasos en la competición.</div>
+          </div>
+        </div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
 
-<a href="infantil.html" class="card">
-<small>ACADEMY</small>
-<h2>INFANTIL</h2>
-<p>Formación base y desarrollo inicial.</p>
-</a>
+      <a href="alevin.html" class="team-card">
+        <div class="card-left">
+          <div class="card-num">02</div>
+          <div class="card-info">
+            <div class="card-tag">Academy</div>
+            <div class="card-name">Alevín</div>
+            <div class="card-desc">Desarrollo técnico y crecimiento individual.</div>
+          </div>
+        </div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
 
-<a href="alevin.html" class="card">
-<small>ACADEMY</small>
-<h2>ALEVÍN</h2>
-<p>Desarrollo técnico y crecimiento.</p>
-</a>
+      <a href="cadete.html" class="team-card">
+        <div class="card-left">
+          <div class="card-num">03</div>
+          <div class="card-info">
+            <div class="card-tag">Academy</div>
+            <div class="card-name">Cadete</div>
+            <div class="card-desc">Competición y preparación táctica avanzada.</div>
+          </div>
+        </div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
 
-<a href="cadete.html" class="card">
-<small>ACADEMY</small>
-<h2>CADETE</h2>
-<p>Competición y preparación avanzada.</p>
-</a>
+      <a href="juvenil.html" class="team-card">
+        <div class="card-left">
+          <div class="card-num">04</div>
+          <div class="card-info">
+            <div class="card-tag">Academy</div>
+            <div class="card-name">Juvenil</div>
+            <div class="card-desc">Alto rendimiento en la antesala del primer equipo.</div>
+          </div>
+        </div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
 
-<a href="juvenil.html" class="card">
-<small>ACADEMY</small>
-<h2>JUVENIL</h2>
-<p>Alto rendimiento antes del primer equipo.</p>
-</a>
+    </div>
+  </div>
 
-<a href="autonomica.html" class="card">
-<small>FIRST TEAM</small>
-<h2>AUTONÓMICA</h2>
-<p>Máximo nivel competitivo del club.</p>
-</a>
+  <!-- FIRST TEAM -->
+  <div class="block reveal" style="transition-delay:0.1s">
+    <div class="section-label">
+      <span class="section-label-text">Primer Equipo</span>
+      <div class="section-label-line"></div>
+    </div>
+    <div class="team-grid">
+
+      <a href="autonomica.html" class="team-card featured">
+        <div class="card-left">
+          <div class="card-num">05</div>
+          <div class="card-info">
+            <div class="card-tag">First Team</div>
+            <div class="card-name">Autonómica</div>
+            <div class="card-desc">El maximo nivel competitivo del club. Representamos a Santa Ponsa en la liga autonómica de las Islas Baleares.</div>
+          </div>
+        </div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+      </a>
+
+    </div>
+  </div>
 
 </div>
 
-</section>
+<script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
+document.querySelectorAll('a,button').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='56px';ring.style.height='56px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px';});
+});
 
+// HEADER
+window.addEventListener('scroll',()=>document.getElementById('header').classList.toggle('scrolled',scrollY>60));
+
+// HERO BG
+document.getElementById('heroBg').classList.add('loaded');
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
 </body>
 </html>
