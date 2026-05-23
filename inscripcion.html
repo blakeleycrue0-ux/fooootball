@@ -4,286 +4,458 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inscripción | Femenino Santa Ponsa</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=Anton&family=Oswald:wght@400;600&display=swap" rel="stylesheet">
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
+:root {
+  --white: #f5f2ec;
+  --black: #080808;
+  --purple: #c084fc;
+  --purple-dark: #2d0a52;
+  --purple-mid: #7c3aed;
+  --gold: #c8a84b;
+  --gray: #a0a09a;
+  --card-bg: #0f0f0f;
+  --border: rgba(245,242,236,0.09);
 }
 
-body{
-background:#0a0a0a;
-color:white;
-font-family:'Inter',sans-serif;
-overflow-x:hidden;
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--black);
+  color: var(--white);
+  font-family: 'Barlow', sans-serif;
+  overflow-x: hidden;
+  cursor: none;
 }
 
-/* HEADER (sin cambios) */
-header{
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:75px;
-background:#0a0a0a;
-display:flex;
-justify-content:center;
-align-items:center;
-border-bottom:1px solid rgba(255,255,255,0.08);
-z-index:1000;
+/* NOISE */
+body::before {
+  content: '';
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none; z-index: 9990; opacity: 0.35;
 }
 
-.logo{
-height:45px;
+/* CURSOR */
+#cursor {
+  position: fixed; top: 0; left: 0;
+  width: 10px; height: 10px;
+  background: var(--purple);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9999;
+  transform: translate(-50%,-50%);
+  transition: transform 0.12s, background 0.3s;
+}
+#cursor-ring {
+  position: fixed; top: 0; left: 0;
+  width: 36px; height: 36px;
+  border: 1px solid rgba(192,132,252,0.45);
+  border-radius: 50%;
+  pointer-events: none; z-index: 9998;
+  transform: translate(-50%,-50%);
+  transition: width 0.3s, height 0.3s;
 }
 
-/* HERO (solo quitado degradado raro, nada más) */
-.hero{
-height:45vh;
-display:flex;
-align-items:flex-end;
-padding:30px;
-background:linear-gradient(135deg,#0a0a0a 30%, #151515 100%);
-border-bottom:1px solid rgba(255,255,255,0.08);
+/* HEADER */
+header {
+  position: fixed; top: 0; left: 0; width: 100%;
+  height: 68px;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 28px;
+  z-index: 1000;
+  transition: background 0.4s;
+}
+header.scrolled {
+  background: rgba(8,8,8,0.96);
+  backdrop-filter: blur(14px);
+  border-bottom: 1px solid var(--border);
+}
+.logo { height: 40px; }
+.back-link {
+  display: flex; align-items: center; gap: 8px;
+  color: var(--gray); text-decoration: none;
+  font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
+  transition: color 0.3s;
+}
+.back-link:hover { color: var(--white); }
+.back-link svg { width: 16px; height: 16px; }
+
+/* HERO */
+.hero {
+  position: relative;
+  height: 52vh; min-height: 340px;
+  display: flex; align-items: flex-end;
+  overflow: hidden;
+}
+.hero-bg {
+  position: absolute; inset: 0;
+  background: url("https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1400&q=80") center/cover no-repeat;
+  filter: brightness(0.3) saturate(0.5);
+  transform: scale(1.04);
+  transition: transform 6s ease;
+}
+.hero-bg.loaded { transform: scale(1); }
+.hero-vignette {
+  position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.3) 50%, transparent 80%),
+              linear-gradient(to right, rgba(8,8,8,0.5), transparent 60%);
+}
+.hero-content {
+  position: relative; z-index: 2;
+  padding: 40px 28px;
+}
+.hero-eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 14px;
+  opacity: 0; transform: translateY(16px);
+  animation: fadeUp 0.7s 0.2s forwards;
+}
+.hero h1 {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(52px, 14vw, 110px);
+  line-height: 0.88; text-transform: uppercase; letter-spacing: 0.01em;
+  opacity: 0; transform: translateY(24px);
+  animation: fadeUp 0.8s 0.4s forwards;
+}
+.hero h1 em { font-style: normal; -webkit-text-stroke: 1.5px var(--white); color: transparent; }
+
+@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+
+/* LAYOUT */
+.page {
+  max-width: 860px; margin: 0 auto;
+  padding: 70px 28px 100px;
 }
 
-.hero h1{
-font-family:'Anton';
-font-size:55px;
-line-height:0.9;
-text-transform:uppercase;
-max-width:700px;
+/* INTRO TEXT */
+.intro-block { margin-bottom: 60px; }
+.eyebrow {
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 11px; font-weight: 600;
+  letter-spacing: 0.3em; text-transform: uppercase;
+  color: var(--purple); margin-bottom: 14px;
+}
+.page-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: clamp(36px, 8vw, 64px);
+  line-height: 0.92; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.page-sub {
+  font-size: 15px; font-weight: 300;
+  color: rgba(245,242,236,0.65);
+  line-height: 1.8; max-width: 520px;
 }
 
-/* FORM SECTION (NO TOCO TU TEXTO NI ESTRUCTURA) */
-.form-section{
-padding:60px 25px;
-max-width:900px;
-margin:auto;
+/* FORM CARD */
+.form-card {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  overflow: hidden;
 }
 
-.form-title{
-font-family:'Anton';
-font-size:52px;
-line-height:0.9;
-margin-bottom:15px;
+/* FORM HEADER BAR */
+.form-header {
+  background: var(--purple-dark);
+  padding: 28px 36px;
+  border-bottom: 1px solid rgba(192,132,252,0.15);
+}
+.form-header-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px; letter-spacing: 0.04em;
+  color: var(--white);
+}
+.form-header-sub {
+  font-size: 13px; color: rgba(192,132,252,0.8);
+  margin-top: 4px; font-weight: 300;
 }
 
-.form-sub{
-font-family:'Oswald';
-font-size:24px;
-color:#e5e5e5;
-margin-bottom:25px;
-text-transform:uppercase;
+/* FORM BODY */
+.form-body {
+  padding: 36px;
 }
 
-.form-text{
-color:#bdbdbd;
-line-height:1.8;
-margin-bottom:40px;
-max-width:700px;
-font-size:16px;
+/* PROGRESS BAR */
+.progress-bar {
+  height: 2px; background: var(--border);
+  border-radius: 2px; margin-bottom: 36px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--purple);
+  border-radius: 2px; width: 0%;
+  transition: width 0.5s ease;
 }
 
-/* FORM BOX */
-.form-box{
-background:#111;
-padding:35px;
-border-radius:20px;
-border:1px solid rgba(255,255,255,0.08);
+/* FORM GRID */
+.form-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
+.input-group {
+  padding: 20px 0;
+  border-bottom: 1px solid var(--border);
 }
+.input-group:last-of-type { border-bottom: none; }
 
-/* INPUTS */
-.input-group{
-margin-bottom:25px;
+label {
+  display: flex; align-items: center; gap: 8px;
+  font-family: 'Barlow Condensed', sans-serif;
+  font-size: 12px; font-weight: 600;
+  letter-spacing: 0.2em; text-transform: uppercase;
+  color: var(--gray); margin-bottom: 10px;
 }
+label .req { color: var(--purple); font-size: 16px; line-height: 1; }
 
-label{
-display:block;
-font-family:'Oswald';
-font-size:18px;
-margin-bottom:10px;
-text-transform:uppercase;
-color:#f1f1f1;
+input, select, textarea {
+  width: 100%;
+  padding: 14px 0;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--white);
+  font-size: 16px; font-family: 'Barlow', sans-serif; font-weight: 400;
+  outline: none;
+  transition: border-color 0.3s;
+  border-radius: 0;
+  -webkit-appearance: none;
 }
-
-input,
-select,
-textarea{
-width:100%;
-padding:16px;
-background:#1a1a1a;
-border:1px solid rgba(255,255,255,0.08);
-border-radius:12px;
-color:white;
-font-size:16px;
-outline:none;
+input::placeholder, textarea::placeholder { color: rgba(160,160,154,0.4); font-weight: 300; }
+input:focus, select:focus, textarea:focus {
+  border-bottom-color: var(--purple);
 }
+select { cursor: pointer; }
+select option { background: #111; color: var(--white); }
+textarea { height: 110px; resize: none; padding-top: 14px; }
 
-/* SOLO LIMPIO, SIN COLORES */
-input:focus,
-select:focus,
-textarea:focus{
-border:1px solid #ffffff;
-background:#151515;
+/* TWO COL ON DESKTOP */
+.col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
+.col-2 .input-group { border-bottom: 1px solid var(--border); }
+
+/* SUBMIT AREA */
+.submit-area {
+  padding: 32px 36px;
+  background: rgba(45,10,82,0.3);
+  border-top: 1px solid rgba(192,132,252,0.12);
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
 }
+.submit-note { font-size: 12px; color: var(--gray); max-width: 280px; line-height: 1.6; }
 
-/* TEXTAREA */
-textarea{
-height:140px;
-resize:none;
+.btn-submit {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 16px 36px;
+  background: var(--purple);
+  color: var(--black);
+  border: none; border-radius: 2px;
+  font-family: 'Barlow', sans-serif;
+  font-weight: 700; font-size: 13px;
+  letter-spacing: 0.1em; text-transform: uppercase;
+  cursor: pointer;
+  position: relative; overflow: hidden;
+  transition: background 0.3s, transform 0.2s;
 }
-
-/* BOTÓN (BLANCO/NEGRO LIMPIO, SIN MORADO) */
-button{
-width:100%;
-padding:18px;
-background:#ffffff;
-color:#000;
-border:1px solid #ffffff;
-border-radius:50px;
-font-weight:700;
-font-size:16px;
-cursor:pointer;
-transition:.2s ease;
+.btn-submit::after {
+  content: ''; position: absolute; inset: 0;
+  background: rgba(255,255,255,0.18);
+  transform: translateX(-100%); transition: transform 0.4s;
 }
+.btn-submit:hover::after { transform: translateX(0); }
+.btn-submit:hover { background: #d8b4fe; transform: translateY(-2px); }
+.btn-submit:active { transform: translateY(0); }
+.btn-submit svg { width: 16px; height: 16px; transition: transform 0.3s; }
+.btn-submit:hover svg { transform: translateX(3px); }
 
-button:hover{
-background:#0a0a0a;
-color:#ffffff;
-border:1px solid #ffffff;
+/* SUCCESS STATE */
+.success-state {
+  display: none;
+  padding: 80px 36px;
+  text-align: center;
 }
-
-/* VOLVER */
-.back-btn{
-display:inline-block;
-margin-top:30px;
-color:#d0d0d0;
-text-decoration:none;
-font-family:'Oswald';
-font-size:20px;
+.success-state.show { display: block; }
+.success-icon {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: rgba(192,132,252,0.12);
+  border: 1px solid rgba(192,132,252,0.3);
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-bottom: 24px;
 }
-
-.back-btn:hover{
-color:#ffffff;
+.success-icon svg { width: 26px; height: 26px; color: var(--purple); }
+.success-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 40px; margin-bottom: 12px;
 }
+.success-text { color: var(--gray); font-size: 15px; font-weight: 300; line-height: 1.7; }
 
-/* ANIMACIÓN (igual) */
-.fade-up{
-opacity:0;
-transform:translateY(40px);
-transition:1s;
+/* REVEAL */
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* DESKTOP */
+@media (min-width: 700px) {
+  header { padding: 0 60px; }
+  .hero-content { padding: 50px 60px; }
+  .page { padding: 80px 60px 120px; }
+  .col-2 { grid-template-columns: 1fr 1fr; }
+  .form-body { padding: 40px 48px; }
+  .form-header { padding: 32px 48px; }
 }
-
-.fade-up.show{
-opacity:1;
-transform:translateY(0);
-}
-
 </style>
 </head>
-
 <body>
 
-<header>
-<img src="Logoclub.png" class="logo">
+<div id="cursor"></div>
+<div id="cursor-ring"></div>
+
+<header id="header">
+  <img src="Logoclub.png" class="logo" alt="Femenino Santa Ponsa">
+  <a href="home.html" class="back-link">
+    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    Volver
+  </a>
 </header>
 
 <!-- HERO -->
 <section class="hero">
-<h1>ÚNETE AL<br>PROYECTO</h1>
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <p class="hero-eyebrow">Femenino Santa Ponsa</p>
+    <h1>Únete al<br><em>proyecto</em></h1>
+  </div>
 </section>
 
-<!-- SOLO ESTO (NO HE AÑADIDO NI QUITADO TEXTO TUYO) -->
-<section class="form-section fade-up">
+<!-- PAGE -->
+<div class="page">
 
-<h2 class="form-title">FORMA PARTE DEL FUTURO</h2>
+  <div class="intro-block reveal">
+    <div class="eyebrow">Inscripción</div>
+    <h2 class="page-title">Forma parte<br>del futuro</h2>
+    <p class="page-sub">Estamos construyendo algo serio. Buscamos jugadoras comprometidas que quieran crecer, competir y ser parte de una estructura moderna con grandes objetivos en el fútbol femenino de Mallorca.</p>
+  </div>
 
-<h3 class="form-sub">Femenino Santa Ponsa</h3>
+  <div class="form-card reveal" style="transition-delay:0.15s">
 
-<p class="form-text">
-Estamos creando un proyecto ambicioso para impulsar
-el fútbol femenino en Mallorca.
+    <div class="form-header">
+      <div class="form-header-title">Solicitud de inscripción</div>
+      <div class="form-header-sub">Todos los campos marcados son obligatorios</div>
+    </div>
 
-Buscamos jugadoras comprometidas que quieran crecer,
-competir y formar parte de una estructura moderna
-con objetivos grandes para los próximos años.
-</p>
+    <div id="formWrap">
+      <div class="form-body">
+        <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
 
-<div class="form-box">
+        <form name="inscripcion" method="POST" data-netlify="true" id="inscripcionForm" novalidate>
+          <input type="hidden" name="form-name" value="inscripcion">
 
-<form name="inscripcion" method="POST" data-netlify="true">
-<input type="hidden" name="form-name" value="inscripcion">
+          <div class="col-2">
+            <div class="input-group">
+              <label>Nombre completo <span class="req">*</span></label>
+              <input type="text" name="nombre" placeholder="Tu nombre completo" required>
+            </div>
+            <div class="input-group">
+              <label>Edad <span class="req">*</span></label>
+              <input type="number" name="edad" placeholder="Ej. 22" min="10" max="50" required>
+            </div>
+          </div>
 
-<div class="input-group">
-<label>Nombre completo</label>
-<input type="text" name="nombre" required>
+          <div class="col-2">
+            <div class="input-group">
+              <label>Teléfono <span class="req">*</span></label>
+              <input type="tel" name="telefono" placeholder="+34 600 000 000" required>
+            </div>
+            <div class="input-group">
+              <label>Email <span class="req">*</span></label>
+              <input type="email" name="email" placeholder="tu@email.com" required>
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>Posición <span class="req">*</span></label>
+            <select name="posicion" required>
+              <option value="" disabled selected>Selecciona tu posición</option>
+              <option>Portera</option>
+              <option>Defensa central</option>
+              <option>Lateral</option>
+              <option>Centrocampista</option>
+              <option>Mediapunta</option>
+              <option>Extremo</option>
+              <option>Delantera</option>
+            </select>
+          </div>
+
+          <div class="input-group">
+            <label>Experiencia</label>
+            <textarea name="experiencia" placeholder="Clubes anteriores, años jugando, nivel competitivo..."></textarea>
+          </div>
+
+        </form>
+      </div>
+
+      <div class="submit-area">
+        <p class="submit-note">Nos pondremos en contacto contigo en un plazo de 48 horas.</p>
+        <button class="btn-submit" onclick="handleSubmit(event)">
+          Enviar solicitud
+          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="success-state" id="successState">
+      <div class="success-icon">
+        <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
+      </div>
+      <div class="success-title">Solicitud enviada</div>
+      <p class="success-text">Gracias por querer unirte a Femenino Santa Ponsa.<br>Te contactaremos en menos de 48 horas.</p>
+    </div>
+
+  </div>
+
 </div>
-
-<div class="input-group">
-<label>Edad</label>
-<input type="number" name="edad" required>
-</div>
-
-<div class="input-group">
-<label>Posición</label>
-<select name="posicion">
-<option>Portera</option>
-<option>Defensa</option>
-<option>Centrocampista</option>
-<option>Delantera</option>
-</select>
-</div>
-
-<div class="input-group">
-<label>Teléfono</label>
-<input type="tel" name="telefono" required>
-</div>
-
-<div class="input-group">
-<label>Email</label>
-<input type="email" name="email" required>
-</div>
-
-<div class="input-group">
-<label>Experiencia</label>
-<textarea name="experiencia"
-placeholder="Clubes anteriores, años jugando, nivel, etc"></textarea>
-</div>
-
-<button type="submit">
-ENVIAR SOLICITUD
-</button>
-
-</form>
-
-</div>
-
-<a href="home.html" class="back-btn">
-← VOLVER AL INICIO
-</a>
-
-</section>
 
 <script>
+// CURSOR
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursor-ring');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
+document.querySelectorAll('a,button,input,select,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='56px';ring.style.height='56px';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px';});
+});
 
-const observer = new IntersectionObserver(entries=>{
-entries.forEach(entry=>{
-if(entry.isIntersecting){
-entry.target.classList.add("show");
+// HEADER SCROLL
+window.addEventListener('scroll',()=>document.getElementById('header').classList.toggle('scrolled',scrollY>60));
+
+// HERO BG
+document.getElementById('heroBg').classList.add('loaded');
+
+// REVEAL
+const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// PROGRESS
+function updateProgress(){
+  const inputs=[...document.querySelectorAll('#inscripcionForm input[required],#inscripcionForm select[required]')];
+  const filled=inputs.filter(i=>i.value.trim()!=='').length;
+  document.getElementById('progressFill').style.width=(filled/inputs.length*100)+'%';
 }
-});
-});
+document.querySelectorAll('#inscripcionForm input,#inscripcionForm select,#inscripcionForm textarea').forEach(el=>el.addEventListener('input',updateProgress));
 
-document.querySelectorAll(".fade-up").forEach(el=>{
-observer.observe(el);
-});
-
+// SUBMIT
+function handleSubmit(e){
+  e.preventDefault();
+  const form=document.getElementById('inscripcionForm');
+  const required=[...form.querySelectorAll('[required]')];
+  const invalid=required.filter(i=>!i.value.trim());
+  if(invalid.length){invalid[0].focus();return;}
+  // Netlify submit
+  fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
+    .catch(()=>{}); // silent fail on non-netlify
+  document.getElementById('formWrap').style.display='none';
+  document.getElementById('successState').classList.add('show');
+}
 </script>
-
 </body>
 </html>
