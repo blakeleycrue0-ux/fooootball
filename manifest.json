@@ -1,0 +1,22 @@
+{
+  "name": "Femenino Santa Ponsa",
+  "short_name": "FSP",
+  "description": "Web oficial del Femenino Santa Ponsa",
+  "start_url": "/home.html",
+  "display": "standalone",
+  "background_color": "#080808",
+  "theme_color": "#080808",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "Logoclub.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "Logoclub.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
