@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Portal Familias | Femenino Santa Ponsa</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;600;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --white:#f5f2ec;--black:#080808;--purple:#c084fc;
+  --purple-dark:#2d0a52;--gray:#a0a09a;
+  --card-bg:#0f0f0f;--border:rgba(245,242,236,0.09);
+  --red:#ef4444;--yellow:#f59e0b;--green:#22c55e;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--black);color:var(--white);font-family:'Barlow',sans-serif;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:9990;opacity:.35;}
+.hidden{display:none!important;}
+input,select,textarea,button{font-family:'Barlow',sans-serif;}
+
+/* AUTH SCREEN */
+#authScreen{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:24px;}
+.auth-box{width:100%;max-width:420px;background:var(--card-bg);border:1px solid var(--border);border-radius:6px;overflow:hidden;}
+.auth-header{background:var(--purple-dark);padding:32px 36px;text-align:center;}
+.auth-logo{height:48px;margin-bottom:16px;}
+.auth-title{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:.06em;}
+.auth-sub{font-size:13px;color:rgba(192,132,252,.75);margin-top:4px;}
+.auth-body{padding:32px 36px;}
+.auth-tabs{display:flex;margin-bottom:28px;border-bottom:1px solid var(--border);}
+.auth-tab{flex:1;padding:10px;background:transparent;border:none;color:var(--gray);font-family:'Barlow Condensed',sans-serif;font-size:13px;font-weight:600;letter-spacing:.15em;text-transform:uppercase;cursor:pointer;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .2s;}
+.auth-tab.active{color:var(--purple);border-bottom-color:var(--purple);}
+.field{margin-bottom:18px;}
+.field label{display:block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-bottom:8px;}
+.field input,.field select{width:100%;padding:12px 0;background:transparent;border:none;border-bottom:1px solid var(--border);color:var(--white);font-size:15px;outline:none;transition:border-color .3s;}
+.field input:focus{border-bottom-color:var(--purple);}
+.field input::placeholder{color:rgba(160,160,154,.4);}
+.field select option{background:#111;}
+.btn-primary{width:100%;padding:14px;background:var(--purple);color:var(--black);border:none;border-radius:2px;font-weight:700;font-size:13px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .3s;}
+.btn-primary:hover{background:#d8b4fe;}
+.btn-primary:disabled{opacity:.5;cursor:not-allowed;}
+.auth-error{margin-top:12px;font-size:13px;color:var(--red);text-align:center;min-height:18px;}
+.auth-ok{margin-top:12px;font-size:13px;color:var(--green);text-align:center;min-height:18px;}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:100;background:rgba(8,8,8,.96);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);height:60px;display:flex;align-items:center;padding:0 20px;gap:14px;}
+.topbar-logo{height:32px;}
+.topbar-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:.06em;}
+.topbar-spacer{flex:1;}
+.topbar-user{font-size:12px;color:var(--gray);}
+.btn-logout{padding:6px 14px;border:1px solid var(--border);border-radius:2px;background:transparent;color:var(--gray);font-size:11px;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.btn-logout:hover{border-color:var(--white);color:var(--white);}
+
+/* PENDING SCREEN */
+#pendingScreen{min-height:calc(100vh - 60px);display:flex;align-items:center;justify-content:center;padding:24px;text-align:center;}
+.pending-box{max-width:440px;}
+.pending-icon{font-size:56px;margin-bottom:20px;opacity:.4;}
+.pending-title{font-family:'Bebas Neue',sans-serif;font-size:36px;margin-bottom:12px;}
+.pending-sub{color:var(--gray);font-size:15px;line-height:1.7;}
+
+/* PORTAL */
+#portalScreen{padding:28px 24px;max-width:760px;margin:0 auto;}
+.player-hero{background:var(--purple-dark);border:1px solid rgba(192,132,252,.2);border-radius:6px;padding:28px 32px;margin-bottom:24px;display:flex;align-items:center;gap:20px;}
+.player-avatar{width:60px;height:60px;border-radius:50%;background:rgba(192,132,252,.2);display:flex;align-items:center;justify-content:center;font-family:'Bebas Neue',sans-serif;font-size:28px;color:var(--purple);flex-shrink:0;}
+.player-info-name{font-family:'Bebas Neue',sans-serif;font-size:clamp(24px,5vw,38px);line-height:.92;margin-bottom:6px;}
+.player-info-tags{display:flex;gap:8px;flex-wrap:wrap;}
+.tag{display:inline-block;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.18em;text-transform:uppercase;padding:4px 10px;border-radius:2px;}
+.tag-purple{color:var(--purple);background:rgba(192,132,252,.12);}
+.tag-gray{color:var(--gray);background:rgba(245,242,236,.05);}
+
+/* TRIM SELECTOR */
+.trim-bar{display:flex;align-items:center;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+.trim-label{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-right:4px;}
+.trim-btn{padding:7px 18px;border-radius:2px;border:1px solid var(--border);background:transparent;color:var(--gray);font-size:12px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;transition:all .2s;}
+.trim-btn.active{border-color:var(--purple);background:rgba(192,132,252,.12);color:var(--purple);}
+
+/* SECTION CARDS */
+.section-label{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.section-label-text{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--purple);}
+.section-label-line{flex:1;height:1px;background:var(--border);}
+
+/* NOTAS GRID */
+.notas-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-bottom:24px;}
+.nota-card{background:var(--card-bg);border:1px solid var(--border);border-radius:4px;padding:20px;text-align:center;transition:border-color .3s;}
+.nota-card:hover{border-color:rgba(192,132,252,.3);}
+.nota-title{font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);margin-bottom:10px;}
+.nota-num{font-family:'Bebas Neue',sans-serif;font-size:52px;line-height:1;}
+.nota-bar{height:4px;border-radius:2px;margin-top:10px;background:var(--border);}
+.nota-bar-fill{height:100%;border-radius:2px;transition:width .6s ease;}
+.nota-comment{font-size:12px;color:var(--gray);margin-top:8px;font-weight:300;line-height:1.5;text-align:left;}
+.color-red{color:var(--red);}
+.color-yellow{color:var(--yellow);}
+.color-green{color:var(--green);}
+.fill-red{background:var(--red);}
+.fill-yellow{background:var(--yellow);}
+.fill-green{background:var(--green);}
+
+/* ASISTENCIA */
+.att-summary{display:flex;gap:10px;margin-bottom:16px;flex-wrap:wrap;}
+.att-sum-item{flex:1;min-width:70px;padding:14px;border-radius:4px;text-align:center;background:var(--card-bg);border:1px solid var(--border);}
+.att-sum-num{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;}
+.att-sum-label{font-size:11px;color:var(--gray);margin-top:3px;}
+.att-log{background:var(--card-bg);border:1px solid var(--border);border-radius:4px;overflow:hidden;}
+.att-log-header{padding:12px 18px;background:#111;border-bottom:1px solid var(--border);display:grid;grid-template-columns:100px 90px 1fr;gap:10px;font-family:'Barlow Condensed',sans-serif;font-size:11px;font-weight:600;letter-spacing:.2em;text-transform:uppercase;color:var(--gray);}
+.att-log-row{padding:12px 18px;border-bottom:1px solid var(--border);display:grid;grid-template-columns:100px 90px 1fr;gap:10px;font-size:13px;}
+.att-log-row:last-child{border-bottom:none;}
+.att-badge{display:inline-block;padding:3px 8px;border-radius:2px;font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;}
+.badge-present{background:rgba(34,197,94,.12);color:var(--green);}
+.badge-absent{background:rgba(239,68,68,.12);color:var(--red);}
+.badge-injured{background:rgba(245,158,11,.12);color:var(--yellow);}
+.att-empty{padding:24px;text-align:center;color:var(--gray);font-size:14px;}
+
+/* MENSAJES */
+.msg-list{display:flex;flex-direction:column;gap:10px;}
+.msg-card{background:var(--card-bg);border:1px solid var(--border);border-radius:4px;padding:18px 20px;}
+.msg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+.msg-author{font-size:13px;font-weight:600;color:var(--purple);}
+.msg-date{font-size:11px;color:var(--gray);}
+.msg-text{font-size:14px;font-weight:300;line-height:1.7;color:rgba(245,242,236,.8);}
+.msg-empty{padding:24px;text-align:center;color:var(--gray);font-size:14px;background:var(--card-bg);border:1px solid var(--border);border-radius:4px;}
+
+/* NO EVAL */
+.no-eval{padding:32px;text-align:center;background:var(--card-bg);border:1px solid var(--border);border-radius:4px;color:var(--gray);font-size:14px;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#1a1a1a;border:1px solid var(--border);border-radius:4px;padding:12px 20px;font-size:13px;z-index:999;opacity:0;transition:opacity .3s;pointer-events:none;white-space:nowrap;}
+.toast.show{opacity:1;}
+
+/* MOBILE */
+@media(max-width:600px){
+  .notas-grid{grid-template-columns:1fr 1fr;}
+  .player-hero{flex-direction:column;text-align:center;}
+  #portalScreen{padding:16px;}
+  .att-log-header,.att-log-row{grid-template-columns:85px 75px 1fr;font-size:12px;}
+}
+</style>
+</head>
+<body>
+
+<!-- AUTH -->
+<div id="authScreen">
+  <div class="auth-box">
+    <div class="auth-header">
+      <img src="Logoclub.png" class="auth-logo" alt="" onerror="this.style.display='none'">
+      <div class="auth-title">Portal Familias</div>
+      <div class="auth-sub">Femenino Santa Ponsa</div>
+    </div>
+    <div class="auth-body">
+      <div class="auth-tabs">
+        <button class="auth-tab active" onclick="showAuthTab('login',this)">Entrar</button>
+        <button class="auth-tab" onclick="showAuthTab('register',this)">Registrarse</button>
+      </div>
+
+      <!-- LOGIN -->
+      <div id="loginForm">
+        <div class="field"><label>Email</label><input type="email" id="loginEmail" placeholder="tu@email.com"></div>
+        <div class="field"><label>Contraseña</label><input type="password" id="loginPass" placeholder="••••••••"></div>
+        <button class="btn-primary" onclick="doLogin()">Entrar</button>
+        <div class="auth-error" id="loginError"></div>
+      </div>
+
+      <!-- REGISTER -->
+      <div id="registerForm" class="hidden">
+        <div class="field"><label>Tu nombre</label><input type="text" id="regNombre" placeholder="Nombre del padre/madre"></div>
+        <div class="field"><label>Nombre de tu hija</label><input type="text" id="regHija" placeholder="Nombre de la jugadora"></div>
+        <div class="field"><label>Equipo</label>
+          <select id="regEquipo">
+            <option value="">Selecciona equipo</option>
+            <option>Autonomica</option><option>Juvenil</option><option>Cadete</option>
+            <option>Alevin</option><option>Infantil</option>
+          </select>
+        </div>
+        <div class="field"><label>Email</label><input type="email" id="regEmail" placeholder="tu@email.com"></div>
+        <div class="field"><label>Contraseña</label><input type="password" id="regPass" placeholder="Mínimo 6 caracteres"></div>
+        <button class="btn-primary" onclick="doRegister()">Crear cuenta</button>
+        <div class="auth-error" id="registerError"></div>
+        <div class="auth-ok" id="registerOk"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOPBAR (app) -->
+<div id="appTopbar" class="topbar hidden">
+  <img src="Logoclub.png" class="topbar-logo" alt="" onerror="this.style.display='none'">
+  <span class="topbar-title">Portal Familias</span>
+  <div class="topbar-spacer"></div>
+  <span class="topbar-user" id="topbarUser"></span>
+  <button class="btn-logout" onclick="doLogout()">Salir</button>
+</div>
+
+<!-- PENDIENTE APROBACION -->
+<div id="pendingScreen" class="hidden">
+  <div class="pending-box">
+    <div class="pending-icon">⏳</div>
+    <div class="pending-title">Cuenta pendiente</div>
+    <div class="pending-sub">Tu cuenta está pendiente de verificación por el club.<br>En breve podrás acceder al perfil de tu hija.<br><br>Si tienes dudas contacta con nosotros.</div>
+  </div>
+</div>
+
+<!-- PORTAL -->
+<div id="portalScreen" class="hidden">
+
+  <div class="player-hero">
+    <div class="player-avatar" id="playerAvatar">?</div>
+    <div>
+      <div class="player-info-name" id="playerName">-</div>
+      <div class="player-info-tags">
+        <span class="tag tag-purple" id="playerPos">-</span>
+        <span class="tag tag-gray" id="playerTeam">-</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRIMESTRES -->
+  <div class="trim-bar">
+    <span class="trim-label">Trimestre</span>
+    <button class="trim-btn active" onclick="setTrim(1,this)">1º</button>
+    <button class="trim-btn" onclick="setTrim(2,this)">2º</button>
+    <button class="trim-btn" onclick="setTrim(3,this)">3º</button>
+  </div>
+
+  <!-- NOTAS -->
+  <div class="section-label"><span class="section-label-text">Evaluación</span><div class="section-label-line"></div></div>
+  <div id="notasContent"></div>
+
+  <!-- ASISTENCIA -->
+  <div class="section-label" style="margin-top:28px"><span class="section-label-text">Asistencia</span><div class="section-label-line"></div></div>
+  <div id="attContent"></div>
+
+  <!-- MENSAJES -->
+  <div class="section-label" style="margin-top:28px"><span class="section-label-text">Mensajes del entrenador</span><div class="section-label-line"></div></div>
+  <div id="msgsContent"></div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<!-- FIREBASE -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+import { getFirestore, doc, setDoc, getDoc, collection, query, where, getDocs, orderBy }
+  from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyBhUra5KmzzFP17taqpT_GPjgiD84cKR7A",
+  authDomain: "femenino-santa-ponsa.firebaseapp.com",
+  projectId: "femenino-santa-ponsa",
+  storageBucket: "femenino-santa-ponsa.firebasestorage.app",
+  messagingSenderId: "924570751441",
+  appId: "1:924570751441:web:62861619922bee1b1290f0"
+};
+
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+
+const SECTIONS = [
+  {id:'tecnica', label:'Técnica'},
+  {id:'fisica',  label:'Física'},
+  {id:'tactica', label:'Táctica'},
+  {id:'mental',  label:'Mental'}
+];
+
+let currentUser = null;
+let userProfile = null;
+let currentTrim = 1;
+
+/* ── AUTH STATE ── */
+onAuthStateChanged(auth, async user => {
+  if (user) {
+    currentUser = user;
+    const snap = await getDoc(doc(db, 'padres', user.uid));
+    if (snap.exists()) {
+      userProfile = snap.data();
+      if (userProfile.aprobado) {
+        showPortal();
+      } else {
+        showPending();
+      }
+    } else {
+      showPending();
+    }
+  } else {
+    currentUser = null;
+    userProfile = null;
+    showAuth();
+  }
+});
+
+/* ── AUTH TABS ── */
+window.showAuthTab = (tab, btn) => {
+  document.querySelectorAll('.auth-tab').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('loginForm').classList.toggle('hidden', tab !== 'login');
+  document.getElementById('registerForm').classList.toggle('hidden', tab !== 'register');
+};
+
+/* ── LOGIN ── */
+window.doLogin = async () => {
+  const email = document.getElementById('loginEmail').value.trim();
+  const pass  = document.getElementById('loginPass').value;
+  const err   = document.getElementById('loginError');
+  err.textContent = '';
+  try {
+    await signInWithEmailAndPassword(auth, email, pass);
+  } catch(e) {
+    err.textContent = 'Email o contraseña incorrectos';
+  }
+};
+document.getElementById('loginPass').addEventListener('keydown', e => { if(e.key==='Enter') window.doLogin(); });
+
+/* ── REGISTER ── */
+window.doRegister = async () => {
+  const nombre  = document.getElementById('regNombre').value.trim();
+  const hija    = document.getElementById('regHija').value.trim();
+  const equipo  = document.getElementById('regEquipo').value;
+  const email   = document.getElementById('regEmail').value.trim();
+  const pass    = document.getElementById('regPass').value;
+  const err     = document.getElementById('registerError');
+  const ok      = document.getElementById('registerOk');
+  err.textContent = ''; ok.textContent = '';
+
+  if (!nombre||!hija||!equipo||!email||!pass) { err.textContent='Rellena todos los campos'; return; }
+  if (pass.length < 6) { err.textContent='La contraseña debe tener al menos 6 caracteres'; return; }
+
+  try {
+    const cred = await createUserWithEmailAndPassword(auth, email, pass);
+    await setDoc(doc(db, 'padres', cred.user.uid), {
+      nombre, hija, equipo, email,
+      aprobado: false,
+      uid: cred.user.uid,
+      createdAt: new Date().toISOString()
+    });
+    ok.textContent = 'Cuenta creada. Pendiente de aprobación por el club.';
+  } catch(e) {
+    if (e.code === 'auth/email-already-in-use') err.textContent = 'Este email ya está registrado';
+    else err.textContent = 'Error: ' + e.message;
+  }
+};
+
+/* ── LOGOUT ── */
+window.doLogout = () => signOut(auth);
+
+/* ── SCREENS ── */
+function showAuth() {
+  document.getElementById('authScreen').style.display = 'flex';
+  document.getElementById('appTopbar').classList.add('hidden');
+  document.getElementById('pendingScreen').classList.add('hidden');
+  document.getElementById('portalScreen').classList.add('hidden');
+}
+
+function showPending() {
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('appTopbar').classList.remove('hidden');
+  document.getElementById('pendingScreen').classList.remove('hidden');
+  document.getElementById('portalScreen').classList.add('hidden');
+  document.getElementById('topbarUser').textContent = userProfile?.nombre || '';
+}
+
+async function showPortal() {
+  document.getElementById('authScreen').style.display = 'none';
+  document.getElementById('appTopbar').classList.remove('hidden');
+  document.getElementById('pendingScreen').classList.add('hidden');
+  document.getElementById('portalScreen').classList.remove('hidden');
+  document.getElementById('topbarUser').textContent = userProfile?.nombre || '';
+
+  // Player info
+  const hija = userProfile.hija;
+  document.getElementById('playerName').textContent = hija;
+  document.getElementById('playerAvatar').textContent = hija.charAt(0).toUpperCase();
+  document.getElementById('playerTeam').textContent = userProfile.equipo;
+
+  // Load position from evaluaciones localStorage (shared device) or Firestore
+  await loadPortalData();
+}
+
+/* ── TRIMESTRE ── */
+window.setTrim = (n, btn) => {
+  currentTrim = n;
+  document.querySelectorAll('.trim-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  loadPortalData();
+};
+
+/* ── LOAD DATA ── */
+async function loadPortalData() {
+  await Promise.all([loadNotas(), loadAsistencia(), loadMensajes()]);
+}
+
+/* ── NOTAS (desde Firestore) ── */
+async function loadNotas() {
+  const hija   = userProfile.hija;
+  const equipo = userProfile.equipo;
+  const notas  = document.getElementById('notasContent');
+
+  try {
+    // Busca evaluación en Firestore por jugadora + trimestre
+    const q = query(
+      collection(db, 'evaluaciones'),
+      where('jugadora', '==', hija),
+      where('equipo', '==', equipo),
+      where('trimestre', '==', currentTrim)
+    );
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      notas.innerHTML = `<div class="no-eval">Sin evaluación para este trimestre todavía.</div>`;
+      document.getElementById('playerPos').textContent = 'Sin posición';
+      return;
+    }
+
+    const evalDoc = snap.docs[0].data();
+    const data = evalDoc.data || {};
+
+    // Position
+    document.getElementById('playerPos').textContent = evalDoc.posicion || 'Jugadora';
+
+    let html = '<div class="notas-grid">';
+    SECTIONS.forEach(sec => {
+      const secData = data[sec.id] || {};
+      const skills  = Object.entries(secData).filter(([k]) => k !== 'comment');
+      const avg     = skills.length ? skills.reduce((a,[,v])=>a+parseFloat(v),0)/skills.length : 0;
+      const cc      = colorClass(avg);
+      const pct     = avg*10;
+      html += `
+        <div class="nota-card">
+          <div class="nota-title">${sec.label}</div>
+          <div class="nota-num ${cc}">${avg>0?avg.toFixed(1):'-'}</div>
+          <div class="nota-bar"><div class="nota-bar-fill ${fillClass(avg)}" style="width:${pct}%"></div></div>
+          ${secData.comment?`<div class="nota-comment">${secData.comment}</div>`:''}
+        </div>`;
+    });
+    html += '</div>';
+    notas.innerHTML = html;
+
+  } catch(e) {
+    notas.innerHTML = `<div class="no-eval">Error cargando evaluaciones.</div>`;
+  }
+}
+
+/* ── ASISTENCIA (desde Firestore) ── */
+async function loadAsistencia() {
+  const hija   = userProfile.hija;
+  const equipo = userProfile.equipo;
+  const cont   = document.getElementById('attContent');
+
+  try {
+    const q = query(
+      collection(db, 'asistencia'),
+      where('jugadora', '==', hija),
+      where('equipo', '==', equipo),
+      orderBy('fecha', 'desc')
+    );
+    const snap = await getDocs(q);
+    const records = snap.docs.map(d => d.data());
+
+    const total   = records.length;
+    const present = records.filter(r=>r.estado==='present').length;
+    const absent  = records.filter(r=>r.estado==='absent').length;
+    const injured = records.filter(r=>r.estado==='injured').length;
+    const pct     = total ? Math.round(present/total*100) : 0;
+
+    let html = `
+      <div class="att-summary">
+        <div class="att-sum-item"><div class="att-sum-num" style="color:var(--green)">${present}</div><div class="att-sum-label">Presentes</div></div>
+        <div class="att-sum-item"><div class="att-sum-num" style="color:var(--red)">${absent}</div><div class="att-sum-label">Faltas</div></div>
+        <div class="att-sum-item"><div class="att-sum-num" style="color:var(--yellow)">${injured}</div><div class="att-sum-label">Lesiones</div></div>
+        <div class="att-sum-item"><div class="att-sum-num" style="color:${pct>=75?'var(--green)':pct>=50?'var(--yellow)':'var(--red)'}">${pct}%</div><div class="att-sum-label">Asistencia</div></div>
+      </div>
+      <div class="att-log">
+        <div class="att-log-header"><span>Fecha</span><span>Estado</span><span>Motivo</span></div>`;
+
+    if (!records.length) {
+      html += `<div class="att-empty">Sin registros todavía</div>`;
+    } else {
+      records.forEach(r => {
+        const badgeClass = r.estado==='present'?'badge-present':r.estado==='absent'?'badge-absent':'badge-injured';
+        const label      = r.estado==='present'?'Presente':r.estado==='absent'?'Falta':'Lesión';
+        html += `<div class="att-log-row">
+          <span>${r.fecha||''}</span>
+          <span><span class="att-badge ${badgeClass}">${label}</span></span>
+          <span style="color:var(--gray);font-size:12px">${r.motivo||'-'}</span>
+        </div>`;
+      });
+    }
+    html += '</div>';
+    cont.innerHTML = html;
+
+  } catch(e) {
+    cont.innerHTML = `<div class="att-empty">Sin registros de asistencia todavía.</div>`;
+  }
+}
+
+/* ── MENSAJES (desde Firestore) ── */
+async function loadMensajes() {
+  const hija   = userProfile.hija;
+  const equipo = userProfile.equipo;
+  const cont   = document.getElementById('msgsContent');
+
+  try {
+    const q = query(
+      collection(db, 'mensajes'),
+      where('jugadora', '==', hija),
+      where('equipo', '==', equipo),
+      orderBy('fecha', 'desc')
+    );
+    const snap = await getDocs(q);
+
+    if (snap.empty) {
+      cont.innerHTML = `<div class="msg-empty">Sin mensajes todavía.</div>`;
+      return;
+    }
+
+    cont.innerHTML = '<div class="msg-list">' +
+      snap.docs.map(d => {
+        const m = d.data();
+        return `<div class="msg-card">
+          <div class="msg-header">
+            <span class="msg-author">${m.entrenador||'Entrenador'}</span>
+            <span class="msg-date">${m.fecha||''}</span>
+          </div>
+          <div class="msg-text">${m.texto||''}</div>
+        </div>`;
+      }).join('') + '</div>';
+
+  } catch(e) {
+    cont.innerHTML = `<div class="msg-empty">Sin mensajes todavía.</div>`;
+  }
+}
+
+/* ── HELPERS ── */
+function colorClass(v) {
+  if(!v||v<5)return 'color-red';
+  if(v<7)return 'color-yellow';
+  return 'color-green';
+}
+function fillClass(v) {
+  if(!v||v<5)return 'fill-red';
+  if(v<7)return 'fill-yellow';
+  return 'fill-green';
+}
+
+function toast(msg) {
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+</script>
+</body>
+</html>
