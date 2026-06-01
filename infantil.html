@@ -6,6 +6,7 @@
 <title>Infantil | Femenino Santa Ponsa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Familjen+Grotesk:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <style>
 :root {
   --c: #0a0a0a;
@@ -21,17 +22,18 @@ body{background:var(--w);color:var(--c);font-family:'Familjen Grotesk',sans-seri
 
 /* HEADER */
 header{
-  position:fixed;top:0;left:0;right:0;height:72px;
+  position:fixed;top:0;left:0;right:0;height:64px;
   display:flex;align-items:center;justify-content:space-between;
-  padding:0 32px;z-index:500;
+  padding:0 20px;z-index:500;
   transition:background .4s;
 }
+@media(min-width:700px){header{padding:0 32px;}}
 header.scrolled{
   background:rgba(244,240,232,.95);
   backdrop-filter:blur(14px);
   border-bottom:1px solid var(--border);
 }
-.logo-img{height:44px;width:auto;}
+.logo-img{height:40px;width:auto;}
 .back-link{
   display:flex;align-items:center;gap:8px;
   font-family:'Unbounded',sans-serif;
@@ -44,7 +46,7 @@ header.scrolled{
 
 /* HERO */
 .hero{
-  position:relative;min-height:65vh;
+  position:relative;min-height:55vh;
   background:var(--c);
   display:flex;align-items:flex-end;overflow:hidden;
 }
@@ -69,46 +71,47 @@ header.scrolled{
 }
 .hero-inner{
   position:relative;z-index:2;
-  padding:130px 32px 70px;width:100%;
+  padding:100px 20px 50px;width:100%;
 }
-@media(min-width:900px){.hero-inner{padding:130px 80px 80px;}}
+@media(min-width:700px){.hero-inner{padding:130px 60px 70px;}}
+
 .hero-eyebrow{
-  font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  font-size:10px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;
   color:rgba(244,240,232,.4);
-  display:flex;align-items:center;gap:12px;margin-bottom:20px;
+  display:flex;align-items:center;gap:10px;margin-bottom:16px;
   opacity:0;transform:translateY(14px);
   animation:fadeUp .7s .3s forwards;
 }
-.hero-eyebrow::before{content:'';display:block;width:26px;height:1px;background:var(--acc);}
+.hero-eyebrow::before{content:'';display:block;width:20px;height:1px;background:var(--acc);}
 .hero-title{
   font-family:'Unbounded',sans-serif;
-  font-size:clamp(64px,16vw,160px);font-weight:900;
+  font-size:clamp(48px,14vw,140px);font-weight:900;
   letter-spacing:-.04em;line-height:.88;
-  color:var(--w);text-transform:uppercase;
+  color:transparent;-webkit-text-stroke:1.5px rgba(244,240,232,.5);
+  text-transform:uppercase;
+  opacity:0;transform:translateY(30px);
+  animation:fadeUp .9s .4s forwards;
 }
-.hero-title .line{overflow:hidden;display:block;}
-.hero-title .word{display:inline-block;transform:translateY(110%);opacity:0;}
-.hero-title .hollow{color:transparent;-webkit-text-stroke:1.5px rgba(244,240,232,.5);}
 @keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 
 /* PAGE */
-.page{padding:80px 32px 120px;max-width:900px;margin:0 auto;}
-@media(min-width:900px){.page{padding:100px 80px 140px;}}
+.page{padding:50px 20px 100px;max-width:860px;margin:0 auto;}
+@media(min-width:700px){.page{padding:70px 60px 120px;}}
 
-.block{margin-bottom:70px;}
+.block{margin-bottom:56px;}
 
 .tag-line{
-  font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
-  color:var(--mid);margin-bottom:20px;
-  display:flex;align-items:center;gap:12px;
+  font-size:10px;font-weight:700;letter-spacing:.24em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:16px;
+  display:flex;align-items:center;gap:10px;
 }
-.tag-line::before{content:'';display:block;width:26px;height:1px;background:var(--c);}
+.tag-line::before{content:'';display:block;width:22px;height:1px;background:var(--c);}
 
 /* SQUAD TOGGLE */
-.squad-toggle{background:var(--c);border:2px solid var(--c);overflow:hidden;}
+.squad-toggle{background:var(--c);overflow:hidden;border:2px solid var(--c);}
 .squad-toggle summary{
   list-style:none;cursor:pointer;
-  padding:24px 28px;
+  padding:20px 22px;
   display:flex;align-items:center;justify-content:space-between;
   transition:background .2s;
 }
@@ -116,80 +119,79 @@ header.scrolled{
 .squad-toggle summary:hover{background:#1a1a1a;}
 .squad-toggle-title{
   font-family:'Unbounded',sans-serif;
-  font-size:16px;font-weight:700;letter-spacing:-.01em;text-transform:uppercase;color:var(--w);
+  font-size:15px;font-weight:700;text-transform:uppercase;color:var(--w);
 }
-.squad-toggle-meta{font-size:12px;color:rgba(244,240,232,.35);margin-top:4px;}
+.squad-toggle-meta{font-size:12px;color:rgba(244,240,232,.3);margin-top:3px;}
 .squad-chevron{width:18px;height:18px;color:var(--acc);transition:transform .35s;flex-shrink:0;}
 details[open] .squad-chevron{transform:rotate(180deg);}
 
 /* PLAYERS */
 .players-list{border-top:1px solid rgba(244,240,232,.07);}
 a.player-item{
-  display:flex;align-items:center;gap:16px;
-  padding:16px 28px;
+  display:flex;align-items:center;gap:14px;
+  padding:15px 22px;
   border-bottom:1px solid rgba(244,240,232,.06);
-  text-decoration:none;color:inherit;
+  text-decoration:none;
   transition:background .2s;
 }
 a.player-item:last-child{border-bottom:none;}
 a.player-item:hover{background:rgba(168,85,247,.08);}
 .player-dorsal{
   font-family:'Unbounded',sans-serif;
-  font-size:20px;font-weight:900;letter-spacing:-.02em;
-  color:rgba(168,85,247,.3);min-width:36px;line-height:1;
+  font-size:18px;font-weight:900;
+  color:rgba(168,85,247,.3);min-width:32px;line-height:1;
 }
 .player-name{flex:1;font-size:15px;font-weight:400;color:var(--w);}
 .player-pos{
-  font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
-  color:rgba(244,240,232,.35);
-  background:rgba(244,240,232,.05);
-  padding:5px 10px;
+  font-size:10px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
+  color:rgba(244,240,232,.3);
 }
 
 /* STANDINGS */
 .standings{background:var(--c);border:2px solid var(--c);overflow:hidden;}
 .standings-row{
   display:grid;grid-template-columns:2fr repeat(5,1fr);
-  padding:14px 20px;
+  padding:13px 18px;
   border-bottom:1px solid rgba(244,240,232,.06);
-  align-items:center;font-size:14px;
+  align-items:center;font-size:13px;
   transition:background .2s;
 }
+@media(min-width:700px){.standings-row{padding:14px 24px;font-size:14px;}}
 .standings-row:last-child{border-bottom:none;}
 .standings-row:not(.head):hover{background:rgba(168,85,247,.04);}
-.standings-row.head{background:#111;padding:13px 20px;}
+.standings-row.head{background:#111;padding:12px 18px;}
+@media(min-width:700px){.standings-row.head{padding:12px 24px;}}
 .standings-row.head span{
   font-family:'Unbounded',sans-serif;
-  font-size:9px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;
+  font-size:8px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;
   color:rgba(244,240,232,.3);
 }
 .standings-row span:not(:first-child){text-align:center;}
-.team-col{display:flex;align-items:center;gap:10px;}
-.team-pos{font-family:'Unbounded',sans-serif;font-size:16px;font-weight:900;color:rgba(244,240,232,.15);min-width:20px;}
-.team-name{font-weight:400;font-size:14px;color:rgba(244,240,232,.8);}
-.pts-col{font-family:'Unbounded',sans-serif;font-size:18px;font-weight:900;color:var(--w);text-align:center;}
+.team-col{display:flex;align-items:center;gap:8px;}
+.team-pos{font-family:'Unbounded',sans-serif;font-size:14px;font-weight:900;color:rgba(244,240,232,.15);min-width:18px;}
+.team-name{font-weight:400;font-size:13px;color:rgba(244,240,232,.8);}
+.pts-col{font-family:'Unbounded',sans-serif;font-size:17px;font-weight:900;color:var(--w);text-align:center;}
 .standings-row.highlight{border-left:3px solid var(--acc);background:rgba(168,85,247,.07);}
 .standings-row.highlight .team-pos{color:rgba(168,85,247,.5);}
 .standings-row.highlight .pts-col{color:var(--acc2);}
-.standings-row.highlight .team-name{color:var(--w);}
 
-.skeleton-row{display:grid;grid-template-columns:2fr repeat(5,1fr);padding:14px 20px;border-bottom:1px solid rgba(244,240,232,.06);gap:8px;}
+.skeleton-row{display:grid;grid-template-columns:2fr repeat(5,1fr);padding:13px 18px;border-bottom:1px solid rgba(244,240,232,.06);gap:8px;}
 .skel{height:12px;border-radius:2px;background:linear-gradient(90deg,#111 25%,#1a1a1a 50%,#111 75%);background-size:200% 100%;animation:shim 1.5s infinite;}
 @keyframes shim{to{background-position:-200% 0;}}
 
 /* SCROLL REVEAL */
-.sr{opacity:0;transform:translateY(44px);transition:opacity .9s ease,transform .9s ease;}
+.sr{opacity:0;transform:translateY(36px);transition:opacity .9s ease,transform .9s ease;}
 .sr.in{opacity:1;transform:translateY(0);}
-.sr-l{opacity:0;transform:translateX(-38px);transition:opacity .9s ease,transform .9s ease;}
+.sr-l{opacity:0;transform:translateX(-30px);transition:opacity .9s ease,transform .9s ease;}
 .sr-l.in{opacity:1;transform:translateX(0);}
 
 /* FOOTER */
 footer{
   background:var(--c);border-top:1px solid rgba(244,240,232,.07);
-  padding:26px 32px;
-  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
+  padding:22px 20px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;
 }
-@media(min-width:900px){footer{padding:26px 80px;}}
+@media(min-width:700px){footer{padding:26px 60px;}}
 footer p{font-size:11px;color:rgba(244,240,232,.28);}
 footer strong{color:rgba(244,240,232,.6);font-weight:500;}
 </style>
@@ -197,7 +199,7 @@ footer strong{color:rgba(244,240,232,.6);font-weight:500;}
 <body>
 
 <header id="hdr">
-  <a href="home.html"><img src="LogoClub.png" class="logo-img" alt="Femenino Santa Ponsa"></a>
+  <a href="home.html"><img src="LogoClub.png" class="logo-img" alt="FSP"></a>
   <a href="equipos.html" class="back-link">
     <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     Equipos
@@ -210,9 +212,7 @@ footer strong{color:rgba(244,240,232,.6);font-weight:500;}
   <div class="hero-grain"></div>
   <div class="hero-inner">
     <div class="hero-eyebrow">Academy · Femenino Santa Ponsa</div>
-    <h1 class="hero-title">
-      <span class="line"><span class="word hollow" id="w1">Infantil</span></span>
-    </h1>
+    <h1 class="hero-title">Infantil</h1>
   </div>
 </section>
 
@@ -220,7 +220,7 @@ footer strong{color:rgba(244,240,232,.6);font-weight:500;}
 
   <div class="block">
     <div class="sr-l tag-line">Plantilla</div>
-    <details class="squad-toggle sr" id="squadDetails">
+    <details class="squad-toggle sr">
       <summary>
         <div>
           <div class="squad-toggle-title">Ver jugadoras</div>
@@ -257,44 +257,44 @@ footer strong{color:rgba(244,240,232,.6);font-weight:500;}
 
 <script>
 window.addEventListener('scroll',()=>{
-  document.getElementById('hdr').classList.toggle('scrolled',scrollY>80);
+  document.getElementById('hdr').classList.toggle('scrolled',scrollY>60);
 },{passive:true});
-
-setTimeout(()=>{
-  const el=document.getElementById('w1');
-  if(!el)return;
-  el.style.transition='transform .9s cubic-bezier(.23,1,.32,1),opacity .7s ease';
-  el.style.transform='translateY(0)';el.style.opacity='1';
-},200);
 
 const ro=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
-},{threshold:0.08});
+},{threshold:0.06});
 document.querySelectorAll('.sr,.sr-l').forEach(el=>ro.observe(el));
 
-/* PLAYERS */
+/* PLAYERS — using PapaParse to handle CSV properly */
 const CSV_P="https://docs.google.com/spreadsheets/d/e/2PACX-1vQI9DhN2DTk-8kQZ1QELsUU35gN68WjPzQCr4q5QaZ32KSQW0O3f6ZxKYD6PHySwfaWHQ6JXal7C3Sh/pub?gid=0&single=true&output=csv";
+
 async function loadPlayers(){
   const container=document.getElementById('playersList');
   try{
     const text=await(await fetch(CSV_P+'&t='+Date.now(),{cache:'no-store'})).text();
-    const rows=text.split('\n').filter(r=>r.trim());
-    if(rows.length<=1){container.innerHTML=`<div style="padding:20px 28px;color:var(--mid);font-size:13px;">Sin jugadoras todavía.</div>`;return;}
+    const result=Papa.parse(text,{header:false,skipEmptyLines:true});
+    const rows=result.data;
+    if(rows.length<=1){
+      container.innerHTML=`<div style="padding:20px 22px;color:rgba(244,240,232,.4);font-size:13px;">Sin jugadoras todavía.</div>`;
+      return;
+    }
     let html='';
     for(let i=1;i<rows.length;i++){
-      const c=rows[i].split(/[,;]/).map(x=>x.trim().replace(/^"|"$/g,''));
-      if(!c[1])continue;
-      const url='jugadora.html?jugadora='+encodeURIComponent(c[1]);
+      const r=rows[i];
+      const dorsal=r[0]||'';
+      const nombre=r[1]||'';
+      const posicion=r[2]||'';
+      if(!nombre)continue;
+      const url='jugadora.html?jugadora='+encodeURIComponent(nombre);
       html+=`<a class="player-item" href="${url}">
-        <div class="player-dorsal">${c[0]||'—'}</div>
-        <div class="player-name">${c[1]}</div>
-        <div class="player-pos">${c[2]||''}</div>
+        <div class="player-dorsal">${dorsal}</div>
+        <div class="player-name">${nombre}</div>
+        <div class="player-pos">${posicion}</div>
       </a>`;
-
     }
-    container.innerHTML=html||`<div style="padding:20px 28px;color:var(--mid);font-size:13px;">Sin jugadoras.</div>`;
-  }catch{
-    container.innerHTML=`<div style="padding:20px 28px;color:var(--mid);font-size:13px;">Error cargando plantilla.</div>`;
+    container.innerHTML=html||`<div style="padding:20px 22px;color:rgba(244,240,232,.4);font-size:13px;">Sin jugadoras.</div>`;
+  }catch(e){
+    container.innerHTML=`<div style="padding:20px 22px;color:rgba(244,240,232,.4);font-size:13px;">Error cargando plantilla.</div>`;
   }
 }
 loadPlayers();
@@ -305,11 +305,12 @@ async function loadTable(){
   const container=document.getElementById('table');
   try{
     const text=await(await fetch(CSV_T+'&t='+Date.now(),{cache:'no-store'})).text();
-    const rows=text.split('\n').filter(r=>r.trim());
+    const result=Papa.parse(text,{header:false,skipEmptyLines:true});
+    const rows=result.data;
     let equipos=[];
     for(let i=1;i<rows.length;i++){
-      const c=rows[i].split(/[,;]/).map(x=>x.trim());
-      equipos.push({nombre:c[0]||'-',pj:c[1]||'0',pg:c[2]||'0',pe:c[3]||'0',pp:c[4]||'0',puntos:parseInt(c[5])||0});
+      const r=rows[i];
+      equipos.push({nombre:r[0]||'-',pj:r[1]||'0',pg:r[2]||'0',pe:r[3]||'0',pp:r[4]||'0',puntos:parseInt(r[5])||0});
     }
     equipos.sort((a,b)=>b.puntos-a.puntos);
     let html=`<div class="standings-row head"><span>Equipo</span><span>PJ</span><span>PG</span><span>PE</span><span>PP</span><span>PTS</span></div>`;
@@ -323,7 +324,7 @@ async function loadTable(){
     });
     container.innerHTML=html;
   }catch{
-    container.innerHTML=`<div style="padding:28px;text-align:center;color:var(--mid);font-size:14px;">Error cargando clasificación</div>`;
+    container.innerHTML=`<div style="padding:24px;text-align:center;color:var(--mid);font-size:13px;">Error cargando clasificación</div>`;
   }
 }
 loadTable();
