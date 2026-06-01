@@ -127,15 +127,12 @@ details[open] .squad-chevron{transform:rotate(180deg);}
 
 /* PLAYERS */
 .players-list{border-top:1px solid rgba(244,240,232,.07);}
-a.player-item{
+.player-item{
   display:flex;align-items:center;gap:14px;
   padding:15px 22px;
   border-bottom:1px solid rgba(244,240,232,.06);
-  text-decoration:none;
-  transition:background .2s;
 }
-a.player-item:last-child{border-bottom:none;}
-a.player-item:hover{background:rgba(168,85,247,.08);}
+.player-item:last-child{border-bottom:none;}
 .player-dorsal{
   font-family:'Unbounded',sans-serif;
   font-size:18px;font-weight:900;
@@ -285,12 +282,11 @@ async function loadPlayers(){
       const nombre=r[1]||'';
       const posicion=r[2]||'';
       if(!nombre)continue;
-      const url='jugadora.html?jugadora='+encodeURIComponent(nombre);
-      html+=`<a class="player-item" href="${url}">
+      html+=`<div class="player-item">
         <div class="player-dorsal">${dorsal}</div>
         <div class="player-name">${nombre}</div>
         <div class="player-pos">${posicion}</div>
-      </a>`;
+      </div>`;
     }
     container.innerHTML=html||`<div style="padding:20px 22px;color:rgba(244,240,232,.4);font-size:13px;">Sin jugadoras.</div>`;
   }catch(e){
