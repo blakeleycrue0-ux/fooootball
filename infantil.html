@@ -210,12 +210,8 @@ footer strong{color:rgba(244,240,232,.6);font-weight:500;}
         </div>
         <svg class="squad-chevron" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M6 9l6 6 6-6"/></svg>
       </summary>
-      <div class="players-list">
-        <div class="player-item"><div class="player-dorsal">1</div><div class="player-name">Nombre Jugadora</div><div class="player-pos">Portera</div></div>
-        <div class="player-item"><div class="player-dorsal">4</div><div class="player-name">Nombre Jugadora</div><div class="player-pos">Defensa</div></div>
-        <div class="player-item"><div class="player-dorsal">8</div><div class="player-name">Nombre Jugadora</div><div class="player-pos">Centrocampista</div></div>
-        <div class="player-item"><div class="player-dorsal">9</div><div class="player-name">Nombre Jugadora</div><div class="player-pos">Delantera</div></div>
-        <div class="player-item"><div class="player-dorsal">11</div><div class="player-name">Nombre Jugadora</div><div class="player-pos">Extremo</div></div>
+      <div class="players-list" id="playersList">
+        <div class="player-item"><div class="player-name" style="color:rgba(244,240,232,.3);">Cargando...</div></div>
       </div>
     </details>
   </div>
@@ -248,6 +244,7 @@ footer strong{color:rgba(244,240,232,.6);font-weight:500;}
   <p>Hecho con pasión en Mallorca 🦙</p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
 <script>
 window.addEventListener('scroll',()=>{
   document.getElementById('hdr').classList.toggle('scrolled',scrollY>60);
@@ -257,6 +254,31 @@ const ro=new IntersectionObserver(entries=>{
   entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
 },{threshold:0.06});
 document.querySelectorAll('.sr,.sr-l').forEach(el=>ro.observe(el));
+
+/* PLAYERS */
+Papa.parse("https://docs.google.com/spreadsheets/d/e/2PACX-1vQ5EMqGhMEn4oGHK6V_YrkX0y2mFg5vlFIK1Q4l-pGPhRVDsd5YsZ02CqpnKoSd3GuquT4jNAUSbQY2/pub?output=csv&t="+Date.now(),{
+  download:true,
+  skipEmptyLines:true,
+  complete:function(results){
+    const rows=results.data;
+    const container=document.getElementById('playersList');
+    if(rows.length<=1){container.innerHTML='<div class="player-item"><div class="player-name" style="color:rgba(244,240,232,.3);">Sin jugadoras todavía.</div></div>';return;}
+    let html='';
+    for(let i=1;i<rows.length;i++){
+      const r=rows[i];
+      if(!r[1])continue;
+      html+=`<div class="player-item">
+        <div class="player-dorsal">${r[0]||''}</div>
+        <div class="player-name">${r[1]}</div>
+        <div class="player-pos">${r[2]||''}</div>
+      </div>`;
+    }
+    container.innerHTML=html;
+  },
+  error:function(){
+    document.getElementById('playersList').innerHTML='<div class="player-item"><div class="player-name" style="color:rgba(244,240,232,.3);">Error cargando jugadoras.</div></div>';
+  }
+});
 </script>
 </body>
 </html>
