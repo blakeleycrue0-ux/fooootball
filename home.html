@@ -548,6 +548,17 @@ display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap;
 footer p { font-size:11px; color:rgba(244,240,232,.28); }
 footer strong { color:rgba(244,240,232,.6); font-weight:500; }
 
+
+.conocer-link {
+  display:inline-flex;align-items:center;gap:10px;
+  margin-top:34px;
+  font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;
+  letter-spacing:.1em;text-transform:uppercase;
+  color:var(--c);text-decoration:none;
+  border-bottom:2px solid var(--c);padding-bottom:4px;
+  transition:color .3s,border-color .3s;
+}
+.conocer-link:hover{color:var(--acc);border-color:var(--acc);}
 /* ─── SCROLL REVEAL ─── */
 .sr { opacity:0; transform:translateY(44px); transition:opacity .9s ease, transform .9s ease; }
 .sr.in{ opacity:1; transform:translateY(0); }
@@ -668,11 +679,7 @@ footer strong { color:rgba(244,240,232,.6); font-weight:500; }
 <div class="sr-l tag-line">Nuestro proyecto</div>
 <h2 class="big-title sr">Más que<br><em>fútbol</em></h2>
 <p class="sub-copy sr">Metodología profesional, ambición competitiva y visión de futuro. Un club construido para durar en Mallorca.</p>
-<a href="inscripcion.html"
-style="display:inline-flex;align-items:center;gap:10px;margin-top:34px;font-family:'Unbounded',sans-serif;font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--c);text-decoration:none;border-bottom:2px solid var(--c);padding-bottom:4px;transition:color .3s,border-color .3s;"
-class="sr"
-onmouseover="this.style.color='var(--acc)';this.style.borderColor='var(--acc)'"
-onmouseout="this.style.color='var(--c)';this.style.borderColor='var(--c)'">
+<a href="inscripcion.html" class="conocer-link sr">
 Conocer más
 <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
 </a>
@@ -837,7 +844,7 @@ let cls='prox';
 if(raw.includes('jug')||raw.includes('pas')||raw.includes('fin'))cls='past';
 if(raw.includes('live')||raw.includes('direc')||raw.includes('viv'))cls='live';
 const sc=c[2]&&c[2].trim();
-h+=`<div class="mc">
+h+=`<a class="mc" href="partido.html?id=${encodeURIComponent(c[1]||i)}" style="text-decoration:none;display:block;">
 <div class="mc-top">
 <span class="mc-badge ${cls}">${c[0]||'Próximo'}</span>
 <div class="mc-vs-row">
@@ -850,9 +857,9 @@ ${sc?`<div class="mc-score">${c[2]}</div>`:`<div class="mc-div"></div>`}
 ${c[4]?`<div class="mc-info"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>${c[4]}</div>`:''}
 ${c[5]?`<div class="mc-info"><svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z"/></svg>${c[5]}</div>`:''}
 </div>
-</div>`;
+</a>`;
 }
-document.getElementById('matchScroll').innerHTML=h||`<p style="color:rgba(244,240,232,.3);padding:20px">Sin partidos</p>`;
+document.getElementById('matchScroll').innerHTML=h.replace(/<\/div>`/g,'</a>`')||`<p style="color:rgba(244,240,232,.3);padding:20px">Sin partidos</p>`;
 }catch{
 document.getElementById('matchScroll').innerHTML=`<p style="color:rgba(244,240,232,.3);padding:20px">Error cargando partidos</p>`;
 }
