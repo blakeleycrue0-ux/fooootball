@@ -290,6 +290,7 @@ async function loadPlayers(){
         <div class="player-name">${c[1]}</div>
         <div class="player-pos">${c[2]||''}</div>
       </a>`;
+
     }
     container.innerHTML=html||`<div style="padding:20px 28px;color:var(--mid);font-size:13px;">Sin jugadoras.</div>`;
   }catch{
