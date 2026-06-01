@@ -5,336 +5,339 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Inscripción | Femenino Santa Ponsa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Familjen+Grotesk:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --white: #f5f2ec;
-  --black: #080808;
-  --purple: #c084fc;
-  --purple-dark: #2d0a52;
-  --purple-mid: #7c3aed;
-  --gold: #c8a84b;
-  --gray: #a0a09a;
-  --card-bg: #0f0f0f;
-  --border: rgba(245,242,236,0.09);
+  --c: #0a0a0a;
+  --w: #f4f0e8;
+  --acc: #a855f7;
+  --acc2: #d8b4fe;
+  --acc3: #f3e8ff;
+  --mid: #888;
+  --border: rgba(10,10,10,0.12);
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--w);color:var(--c);font-family:'Familjen Grotesk',sans-serif;overflow-x:hidden;}
 
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'Barlow', sans-serif;
-  overflow-x: hidden;
-  cursor: none;
+/* ─── HEADER ─── */
+header{
+  position:fixed;top:0;left:0;right:0;height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;z-index:500;
+  transition:background .4s,border-color .4s;
 }
+header.scrolled{
+  background:rgba(244,240,232,.95);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.logo-img{height:44px;width:auto;}
+.back-link{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Unbounded',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--c);text-decoration:none;
+  transition:color .3s;
+}
+.back-link:hover{color:var(--acc);}
+.back-link svg{width:14px;height:14px;transition:transform .3s;}
+.back-link:hover svg{transform:translateX(-3px);}
 
-/* NOISE */
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 9990; opacity: 0.35;
+/* ─── HERO ─── */
+.hero{
+  position:relative;min-height:65vh;
+  background:var(--c);
+  display:flex;align-items:flex-end;
+  overflow:hidden;
 }
+.hero-photo{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&q=85') center 40%/cover no-repeat;
+  transform:scale(1.06);
+  animation:heroZoom 12s ease-out forwards;
+  filter:saturate(.6) brightness(.35);
+}
+@keyframes heroZoom{from{transform:scale(1.06);}to{transform:scale(1.0);}}
+.hero-tint{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(10,10,10,1) 0%,rgba(10,10,10,.5) 40%,rgba(88,28,220,.15) 75%,transparent 100%),
+    linear-gradient(to right,rgba(10,10,10,.55) 0%,transparent 55%);
+}
+.hero-grain{
+  position:absolute;inset:0;pointer-events:none;opacity:.25;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;mix-blend-mode:overlay;
+}
+.hero-inner{
+  position:relative;z-index:2;
+  padding:130px 32px 70px;width:100%;
+}
+@media(min-width:900px){.hero-inner{padding:130px 80px 80px;}}
 
-/* CURSOR */
-#cursor {
-  position: fixed; top: 0; left: 0;
-  width: 10px; height: 10px;
-  background: var(--purple);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform 0.12s, background 0.3s;
+.hero-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(244,240,232,.4);
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+  opacity:0;transform:translateY(14px);
+  animation:fadeUp .7s .3s forwards;
 }
-#cursor-ring {
-  position: fixed; top: 0; left: 0;
-  width: 36px; height: 36px;
-  border: 1px solid rgba(192,132,252,0.45);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width 0.3s, height 0.3s;
+.hero-eyebrow::before{content:'';display:block;width:26px;height:1px;background:var(--acc);}
+.hero-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(48px,12vw,140px);font-weight:900;
+  letter-spacing:-.04em;line-height:.9;
+  color:var(--w);text-transform:uppercase;
 }
+.hero-title .line{overflow:hidden;display:block;}
+.hero-title .word{display:inline-block;transform:translateY(110%);opacity:0;}
+.hero-title .hollow{color:transparent;-webkit-text-stroke:1.5px rgba(244,240,232,.5);}
+.hero-title .highlight{color:var(--acc2);}
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 
-/* HEADER */
-header {
-  position: fixed; top: 0; left: 0; width: 100%;
-  height: 68px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px;
-  z-index: 1000;
-  transition: background 0.4s;
+/* ─── MARQUEE ─── */
+.marquee-strip{
+  background:var(--acc);border-top:2px solid var(--c);
+  overflow:hidden;
 }
-header.scrolled {
-  background: rgba(8,8,8,0.96);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
+.marquee-inner{display:flex;white-space:nowrap;animation:marq 20s linear infinite;}
+.marquee-inner span{
+  font-family:'Unbounded',sans-serif;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+  color:#fff;padding:15px 26px;flex-shrink:0;
 }
-.logo { height: 40px; }
-.back-link {
-  display: flex; align-items: center; gap: 8px;
-  color: var(--gray); text-decoration: none;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-  transition: color 0.3s;
-}
-.back-link:hover { color: var(--white); }
-.back-link svg { width: 16px; height: 16px; }
+.marquee-inner span.dot{padding:15px 0;color:rgba(255,255,255,.4);font-size:9px;}
+@keyframes marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-/* HERO */
-.hero {
-  position: relative;
-  height: 52vh; min-height: 340px;
-  display: flex; align-items: flex-end;
-  overflow: hidden;
-}
-.hero-bg {
-  position: absolute; inset: 0;
-  background: url("https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1400&q=80") center/cover no-repeat;
-  filter: brightness(0.3) saturate(0.5);
-  transform: scale(1.04);
-  transition: transform 6s ease;
-}
-.hero-bg.loaded { transform: scale(1); }
-.hero-vignette {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.3) 50%, transparent 80%),
-              linear-gradient(to right, rgba(8,8,8,0.5), transparent 60%);
-}
-.hero-content {
-  position: relative; z-index: 2;
-  padding: 40px 28px;
-}
-.hero-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--purple); margin-bottom: 14px;
-  opacity: 0; transform: translateY(16px);
-  animation: fadeUp 0.7s 0.2s forwards;
-}
-.hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(52px, 14vw, 110px);
-  line-height: 0.88; text-transform: uppercase; letter-spacing: 0.01em;
-  opacity: 0; transform: translateY(24px);
-  animation: fadeUp 0.8s 0.4s forwards;
-}
-.hero h1 em { font-style: normal; -webkit-text-stroke: 1.5px var(--white); color: transparent; }
+/* ─── PAGE ─── */
+.page{max-width:860px;margin:0 auto;padding:80px 32px 120px;}
+@media(min-width:900px){.page{padding:100px 80px 140px;}}
 
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
-
-/* LAYOUT */
-.page {
-  max-width: 860px; margin: 0 auto;
-  padding: 70px 28px 100px;
+/* ─── INTRO ─── */
+.intro-block{margin-bottom:60px;}
+.tag-line{
+  font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:18px;
+  display:flex;align-items:center;gap:12px;
 }
-
-/* INTRO TEXT */
-.intro-block { margin-bottom: 60px; }
-.eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--purple); margin-bottom: 14px;
+.tag-line::before{content:'';display:block;width:26px;height:1px;background:var(--c);}
+.page-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(36px,7vw,72px);font-weight:900;
+  letter-spacing:-.04em;line-height:.92;text-transform:uppercase;
+  margin-bottom:20px;
 }
-.page-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(36px, 8vw, 64px);
-  line-height: 0.92; text-transform: uppercase;
-  margin-bottom: 20px;
-}
-.page-sub {
-  font-size: 15px; font-weight: 300;
-  color: rgba(245,242,236,0.65);
-  line-height: 1.8; max-width: 520px;
+.page-title em{font-style:italic;font-weight:300;}
+.page-sub{
+  font-size:15px;line-height:1.8;color:var(--mid);
+  max-width:520px;font-weight:400;
 }
 
-/* FORM CARD */
-.form-card {
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  border-radius: 6px;
-  overflow: hidden;
+/* ─── FORM CARD ─── */
+.form-card{
+  background:var(--c);
+  border:2px solid var(--c);
+  overflow:hidden;
 }
 
-/* FORM HEADER BAR */
-.form-header {
-  background: var(--purple-dark);
-  padding: 28px 36px;
-  border-bottom: 1px solid rgba(192,132,252,0.15);
+.form-header{
+  background:#1a0533;
+  padding:28px 36px;
+  border-bottom:1px solid rgba(168,85,247,.15);
 }
-.form-header-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 28px; letter-spacing: 0.04em;
-  color: var(--white);
+.form-header-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:20px;font-weight:900;letter-spacing:-.02em;text-transform:uppercase;
+  color:var(--w);
 }
-.form-header-sub {
-  font-size: 13px; color: rgba(192,132,252,0.8);
-  margin-top: 4px; font-weight: 300;
-}
-
-/* FORM BODY */
-.form-body {
-  padding: 36px;
+.form-header-sub{
+  font-size:12px;color:rgba(216,180,254,.6);
+  margin-top:6px;font-weight:400;letter-spacing:.04em;
 }
 
-/* PROGRESS BAR */
-.progress-bar {
-  height: 2px; background: var(--border);
-  border-radius: 2px; margin-bottom: 36px; overflow: hidden;
+.form-body{padding:36px;}
+@media(min-width:700px){.form-body{padding:40px 48px;}.form-header{padding:32px 48px;}}
+
+/* PROGRESS */
+.progress-bar{
+  height:2px;background:rgba(244,240,232,.08);
+  margin-bottom:40px;overflow:hidden;
 }
-.progress-fill {
-  height: 100%; background: var(--purple);
-  border-radius: 2px; width: 0%;
-  transition: width 0.5s ease;
+.progress-fill{
+  height:100%;background:var(--acc);
+  width:0%;transition:width .5s ease;
 }
 
-/* FORM GRID */
-.form-grid { display: grid; grid-template-columns: 1fr; gap: 0; }
-.input-group {
-  padding: 20px 0;
-  border-bottom: 1px solid var(--border);
-}
-.input-group:last-of-type { border-bottom: none; }
+/* FORM FIELDS */
+.col-2{display:grid;grid-template-columns:1fr;gap:0;}
+@media(min-width:600px){.col-2{grid-template-columns:1fr 1fr;gap:0 40px;}}
 
-label {
-  display: flex; align-items: center; gap: 8px;
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 12px; font-weight: 600;
-  letter-spacing: 0.2em; text-transform: uppercase;
-  color: var(--gray); margin-bottom: 10px;
+.input-group{
+  padding:22px 0;
+  border-bottom:1px solid rgba(244,240,232,.08);
 }
-label .req { color: var(--purple); font-size: 16px; line-height: 1; }
+.input-group:last-of-type{border-bottom:none;}
 
-input, select, textarea {
-  width: 100%;
-  padding: 14px 0;
-  background: transparent;
-  border: none;
-  border-bottom: 1px solid var(--border);
-  color: var(--white);
-  font-size: 16px; font-family: 'Barlow', sans-serif; font-weight: 400;
-  outline: none;
-  transition: border-color 0.3s;
-  border-radius: 0;
-  -webkit-appearance: none;
+label{
+  display:flex;align-items:center;gap:6px;
+  font-family:'Unbounded',sans-serif;
+  font-size:9px;font-weight:700;
+  letter-spacing:.2em;text-transform:uppercase;
+  color:rgba(244,240,232,.35);margin-bottom:12px;
 }
-input::placeholder, textarea::placeholder { color: rgba(160,160,154,0.4); font-weight: 300; }
-input:focus, select:focus, textarea:focus {
-  border-bottom-color: var(--purple);
-}
-select { cursor: pointer; }
-select option { background: #111; color: var(--white); }
-textarea { height: 110px; resize: none; padding-top: 14px; }
+label .req{color:var(--acc);font-size:14px;line-height:1;}
 
-/* TWO COL ON DESKTOP */
-.col-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 40px; }
-.col-2 .input-group { border-bottom: 1px solid var(--border); }
+input,select,textarea{
+  width:100%;
+  padding:12px 0;
+  background:transparent;
+  border:none;
+  border-bottom:1px solid rgba(244,240,232,.12);
+  color:var(--w);
+  font-size:16px;font-family:'Familjen Grotesk',sans-serif;font-weight:400;
+  outline:none;
+  transition:border-color .3s;
+  border-radius:0;
+  -webkit-appearance:none;
+}
+input::placeholder,textarea::placeholder{color:rgba(244,240,232,.2);font-weight:400;}
+input:focus,select:focus,textarea:focus{border-bottom-color:var(--acc);}
+select{cursor:pointer;}
+select option{background:#111;color:var(--w);}
+textarea{height:110px;resize:none;padding-top:12px;}
 
-/* SUBMIT AREA */
-.submit-area {
-  padding: 32px 36px;
-  background: rgba(45,10,82,0.3);
-  border-top: 1px solid rgba(192,132,252,0.12);
-  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+/* ─── SUBMIT AREA ─── */
+.submit-area{
+  padding:28px 36px;
+  background:rgba(168,85,247,.06);
+  border-top:1px solid rgba(168,85,247,.1);
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
 }
-.submit-note { font-size: 12px; color: var(--gray); max-width: 280px; line-height: 1.6; }
+@media(min-width:700px){.submit-area{padding:28px 48px;}}
+.submit-note{font-size:12px;color:rgba(244,240,232,.35);max-width:280px;line-height:1.7;}
 
-.btn-submit {
-  display: inline-flex; align-items: center; gap: 10px;
-  padding: 16px 36px;
-  background: var(--purple);
-  color: var(--black);
-  border: none; border-radius: 2px;
-  font-family: 'Barlow', sans-serif;
-  font-weight: 700; font-size: 13px;
-  letter-spacing: 0.1em; text-transform: uppercase;
-  cursor: pointer;
-  position: relative; overflow: hidden;
-  transition: background 0.3s, transform 0.2s;
+/* ─── SUBMIT BUTTON — same style as home CTAs ─── */
+.btn-submit{
+  display:inline-flex;align-items:center;gap:10px;
+  font-family:'Unbounded',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:#fff;
+  padding:0 28px;height:48px;
+  border:2px solid var(--acc);
+  background:transparent;
+  border-radius:2px;
+  cursor:pointer;
+  position:relative;overflow:hidden;
+  transition:color .35s;
 }
-.btn-submit::after {
-  content: ''; position: absolute; inset: 0;
-  background: rgba(255,255,255,0.18);
-  transform: translateX(-100%); transition: transform 0.4s;
+.btn-submit::before{
+  content:'';position:absolute;inset:0;
+  background:var(--acc);
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .38s cubic-bezier(.77,0,.175,1);
+  z-index:0;
 }
-.btn-submit:hover::after { transform: translateX(0); }
-.btn-submit:hover { background: #d8b4fe; transform: translateY(-2px); }
-.btn-submit:active { transform: translateY(0); }
-.btn-submit svg { width: 16px; height: 16px; transition: transform 0.3s; }
-.btn-submit:hover svg { transform: translateX(3px); }
+.btn-submit:hover::before{transform:scaleX(1);}
+.btn-submit span,.btn-submit svg{position:relative;z-index:1;}
+.btn-submit svg{width:14px;height:14px;transition:transform .3s;}
+.btn-submit:hover svg{transform:translateX(4px);}
 
-/* SUCCESS STATE */
-.success-state {
-  display: none;
-  padding: 80px 36px;
-  text-align: center;
+/* ─── SUCCESS ─── */
+.success-state{
+  display:none;padding:80px 36px;text-align:center;
 }
-.success-state.show { display: block; }
-.success-icon {
-  width: 60px; height: 60px; border-radius: 50%;
-  background: rgba(192,132,252,0.12);
-  border: 1px solid rgba(192,132,252,0.3);
-  display: inline-flex; align-items: center; justify-content: center;
-  margin-bottom: 24px;
+.success-state.show{display:block;}
+.success-icon{
+  width:64px;height:64px;border-radius:50%;
+  background:rgba(168,85,247,.1);
+  border:1px solid rgba(168,85,247,.3);
+  display:inline-flex;align-items:center;justify-content:center;
+  margin-bottom:28px;
 }
-.success-icon svg { width: 26px; height: 26px; color: var(--purple); }
-.success-title {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 40px; margin-bottom: 12px;
+.success-icon svg{width:28px;height:28px;color:var(--acc);}
+.success-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(28px,6vw,48px);font-weight:900;
+  letter-spacing:-.03em;text-transform:uppercase;
+  color:var(--w);margin-bottom:14px;
 }
-.success-text { color: var(--gray); font-size: 15px; font-weight: 300; line-height: 1.7; }
+.success-text{color:rgba(244,240,232,.45);font-size:15px;line-height:1.75;}
 
-/* REVEAL */
-.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
+/* ─── SCROLL REVEAL ─── */
+.sr{opacity:0;transform:translateY(44px);transition:opacity .9s ease,transform .9s ease;}
+.sr.in{opacity:1;transform:translateY(0);}
+.sr-l{opacity:0;transform:translateX(-38px);transition:opacity .9s ease,transform .9s ease;}
+.sr-l.in{opacity:1;transform:translateX(0);}
 
-/* DESKTOP */
-@media (min-width: 700px) {
-  header { padding: 0 60px; }
-  .hero-content { padding: 50px 60px; }
-  .page { padding: 80px 60px 120px; }
-  .col-2 { grid-template-columns: 1fr 1fr; }
-  .form-body { padding: 40px 48px; }
-  .form-header { padding: 32px 48px; }
+/* ─── FOOTER ─── */
+footer{
+  background:var(--c);border-top:1px solid rgba(244,240,232,.07);
+  padding:26px 32px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
 }
+@media(min-width:900px){footer{padding:26px 80px;}}
+footer p{font-size:11px;color:rgba(244,240,232,.28);}
+footer strong{color:rgba(244,240,232,.6);font-weight:500;}
 </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
-<header id="header">
-  <img src="Logoclub.png" class="logo" alt="Femenino Santa Ponsa">
+<!-- ═══ HEADER ═══ -->
+<header id="hdr">
+  <a href="home.html">
+    <img src="LogoClub.png" class="logo-img" alt="Femenino Santa Ponsa">
+  </a>
   <a href="home.html" class="back-link">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     Volver
   </a>
 </header>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-vignette"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Femenino Santa Ponsa</p>
-    <h1>Únete al<br><em>proyecto</em></h1>
+  <div class="hero-photo"></div>
+  <div class="hero-tint"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Femenino Santa Ponsa</div>
+    <h1 class="hero-title">
+      <span class="line"><span class="word" id="w1">Únete</span></span>
+      <span class="line"><span class="word hollow" id="w2">al</span></span>
+      <span class="line"><span class="word highlight" id="w3">proyecto</span></span>
+    </h1>
   </div>
 </section>
 
-<!-- PAGE -->
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>Inscripción Abierta</span><span class="dot">✦</span>
+    <span>Todas las Edades</span><span class="dot">✦</span>
+    <span>Mallorca</span><span class="dot">✦</span>
+    <span>Fútbol Femenino</span><span class="dot">✦</span>
+    <span>Santa Ponsa</span><span class="dot">✦</span>
+    <span>Únete al Club</span><span class="dot">✦</span>
+    <span>Inscripción Abierta</span><span class="dot">✦</span>
+    <span>Todas las Edades</span><span class="dot">✦</span>
+    <span>Mallorca</span><span class="dot">✦</span>
+    <span>Fútbol Femenino</span><span class="dot">✦</span>
+    <span>Santa Ponsa</span><span class="dot">✦</span>
+    <span>Únete al Club</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ═══ PAGE ═══ -->
 <div class="page">
 
-  <div class="intro-block reveal">
-    <div class="eyebrow">Inscripción</div>
-    <h2 class="page-title">Forma parte<br>del futuro</h2>
-    <p class="page-sub">Estamos construyendo algo serio. Buscamos jugadoras comprometidas que quieran crecer, competir y ser parte de una estructura moderna con grandes objetivos en el fútbol femenino de Mallorca.</p>
+  <div class="intro-block">
+    <div class="sr-l tag-line">Inscripción</div>
+    <h2 class="page-title sr">Forma parte<br>del <em>futuro</em></h2>
+    <p class="page-sub sr">Estamos construyendo algo serio. Buscamos jugadoras comprometidas que quieran crecer, competir y ser parte de una estructura moderna con grandes objetivos en el fútbol femenino de Mallorca.</p>
   </div>
 
-  <div class="form-card reveal" style="transition-delay:0.15s">
+  <div class="form-card sr" style="transition-delay:.15s">
 
     <div class="form-header">
       <div class="form-header-title">Solicitud de inscripción</div>
@@ -395,8 +398,8 @@ textarea { height: 110px; resize: none; padding-top: 14px; }
       <div class="submit-area">
         <p class="submit-note">Nos pondremos en contacto contigo en un plazo de 48 horas.</p>
         <button class="btn-submit" onclick="handleSubmit(event)">
-          Enviar solicitud
-          <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          <span>Enviar solicitud</span>
+          <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
       </div>
     </div>
@@ -405,7 +408,7 @@ textarea { height: 110px; resize: none; padding-top: 14px; }
       <div class="success-icon">
         <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>
       </div>
-      <div class="success-title">Solicitud enviada</div>
+      <div class="success-title">Solicitud<br>enviada</div>
       <p class="success-text">Gracias por querer unirte a Femenino Santa Ponsa.<br>Te contactaremos en menos de 48 horas.</p>
     </div>
 
@@ -413,29 +416,38 @@ textarea { height: 110px; resize: none; padding-top: 14px; }
 
 </div>
 
+<footer>
+  <p>© 2025 <strong>Femenino Santa Ponsa</strong> · Mallorca, España</p>
+  <p>Hecho con pasión en Mallorca 🦙</p>
+</footer>
+
 <script>
-// CURSOR
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);})();
-document.querySelectorAll('a,button,input,select,textarea').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='56px';ring.style.height='56px';});
-  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px';});
-});
+/* ── HEADER ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('hdr').classList.toggle('scrolled',scrollY>80);
+},{passive:true});
 
-// HEADER SCROLL
-window.addEventListener('scroll',()=>document.getElementById('header').classList.toggle('scrolled',scrollY>60));
+/* ── HERO TITLE ── */
+function animWord(id,delay){
+  setTimeout(()=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.style.transition='transform .85s cubic-bezier(.23,1,.32,1),opacity .7s ease';
+    el.style.transform='translateY(0)';
+    el.style.opacity='1';
+  },delay);
+}
+animWord('w1',200);
+animWord('w2',460);
+animWord('w3',660);
 
-// HERO BG
-document.getElementById('heroBg').classList.add('loaded');
+/* ── SCROLL REVEAL ── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.08});
+document.querySelectorAll('.sr,.sr-l').forEach(el=>ro.observe(el));
 
-// REVEAL
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
-
-// PROGRESS
+/* ── PROGRESS ── */
 function updateProgress(){
   const inputs=[...document.querySelectorAll('#inscripcionForm input[required],#inscripcionForm select[required]')];
   const filled=inputs.filter(i=>i.value.trim()!=='').length;
@@ -443,16 +455,15 @@ function updateProgress(){
 }
 document.querySelectorAll('#inscripcionForm input,#inscripcionForm select,#inscripcionForm textarea').forEach(el=>el.addEventListener('input',updateProgress));
 
-// SUBMIT
+/* ── SUBMIT ── */
 function handleSubmit(e){
   e.preventDefault();
   const form=document.getElementById('inscripcionForm');
   const required=[...form.querySelectorAll('[required]')];
   const invalid=required.filter(i=>!i.value.trim());
   if(invalid.length){invalid[0].focus();return;}
-  // Netlify submit
   fetch('/',{method:'POST',headers:{'Content-Type':'application/x-www-form-urlencoded'},body:new URLSearchParams(new FormData(form)).toString()})
-    .catch(()=>{}); // silent fail on non-netlify
+    .catch(()=>{});
   document.getElementById('formWrap').style.display='none';
   document.getElementById('successState').classList.add('show');
 }
