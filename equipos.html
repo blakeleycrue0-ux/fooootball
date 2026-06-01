@@ -5,278 +5,283 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Equipos | Femenino Santa Ponsa</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;500;700&family=Barlow+Condensed:wght@300;400;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@300;400;700;900&family=Familjen+Grotesk:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 <style>
 :root {
-  --white: #f5f2ec;
-  --black: #080808;
-  --purple: #c084fc;
-  --purple-dark: #2d0a52;
-  --gray: #a0a09a;
-  --card-bg: #0f0f0f;
-  --border: rgba(245,242,236,0.09);
+  --c: #0a0a0a;
+  --w: #f4f0e8;
+  --acc: #a855f7;
+  --acc2: #d8b4fe;
+  --acc3: #f3e8ff;
+  --mid: #888;
+  --border: rgba(10,10,10,0.12);
 }
 
-*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-html { scroll-behavior: smooth; }
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{background:var(--w);color:var(--c);font-family:'Familjen Grotesk',sans-serif;overflow-x:hidden;}
 
-body {
-  background: var(--black);
-  color: var(--white);
-  font-family: 'Barlow', sans-serif;
-  overflow-x: hidden;
-  cursor: none;
+/* ─── HEADER ─── */
+header{
+  position:fixed;top:0;left:0;right:0;height:72px;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 32px;z-index:500;
+  transition:background .4s,border-color .4s;
 }
+header .logo-img,header .back-link{opacity:1;}
+header.scrolled{
+  background:rgba(244,240,232,.95);
+  backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--border);
+}
+.logo-img{height:44px;width:auto;}
+.back-link{
+  display:flex;align-items:center;gap:8px;
+  font-family:'Unbounded',sans-serif;
+  font-size:10px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--c);text-decoration:none;
+  transition:color .3s;
+}
+.back-link:hover{color:var(--acc);}
+.back-link svg{width:14px;height:14px;transition:transform .3s;}
+.back-link:hover svg{transform:translateX(-3px);}
 
-body::before {
-  content: '';
-  position: fixed; inset: 0;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events: none; z-index: 9990; opacity: 0.35;
+/* ─── HERO ─── */
+.hero{
+  position:relative;min-height:70vh;
+  background:var(--c);
+  display:flex;align-items:flex-end;
+  overflow:hidden;
 }
+.hero-photo{
+  position:absolute;inset:0;
+  background:url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1600&q=85') center 40%/cover no-repeat;
+  transform:scale(1.06);
+  animation:heroZoom 12s ease-out forwards;
+  filter:saturate(.6) brightness(.35);
+}
+@keyframes heroZoom{from{transform:scale(1.06);}to{transform:scale(1.0);}}
+.hero-tint{
+  position:absolute;inset:0;
+  background:
+    linear-gradient(to top,rgba(10,10,10,1) 0%,rgba(10,10,10,.5) 40%,rgba(88,28,220,.15) 75%,transparent 100%),
+    linear-gradient(to right,rgba(10,10,10,.55) 0%,transparent 55%);
+}
+.hero-grain{
+  position:absolute;inset:0;pointer-events:none;opacity:.25;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size:180px 180px;mix-blend-mode:overlay;
+}
+.hero-inner{
+  position:relative;z-index:2;
+  padding:130px 32px 70px;
+  width:100%;
+}
+@media(min-width:900px){.hero-inner{padding:130px 80px 80px;}}
 
-/* CURSOR */
-#cursor {
-  position: fixed; top: 0; left: 0;
-  width: 10px; height: 10px;
-  background: var(--purple);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9999;
-  transform: translate(-50%,-50%);
-  transition: transform 0.12s, background 0.3s;
+.hero-eyebrow{
+  font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  color:rgba(244,240,232,.4);
+  display:flex;align-items:center;gap:12px;
+  margin-bottom:20px;
+  opacity:0;transform:translateY(14px);
+  animation:fadeUp .7s .3s forwards;
 }
-#cursor-ring {
-  position: fixed; top: 0; left: 0;
-  width: 36px; height: 36px;
-  border: 1px solid rgba(192,132,252,0.45);
-  border-radius: 50%;
-  pointer-events: none; z-index: 9998;
-  transform: translate(-50%,-50%);
-  transition: width 0.3s, height 0.3s;
-}
+.hero-eyebrow::before{content:'';display:block;width:26px;height:1px;background:var(--acc);}
 
-/* HEADER */
-header {
-  position: fixed; top: 0; left: 0; width: 100%;
-  height: 68px;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 28px;
-  z-index: 1000;
-  transition: background 0.4s;
+.hero-title{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(48px,12vw,140px);font-weight:900;
+  letter-spacing:-.04em;line-height:.9;
+  color:var(--w);text-transform:uppercase;
 }
-header.scrolled {
-  background: rgba(8,8,8,0.96);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--border);
+.hero-title .line{overflow:hidden;display:block;}
+.hero-title .word{
+  display:inline-block;
+  transform:translateY(110%);opacity:0;
 }
-.logo { height: 40px; }
-.back-link {
-  display: flex; align-items: center; gap: 8px;
-  color: var(--gray); text-decoration: none;
-  font-size: 12px; font-weight: 600; letter-spacing: 0.15em; text-transform: uppercase;
-  transition: color 0.3s;
-}
-.back-link:hover { color: var(--white); }
-.back-link svg { width: 16px; height: 16px; }
+.hero-title .hollow{color:transparent;-webkit-text-stroke:1.5px rgba(244,240,232,.5);}
+.hero-title .highlight{color:var(--acc2);}
 
-/* HERO */
-.hero {
-  position: relative;
-  height: 52vh; min-height: 340px;
-  display: flex; align-items: flex-end;
-  overflow: hidden;
+/* ─── MARQUEE ─── */
+.marquee-strip{
+  background:var(--acc);border-top:2px solid var(--c);
+  overflow:hidden;position:relative;z-index:2;
 }
-.hero-bg {
-  position: absolute; inset: 0;
-  background: url("https://images.unsplash.com/photo-1508098682722-e99c43a406b2?w=1400&q=80") center/cover no-repeat;
-  filter: brightness(0.28) saturate(0.5);
-  transform: scale(1.04);
-  transition: transform 6s ease;
+.marquee-inner{display:flex;white-space:nowrap;animation:marq 20s linear infinite;}
+.marquee-inner span{
+  font-family:'Unbounded',sans-serif;font-size:12px;font-weight:900;letter-spacing:.06em;text-transform:uppercase;
+  color:#fff;padding:15px 26px;flex-shrink:0;
 }
-.hero-bg.loaded { transform: scale(1); }
-.hero-vignette {
-  position: absolute; inset: 0;
-  background: linear-gradient(to top, rgba(8,8,8,1) 0%, rgba(8,8,8,0.3) 50%, transparent 80%),
-              linear-gradient(to right, rgba(8,8,8,0.6), transparent 60%);
-}
-.hero-content {
-  position: relative; z-index: 2;
-  padding: 40px 28px;
-}
-.hero-eyebrow {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--purple); margin-bottom: 14px;
-  opacity: 0; transform: translateY(16px);
-  animation: fadeUp 0.7s 0.2s forwards;
-}
-.hero h1 {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(52px, 14vw, 110px);
-  line-height: 0.88; letter-spacing: 0.01em;
-  opacity: 0; transform: translateY(24px);
-  animation: fadeUp 0.8s 0.4s forwards;
-}
-.hero h1 em { font-style: normal; -webkit-text-stroke: 1.5px var(--white); color: transparent; }
+.marquee-inner span.dot{padding:15px 0;color:rgba(255,255,255,.4);font-size:9px;}
+@keyframes marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
 
-@keyframes fadeUp { to { opacity: 1; transform: translateY(0); } }
+/* ─── PAGE ─── */
+.page{padding:80px 32px 120px;max-width:1100px;margin:0 auto;}
+@media(min-width:900px){.page{padding:100px 80px 140px;}}
 
-/* PAGE */
-.page { padding: 60px 28px 100px; max-width: 1100px; margin: 0 auto; }
-
-/* SECTION LABEL */
-.section-label {
-  display: flex; align-items: center; gap: 14px;
-  margin-bottom: 20px;
+/* ─── SECTION LABEL ─── */
+.tag-line{
+  font-size:10px;font-weight:700;letter-spacing:.28em;text-transform:uppercase;
+  color:var(--mid);margin-bottom:20px;
+  display:flex;align-items:center;gap:12px;
 }
-.section-label-text {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 11px; font-weight: 600;
-  letter-spacing: 0.3em; text-transform: uppercase;
-  color: var(--purple);
+.tag-line::before{content:'';display:block;width:26px;height:1px;background:var(--c);}
+
+.block{margin-bottom:70px;}
+
+/* ─── TEAM GRID ─── */
+.team-grid{
+  display:grid;grid-template-columns:1fr;
+  gap:2px;
 }
-.section-label-line { flex: 1; height: 1px; background: var(--border); }
-
-/* ACADEMY BLOCK */
-.block { margin-bottom: 60px; }
-
-/* TEAM GRID */
-.team-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2px;
+@media(min-width:700px){
+  .team-grid{grid-template-columns:1fr 1fr;}
+  .team-card.featured{grid-column:1/-1;}
 }
 
-/* TEAM CARD */
-.team-card {
-  display: block;
-  text-decoration: none;
-  color: var(--white);
-  background: var(--card-bg);
-  border: 1px solid var(--border);
-  padding: 32px 36px;
-  position: relative; overflow: hidden;
-  transition: border-color 0.35s, background 0.35s;
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 20px;
+/* ─── TEAM CARD ─── */
+.team-card{
+  display:flex;align-items:center;justify-content:space-between;gap:20px;
+  text-decoration:none;color:var(--c);
+  background:var(--w);
+  border:1px solid var(--border);
+  padding:32px 36px;
+  position:relative;overflow:hidden;
+  transition:background .35s,border-color .35s;
 }
-.team-card::before {
-  content: '';
-  position: absolute; top: 0; left: 0; bottom: 0; width: 2px;
-  background: var(--purple);
-  transform: scaleY(0); transform-origin: top;
-  transition: transform 0.4s cubic-bezier(0.77,0,0.175,1);
+.team-card::before{
+  content:'';
+  position:absolute;top:0;left:0;bottom:0;width:3px;
+  background:var(--acc);
+  transform:scaleY(0);transform-origin:top;
+  transition:transform .4s cubic-bezier(.77,0,.175,1);
 }
-.team-card::after {
-  content: '';
-  position: absolute; inset: 0;
-  background: linear-gradient(90deg, rgba(192,132,252,0.05) 0%, transparent 60%);
-  opacity: 0; transition: opacity 0.4s;
+.team-card::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(90deg,rgba(168,85,247,.04) 0%,transparent 60%);
+  opacity:0;transition:opacity .4s;
 }
-.team-card:hover { border-color: rgba(192,132,252,0.3); background: #111; }
-.team-card:hover::before { transform: scaleY(1); }
-.team-card:hover::after { opacity: 1; }
-.team-card:hover .card-arrow { transform: translateX(6px); opacity: 1; }
-.team-card:hover .card-num { color: rgba(192,132,252,0.35); }
+.team-card:hover{background:#ede7d9;border-color:rgba(168,85,247,.3);}
+.team-card:hover::before{transform:scaleY(1);}
+.team-card:hover::after{opacity:1;}
+.team-card:hover .card-arrow{transform:translateX(6px);opacity:1;}
+.team-card:hover .card-num{color:rgba(168,85,247,.2);}
 
-.card-left { display: flex; align-items: center; gap: 28px; }
+.card-left{display:flex;align-items:center;gap:28px;}
+.card-num{
+  font-family:'Unbounded',sans-serif;
+  font-size:44px;font-weight:900;letter-spacing:-.04em;line-height:1;
+  color:rgba(10,10,10,.06);
+  flex-shrink:0;min-width:52px;
+  transition:color .4s;
+}
+.card-tag{
+  font-size:9px;font-weight:700;letter-spacing:.25em;text-transform:uppercase;
+  color:var(--acc);margin-bottom:7px;
+}
+.card-name{
+  font-family:'Unbounded',sans-serif;
+  font-size:clamp(22px,5vw,38px);font-weight:900;
+  letter-spacing:-.03em;line-height:.92;text-transform:uppercase;
+}
+.card-desc{font-size:13px;color:var(--mid);margin-top:8px;line-height:1.6;font-weight:400;}
 
-.card-num {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: 48px; line-height: 1;
-  color: rgba(245,242,236,0.07);
-  flex-shrink: 0; min-width: 52px;
-  transition: color 0.4s;
+.card-arrow{
+  flex-shrink:0;opacity:.2;
+  color:var(--acc);
+  transition:transform .35s,opacity .35s;
 }
+.card-arrow svg{width:22px;height:22px;}
 
-.card-info {}
-.card-tag {
-  font-family: 'Barlow Condensed', sans-serif;
-  font-size: 10px; font-weight: 600;
-  letter-spacing: 0.25em; text-transform: uppercase;
-  color: var(--purple); margin-bottom: 6px;
+/* ─── FEATURED CARD ─── */
+.team-card.featured{
+  background:#1a0533;
+  border-color:rgba(168,85,247,.2);
+  padding:44px 36px;
 }
-.card-name {
-  font-family: 'Bebas Neue', sans-serif;
-  font-size: clamp(30px, 6vw, 48px);
-  line-height: 0.92; letter-spacing: 0.02em;
-}
-.card-desc {
-  font-size: 13px; color: var(--gray);
-  font-weight: 300; margin-top: 6px; line-height: 1.5;
-}
+.team-card.featured .card-num{color:rgba(192,132,252,.12);}
+.team-card.featured .card-name{color:var(--w);}
+.team-card.featured .card-tag{color:var(--acc2);}
+.team-card.featured .card-desc{color:rgba(244,240,232,.5);}
+.team-card.featured .card-arrow{opacity:.4;color:var(--acc2);}
+.team-card.featured:hover{background:#2d0a52;border-color:rgba(168,85,247,.5);}
+.team-card.featured:hover .card-num{color:rgba(192,132,252,.35);}
+.team-card.featured:hover .card-arrow{opacity:1;}
 
-.card-arrow {
-  flex-shrink: 0;
-  opacity: 0.2; transition: transform 0.35s, opacity 0.35s;
-  color: var(--purple);
-}
-.card-arrow svg { width: 22px; height: 22px; }
+/* ─── SCROLL REVEAL ─── */
+.sr{opacity:0;transform:translateY(44px);transition:opacity .9s ease,transform .9s ease;}
+.sr.in{opacity:1;transform:translateY(0);}
+.sr-l{opacity:0;transform:translateX(-38px);transition:opacity .9s ease,transform .9s ease;}
+.sr-l.in{opacity:1;transform:translateX(0);}
 
-/* FIRST TEAM CARD — bigger, highlighted */
-.team-card.featured {
-  background: var(--purple-dark);
-  border-color: rgba(192,132,252,0.2);
-  padding: 40px 36px;
-}
-.team-card.featured .card-num { color: rgba(192,132,252,0.15); }
-.team-card.featured .card-desc { color: rgba(245,242,236,0.6); }
-.team-card.featured:hover { background: #3a0f68; border-color: rgba(192,132,252,0.5); }
-.team-card.featured:hover .card-num { color: rgba(192,132,252,0.4); }
-.team-card.featured .card-tag { color: #d8b4fe; }
-.team-card.featured .card-arrow { opacity: 0.4; }
-.team-card.featured:hover .card-arrow { opacity: 1; }
+@keyframes fadeUp{to{opacity:1;transform:translateY(0);}}
 
-/* REVEAL */
-.reveal { opacity: 0; transform: translateY(36px); transition: opacity 0.75s ease, transform 0.75s ease; }
-.reveal.visible { opacity: 1; transform: translateY(0); }
-
-/* DESKTOP */
-@media (min-width: 700px) {
-  header { padding: 0 60px; }
-  .hero-content { padding: 50px 60px; }
-  .page { padding: 70px 60px 120px; }
-  .team-grid { grid-template-columns: 1fr 1fr; }
-  .team-card.featured { grid-column: 1 / -1; }
+/* ─── FOOTER ─── */
+footer{
+  background:var(--c);border-top:1px solid rgba(244,240,232,.07);
+  padding:26px 32px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;
 }
+@media(min-width:900px){footer{padding:26px 80px;}}
+footer p{font-size:11px;color:rgba(244,240,232,.28);}
+footer strong{color:rgba(244,240,232,.6);font-weight:500;}
 </style>
 </head>
 <body>
 
-<div id="cursor"></div>
-<div id="cursor-ring"></div>
-
-<header id="header">
-  <img src="Logoclub.png" class="logo" alt="Femenino Santa Ponsa">
+<!-- ═══ HEADER ═══ -->
+<header id="hdr">
+  <a href="home.html">
+    <img src="LogoClub.png" class="logo-img" alt="Femenino Santa Ponsa">
+  </a>
   <a href="home.html" class="back-link">
-    <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
+    <svg fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M19 12H5M12 5l-7 7 7 7"/></svg>
     Volver
   </a>
 </header>
 
-<!-- HERO -->
+<!-- ═══ HERO ═══ -->
 <section class="hero">
-  <div class="hero-bg" id="heroBg"></div>
-  <div class="hero-vignette"></div>
-  <div class="hero-content">
-    <p class="hero-eyebrow">Femenino Santa Ponsa</p>
-    <h1>Nuestros<br><em>equipos</em></h1>
+  <div class="hero-photo"></div>
+  <div class="hero-tint"></div>
+  <div class="hero-grain"></div>
+  <div class="hero-inner">
+    <div class="hero-eyebrow">Femenino Santa Ponsa</div>
+    <h1 class="hero-title">
+      <span class="line"><span class="word" id="w1">Nuestros</span></span>
+      <span class="line"><span class="word hollow" id="w2">Equi</span><span class="word highlight" id="w3">pos</span></span>
+    </h1>
   </div>
 </section>
 
-<!-- PAGE -->
+<!-- MARQUEE -->
+<div class="marquee-strip" aria-hidden="true">
+  <div class="marquee-inner">
+    <span>Infantil</span><span class="dot">✦</span>
+    <span>Alevín</span><span class="dot">✦</span>
+    <span>Cadete</span><span class="dot">✦</span>
+    <span>Juvenil</span><span class="dot">✦</span>
+    <span>Autonómica</span><span class="dot">✦</span>
+    <span>Femenino Santa Ponsa</span><span class="dot">✦</span>
+    <span>Infantil</span><span class="dot">✦</span>
+    <span>Alevín</span><span class="dot">✦</span>
+    <span>Cadete</span><span class="dot">✦</span>
+    <span>Juvenil</span><span class="dot">✦</span>
+    <span>Autonómica</span><span class="dot">✦</span>
+    <span>Femenino Santa Ponsa</span><span class="dot">✦</span>
+  </div>
+</div>
+
+<!-- ═══ PAGE ═══ -->
 <div class="page">
 
   <!-- ACADEMY -->
-  <div class="block reveal">
-    <div class="section-label">
-      <span class="section-label-text">Academy</span>
-      <div class="section-label-line"></div>
-    </div>
+  <div class="block">
+    <div class="sr-l tag-line">Academy</div>
     <div class="team-grid">
 
-      <a href="infantil.html" class="team-card">
+      <a href="infantil.html" class="team-card sr" style="transition-delay:.0s">
         <div class="card-left">
           <div class="card-num">01</div>
           <div class="card-info">
@@ -285,10 +290,10 @@ header.scrolled {
             <div class="card-desc">Formación base y primeros pasos en la competición.</div>
           </div>
         </div>
-        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </a>
 
-      <a href="alevin.html" class="team-card">
+      <a href="alevin.html" class="team-card sr" style="transition-delay:.08s">
         <div class="card-left">
           <div class="card-num">02</div>
           <div class="card-info">
@@ -297,10 +302,10 @@ header.scrolled {
             <div class="card-desc">Desarrollo técnico y crecimiento individual.</div>
           </div>
         </div>
-        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </a>
 
-      <a href="cadete.html" class="team-card">
+      <a href="cadete.html" class="team-card sr" style="transition-delay:.16s">
         <div class="card-left">
           <div class="card-num">03</div>
           <div class="card-info">
@@ -309,10 +314,10 @@ header.scrolled {
             <div class="card-desc">Competición y preparación táctica avanzada.</div>
           </div>
         </div>
-        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </a>
 
-      <a href="juvenil.html" class="team-card">
+      <a href="juvenil.html" class="team-card sr" style="transition-delay:.24s">
         <div class="card-left">
           <div class="card-num">04</div>
           <div class="card-info">
@@ -321,30 +326,27 @@ header.scrolled {
             <div class="card-desc">Alto rendimiento en la antesala del primer equipo.</div>
           </div>
         </div>
-        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </a>
 
     </div>
   </div>
 
-  <!-- FIRST TEAM -->
-  <div class="block reveal" style="transition-delay:0.1s">
-    <div class="section-label">
-      <span class="section-label-text">Primer Equipo</span>
-      <div class="section-label-line"></div>
-    </div>
+  <!-- PRIMER EQUIPO -->
+  <div class="block">
+    <div class="sr-l tag-line" style="transition-delay:.1s">Primer Equipo</div>
     <div class="team-grid">
 
-      <a href="autonomica.html" class="team-card featured">
+      <a href="autonomica.html" class="team-card featured sr" style="transition-delay:.1s">
         <div class="card-left">
           <div class="card-num">05</div>
           <div class="card-info">
             <div class="card-tag">First Team</div>
             <div class="card-name">Autonómica</div>
-            <div class="card-desc">El maximo nivel competitivo del club. Representamos a Santa Ponsa en la liga autonómica de las Islas Baleares.</div>
+            <div class="card-desc">El máximo nivel competitivo del club. Representamos a Santa Ponsa en la liga autonómica de las Islas Baleares.</div>
           </div>
         </div>
-        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+        <div class="card-arrow"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
       </a>
 
     </div>
@@ -352,27 +354,37 @@ header.scrolled {
 
 </div>
 
+<footer>
+  <p>© 2025 <strong>Femenino Santa Ponsa</strong> · Mallorca, España</p>
+  <p>Hecho con pasión en Mallorca 🦙</p>
+</footer>
+
 <script>
-// CURSOR
-const cursor = document.getElementById('cursor');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
-(function anim(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(anim);})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2.5)';ring.style.width='56px';ring.style.height='56px';});
-  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.width='36px';ring.style.height='36px';});
-});
+/* ── HEADER ── */
+window.addEventListener('scroll',()=>{
+  document.getElementById('hdr').classList.toggle('scrolled',scrollY>80);
+},{passive:true});
 
-// HEADER
-window.addEventListener('scroll',()=>document.getElementById('header').classList.toggle('scrolled',scrollY>60));
+/* ── HERO TITLE ── */
+function animWord(id,delay){
+  setTimeout(()=>{
+    const el=document.getElementById(id);
+    if(!el)return;
+    el.style.transition='transform .85s cubic-bezier(.23,1,.32,1),opacity .7s ease';
+    el.style.transform='translateY(0)';
+    el.style.opacity='1';
+  },delay);
+}
+animWord('w1',200);
+animWord('w2',460);
+animWord('w3',560);
 
-// HERO BG
-document.getElementById('heroBg').classList.add('loaded');
-
-// REVEAL
-const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:0.1});
-document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+/* ── SCROLL REVEAL ── */
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('in');});
+},{threshold:0.08});
+document.querySelectorAll('.sr,.sr-l').forEach(el=>ro.observe(el));
 </script>
 </body>
 </html>
+
